@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="../CSS/styles.css" />
+        <style>
+            body {
+                background-color: #4e81bb;
+            }
+            .container {
+                width: 35%;
+                height: 30rem;
+                margin-top: 100px;
+            }
+            .input-box {
+                padding-top: 1rem;
+            }
+
+            .input-box input {
+                font-size: 18px;
+            }
+
+            .continue-button button a {
+                font-size: 1.2rem;
+            }
+
+            .login-card a {
+                color: #1166ca;
+                text-decoration: none;
+            }
+            .continue-button {
+                width: 10.1rem;
+            }
+
+            @media screen and (max-width: 1064px) {
+                .container {
+                    width: 70%;
+                    height: 70%;
+                }
+
+                .input-group {
+                    flex-direction: column;
+                    z-index: 5;
+                    padding-right: 5rem;
+                    max-height: 10rem;
+                    overflow-y: scroll;
+                    flex-wrap: nowrap;
+                }
+
+                .continue-button {
+                    padding-bottom: 1rem;
+                }
+
+                .continue-button button:hover {
+                    background-color: #1a62b4;
+                }
+
+                .title-login {
+                    padding-top: 2rem;
+                }
+
+                .login-card h2 {
+                    padding-top: 1rem;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="login-card">
+                <h2>Login</h2>
+                <div class="input-box">
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="E-mail"
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="senha"
+                        id="senha"
+                        placeholder="Senha"
+                        required
+                    />
+                </div>
+
+                <div class="continue-button">
+                    <button type="submit" class="btnLogin" id="btnLogin">
+                        <a href="#">Entrar</a>
+                    </button>
+                </div>
+                <a href="recuperarSenha.html" target="_blank" id="esqueciSenha"
+                    >Esqueci minha senha</a
+                >
+            </div>
+        </div>
+        <script src="../JAVASCRIPT/autenticacao.js"></script>
+    </body>
+</html>

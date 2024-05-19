@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://fonts.cdnfonts.com/css/lovelo" rel="stylesheet" />
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <title>VolunteerCoders</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Inter", sans-serif;
+            }
+
+            body {
+                background: url("image/background.png") no-repeat;
+                font-family: "Inter" sans-serif;
+                background-size: cover;
+                background-color: #dce4ec;
+                overflow-x: hidden;
+            }
+
+            header {
+                width: 100%;
+                height: 100px;
+            }
+
+            .divHeader {
+                width: 100%;
+                height: 100px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-family: "Inter" sans-serif;
+            }
+
+            nav {
+                padding: 1px 2px;
+                color: #000000;
+                position: absolute;
+                top: 140px;
+                left: 0px;
+                width: 940px;
+                text-align: center;
+                background-color: #1166ca;
+                height: 60px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 0 18px 18px 0;
+            }
+
+            nav a {
+                font-family: "Inter" sans-serif;
+                text-decoration: none;
+                text-transform: uppercase;
+                color: rgb(255, 255, 255);
+                font-weight: bold;
+            }
+
+            .divHeader button,
+            .left-section button {
+                border: none;
+                background-color: #1166ca;
+                padding: 0.4rem 1rem;
+                border-radius: 13px;
+                cursor: pointer;
+                text-decoration: none;
+                font-weight: 500;
+                color: #fff;
+                font-size: 20px;
+                font-weight: 600;
+                margin-left: 20px;
+                width: 150px;
+                height: 40px;
+                margin-bottom: 80px;
+            }
+
+            .divHeader button:hover,
+            .left-section button:hover {
+                background-color: rgb(12, 93, 175);
+            }
+
+            main {
+                width: 100%;
+                height: 60vh;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .left-section {
+                padding-left: 20px;
+                z-index: 2;
+                margin-top: 1500px;
+                margin-right: 0;
+                display: inline;
+                margin-left: 10px;
+            }
+
+            .left-section .um {
+                margin-left: 270px;
+            }
+
+            .left-section h2 {
+                font-family: "Inter" sans-serif;
+                font-size: 25px;
+                font-weight: lighter;
+                color: #242424;
+                margin-top: 50px;
+            }
+
+            .left-section p {
+                font-family: "Inter" sans-serif;
+                margin-bottom: 20px;
+            }
+
+            .left-section h1 {
+                font-family: "Inter" sans-serif;
+                font-size: 39px;
+                font-weight: 700px;
+                margin-left: 60px;
+            }
+
+            main .right-section {
+                padding-right: 30px;
+                margin-right: 0.1rem;
+                display: flex;
+                z-index: 2;
+                top: 0;
+                margin-top: 445px;
+            }
+
+            .container {
+                position: relative;
+                width: 200px;
+                height: 200px;
+            }
+
+            .right-section {
+                position: absolute;
+                right: -540px;
+                transform: translateY(-50%);
+            }
+
+            .container {
+                margin-top: 4rem;
+                display: flex;
+                border-radius: 16px;
+                width: 70vw;
+                height: 88vh;
+            }
+
+            .form-image {
+                border-radius: 25px;
+                text-align: justify;
+                display: flex;
+                position: relative;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 500px;
+                height: 600px;
+                background-color: #1166ca;
+                padding: 5rem 5rem;
+                color: #fff;
+                font-family: "Inter", sans-serif;
+                line-height: 1.2;
+                margin-top: 590px;
+                margin-left: -800px;
+                transform: translate(-50%, -50%);
+            }
+
+            .form-image h2 {
+                font-size: 47px;
+                margin-bottom: 0;
+                color: #fff;
+                text-align: center;
+                font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                    sans-serif;
+                font-weight: 300;
+            }
+
+            .form-image h3 {
+                font-size: 33px;
+                font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                    sans-serif;
+                font-weight: 300;
+                margin-bottom: 0;
+                color: #fff;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            #conectando {
+                font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                    sans-serif;
+                font-size: 50px;
+            }
+
+            .form-image h2:hover,
+            .form-image h3:hover,
+            #conectando:hover {
+                color: #f2fffa;
+            }
+
+            .form-image img {
+                margin-top: 10px;
+                width: 400px;
+                height: 400px;
+            }
+
+            #conectando {
+                display: inline-block;
+            }
+
+            @keyframes typing {
+                from {
+                    width: 0;
+                }
+            }
+
+            .card {
+                margin-top: 10px;
+                margin-bottom: 40px;
+                font-size: 17px;
+                color: #444852;
+                padding: 0.6rem 1rem;
+                border-radius: 10px;
+                border: 1px solid #e8e8f1;
+                box-shadow: 1px 1px 10px #0200001c;
+                width: 740px;
+                background-color: white;
+                margin-left: 60px;
+            }
+
+            .card .titulo {
+                text-align: center;
+                font-weight: 600;
+                color: #4e81b4;
+            }
+
+            .card:hover {
+                background-color: #f0f0f0;
+                box-shadow: 1px 1px 15px #0200001c;
+            }
+
+            #digitando {
+                font-size: 55px;
+            }
+
+            /* -------------------------------- */
+            .causas-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: auto;
+                width: 1480px;
+                height: 300px;
+                margin-top: 10px;
+                margin-bottom: 100px;
+            }
+
+            .causas-item {
+                overflow: hidden;
+                width: 200px;
+                height: 250px;
+                transition: transform 0.3s ease-in-out;
+                position: relative;
+                margin: 0 10px;
+                /* flex: 1;
+                border-radius: 16px;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: auto 100%;
+                transition: all 0.8s cubic-bezier(0.25, 0.4, 0.45, 0.1.4); */
+            }
+
+            .causas-item img {
+                width: 100%;
+                height: 100%;
+                border-radius: 16px;
+            }
+
+            .causas-item:hover {
+                transform: scale(1.1);
+                /* flex: 2; */
+            }
+
+            .causas-item:hover .causas-overlay {
+                display: flex;
+            }
+
+            .causas-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                /* background-color: rgb(18, 104, 201, 0.8); */
+                background-color: rgb(18, 104, 201);
+                color: #fff;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .causas-item .causas-overlay h3 {
+                font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                    sans-serif;
+                font-weight: 300;
+                font-size: 30px;
+            }
+
+            h6 {
+                position: absolute;
+                top: 200%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 16px;
+                color: #ffffff;
+                background-color: #4e81b4;
+                padding: 10px 20px;
+                border-radius: 10px;
+                z-index: 9999;
+            }
+
+            /* ----------------------------------------------- */
+            .half-section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 900px;
+                height: 80px;
+                margin-top: 10px;
+                margin-bottom: 50px;
+                margin-left: 280px;
+                background-color: #1166ca;
+                border-radius: 15px;
+            }
+
+            .half-section .tags {
+                border: solid 2px #242424;
+                border-radius: 8px;
+                margin-left: 10px;
+                padding: 10px;
+                background-color: #ffffff;
+                position: relative;
+                font-size: larger;
+                font-family: Impact, Haettenschweiler, "Arial Narrow Bold";
+            }
+
+            .half-section .tags:hover {
+                background-color: #dce4ec;
+            }
+
+            /* ------------------------------------ */
+            .initial-section {
+                display: flex;
+                align-items: center;
+            }
+
+            .initial-section img {
+                top: 0;
+                width: 350px;
+                height: 130px;
+            }
+
+            h5 {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding-left: 0px;
+                color: #4e81b4;
+            }
+
+            .initial-section h4 {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                color: #4e81b4;
+            }
+
+            /* ------------------------------------- */
+            .final-section-ong {
+                display: flex;
+                flex-direction: row;
+                padding-right: 10px;
+                margin-bottom: 20px;
+                height: 380px;
+            }
+
+            .final-section-aluno {
+                display: flex;
+                flex-direction: row;
+                padding-right: 10px;
+                margin-bottom: 20px;
+                height: 440px;
+            }
+
+            .como_comecar_ong,
+            .como_comecar_aluno {
+                flex: 1;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 16px;
+                margin-top: -20px;
+                margin-bottom: 20px;
+            }
+
+            .como_comecar_ong h1 {
+                margin-left: 20px;
+                margin-top: 0px;
+                color: #1166ca;
+                font-weight: 900;
+                font-size: 35px;
+                margin-bottom: 20px;
+            }
+
+            .como_comecar_aluno h1 {
+                margin-left: 50px;
+                margin-top: 0px;
+                color: #1166ca;
+                font-weight: 900;
+                font-size: 35px;
+                margin-bottom: 20px;
+            }
+
+            .como_comecar_ong li {
+                margin-left: 20px;
+                margin-top: 0px;
+                color: #000000;
+                font-weight: 700;
+                list-style-type: none;
+                position: relative;
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .como_comecar_aluno li {
+                margin-left: 50px;
+                margin-top: 0px;
+                color: #000000;
+                font-weight: 700;
+                list-style-type: none;
+                position: relative;
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .como_comecar_ong li::before {
+                content: "";
+                position: absolute;
+                left: 520px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 10px;
+                height: 10px;
+                background-image: url("../CSS/imagens/icone\ seta.jpeg");
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            .como_comecar_aluno li::before {
+                content: "";
+                position: absolute;
+                left: -15px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 10px;
+                height: 10px;
+                background-image: url("../CSS/imagens/icone\ seta.jpeg");
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            .como_comecar_ong h4 {
+                margin-left: 20px;
+                margin-top: 0px;
+                margin-top: 30px;
+                color: #4e81b4;
+                font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                    sans-serif;
+                font-weight: 500;
+                font-size: 25px;
+            }
+
+            .como_comecar_aluno h4 {
+                margin-left: 50px;
+                margin-top: 0px;
+                margin-top: 30px;
+                color: #4e81b4;
+                font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                    sans-serif;
+                font-weight: 500;
+                font-size: 25px;
+            }
+
+            .como_comecar_ong img {
+                float: left;
+                margin-right: 200px;
+                margin-top: 35px;
+                margin-left: 100px;
+            }
+
+            .como_comecar_aluno img {
+                float: right;
+                margin-right: 100px;
+                margin-top: 60px;
+            }
+
+            .final-section-aluno button,
+            .final-section-ong button {
+                border: none;
+                background-color: #1166ca;
+                padding: 0.4rem 1rem;
+                border-radius: 13px;
+                cursor: pointer;
+                text-decoration: none;
+                font-weight: 500;
+                color: #fff;
+                font-size: 20px;
+                font-weight: 600;
+                margin-left: 20px;
+                width: 150px;
+                height: 40px;
+                margin-top: 30px;
+            }
+
+            .final-section-aluno button:hover,
+            .final-section-ong button:hover {
+                background-color: rgb(12, 93, 175);
+            }
+
+            /* ------------------------------------- */
+            footer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 30px;
+
+                font-size: 18px;
+            }
+
+            .container,
+            .causas-container,
+            .half-section,
+            .linguagens-info,
+            .final-section-ong,
+            .final-section-aluno {
+                visibility: hidden;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="initial-section">
+            <h5>
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            </h5>
+            <img src="../CSS/imagens/icon.png" alt="" />
+            <h4>
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            </h4>
+        </div>
+        <header>
+            <div class="container">
+                <div class="large-circle"></div>
+                <div class="small-circle"></div>
+            </div>
+            <div class="divHeader">
+                <nav></nav>
+            </div>
+        </header>
+        <main>
+            <div class="left-section">
+                <!-- <h1>Bem-Vindos ao <span id="digitando"></span></h1> -->
+                <div class="card">
+                    <div class="titulo">É ONG?</div>
+                    Você tem um problema que pode ser solucionado com
+                    programação? Aqui você pode se cadastrar e cadastrar o seu
+                    problema e encontrar estudantes universitários interessados
+                    a achar um projeto e te ajudar de forma voluntária. Precisa
+                    de um site informativo para sua ONG? um site para cadastrar
+                    as pessoas e/ou coisas que ajudam e defende? ou qualquer
+                    outra necessidade que possam ser solucionado com algumas
+                    linhas de código? Aqui é o lugar certo! Gostou? Se inscreva
+                    já e cadastre o seu problema!!
+                </div>
+                <div class="card">
+                    <div class="titulo">É estudante?</div>
+                    Você ai estudante de tecnologia, a sua faculdade está
+                    pedindo um projeto para o semestre? E você não consegue
+                    pensar em nenhuma temática ou não tem nenhuma ideia? Aqui
+                    você pode encontrar problemas reais de ONGs reais e ainda
+                    vai poder ter a chance de transformá-los em projetos
+                    acadêmicos, com isso você já garante a sua nota e também
+                    colabora voluntariamente com alguma causa. Se interessou? Se
+                    inscreva e vamos conferir juntos o que as ONGs estão
+                    precisando!
+                </div>
+                <button class="um">
+                    <a
+                        href="login.html"
+                        style="color: white; text-decoration: none"
+                        >Login</a
+                    >
+                </button>
+                <button class="dois">
+                    <a
+                        href="index.html"
+                        style="color: white; text-decoration: none"
+                        >Cadastre-se</a
+                    >
+                </button>
+                <div class="causas-container">
+                    <div class="causas-item">
+                        <img src="../CSS/imagens/foto fome.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Fome</h3>
+                            <!-- <p>Ajude a defender essa causa</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="../CSS/imagens/foto lgbtqiap+.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>LGBTQIAP+</h3>
+                            <!-- <p>Texto da imagem 2</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="../CSS/imagens/foto alunos.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Crianças</h3>
+                            <!-- <p>Texto da imagem 3</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="../CSS/imagens/foto naatureza.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Natureza</h3>
+                            <!-- <p>Texto da imagem 4</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="../CSS/imagens/foto animais.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Animais</h3>
+                            <!-- <p>Texto da imagem 5</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="../CSS/imagens/foto educação.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Educação</h3>
+                            <!-- <p>Texto da imagem 6</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="../CSS/imagens/foto pobreza.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Pobreza</h3>
+                            <!-- <p>Texto da imagem 7</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="../CSS/imagens/foto clima.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Clima</h3>
+                            <!-- <p>Texto da imagem 8</p> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="linguagens-info">
+                    <h6>
+                        Essas são as causas e linguagens que mais aparecem por
+                        aqui, dê uma olhada!
+                    </h6>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+
+                <div class="half-section">
+                    <div class="tags">Java</div>
+                    <div class="tags">HTML</div>
+                    <div class="tags">CSS</div>
+                    <div class="tags">JavaScript</div>
+                    <div class="tags">C</div>
+                    <div class="tags">C++</div>
+                    <div class="tags">C#</div>
+                    <div class="tags">Python</div>
+                    <div class="tags">PHP</div>
+                    <!-- <div class="tags">Ruby</div>
+                    <div class="tags">Perl</div> -->
+                    <div class="tags">SQL</div>
+                    <!-- <div class="tags">Swift</div> -->
+                    <div class="tags">TypeScript</div>
+                    <!-- <div class="tags">Delphi</div>
+                    <div class="tags">R</div> -->
+                </div>
+                <div class="final-section-ong">
+                    <div class="como_comecar_ong">
+                        <img src="../CSS/imagens/foto ong.jpeg" alt="" />
+                        <h4>ONG | Como começar?</h4>
+                        <h1>Passo a passo do que você precisa fazer:</h1>
+                        <ul>
+                            <li>
+                                Login (para segundo acesso em diante) / Cadastro
+                                inicial (primeiro acesso)
+                            </li>
+                            <li>Cadastrar sua ONG</li>
+                            <li>Cadastrar seu(s) problema(s)</li>
+                            <li>
+                                Esperar as chamadas de reunião para aceite do
+                                projeto
+                            </li>
+                        </ul>
+                        <button class="um">
+                            <a
+                                href="login.html"
+                                style="color: white; text-decoration: none"
+                                >Login</a
+                            >
+                        </button>
+                        <button class="dois">
+                            <a
+                                href="index.html"
+                                style="color: white; text-decoration: none"
+                                >Cadastre-se</a
+                            >
+                        </button>
+                    </div>
+                </div>
+                <div class="final-section-aluno">
+                    <div class="como_comecar_aluno">
+                        <img src="../CSS/imagens/foto grupo.jpeg" alt="" />
+                        <h4>Aluno | Como começar?</h4>
+                        <h1>Passo a passo do que você precisa fazer:</h1>
+                        <ul>
+                            <li>
+                                Login (para segundo acesso em diante) / Cadastro
+                                inicial (primeiro acesso)
+                            </li>
+                            <li>Se cadastrar</li>
+                            <li>Definir um lider e cadastrar sua equipe</li>
+                            <li>
+                                Explorar nossa plataforma e encontrar um
+                                problema
+                            </li>
+                            <li>
+                                Propor uma reunião com a ONG e receber o aceite
+                                do projeto
+                            </li>
+                            <li>Desenvolver!!</li>
+                        </ul>
+                        <button class="um">
+                            <a
+                                href="login.html"
+                                style="color: white; text-decoration: none"
+                                >Login</a
+                            >
+                        </button>
+                        <button class="dois">
+                            <a
+                                href="index.html"
+                                style="color: white; text-decoration: none"
+                                >Cadastre-se</a
+                            >
+                        </button>
+                    </div>
+                </div>
+                <footer>&copy;VolunteerCoders 2024</footer>
+            </div>
+
+            <div class="right-section">
+                <div class="form-image">
+                    <h2>
+                        <span id="conectando" class="center">Conectando</span>
+                    </h2>
+                    <h2>talentos digitais</h2>
+                    <br />
+                    <h3>transformando códigos em oportunidades reais.</h3>
+                    <br />
+                    <br />
+                    <img
+                        src="../CSS/imagens/undraw_pair_programming_re_or4x.svg"
+                    />
+                </div>
+            </div>
+        </main>
+        <script>
+            window.sr = ScrollReveal({ reset: true });
+
+            sr.reveal(".container", {
+                rotate: { x: 0, y: 80, z: 0 },
+                duration: 2000,
+            });
+            sr.reveal(".causas-container", {
+                origin: "top",
+                distance: "70px",
+                duration: 2000,
+                delay: 200,
+                easing: "ease",
+            });
+
+            sr.reveal(".half-section", {
+                // origin: 'right',
+                rotate: { x: 0, y: 80, z: 0 },
+                delay: 200,
+                duration: 2000,
+            });
+            sr.reveal(".linguagens-info", {
+                // origin: 'left',
+                rotate: { x: 0, y: 80, z: 0 },
+                delay: 200,
+                duration: 2000,
+            });
+
+            sr.reveal(".final-section-ong", {
+                origin: "top",
+                distance: "10px",
+                duration: 2000,
+                delay: 500,
+                easing: "ease",
+            });
+            sr.reveal(".final-section-aluno", {
+                origin: "top",
+                distance: "10px",
+                duration: 2000,
+                delay: 400,
+                easing: "ease",
+            });
+
+            const text = "VolunteerCoders ";
+            let index = 1;
+            let direction = 1;
+
+            function type() {
+                if (index === text.length) {
+                    direction = -1; // volta
+                } else if (index === 1) {
+                    direction = 1; // frente
+                }
+
+                document.getElementById("digitando").innerHTML = text.substring(
+                    0,
+                    index
+                );
+
+                if (direction === 1) {
+                    index++;
+                } else {
+                    index--;
+                }
+
+                if (index === 0 || index === text.length) {
+                    setTimeout(type, 1500);
+                } else {
+                    setTimeout(type, 190);
+                }
+            }
+
+            type();
+        </script>
+    </body>
+</html>

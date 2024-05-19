@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Equipe</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+</head>
+<style>
+    #body-equipe {
+        padding-top: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #4e81b4;
+        font-size: 1rem;
+    }
+
+    .container-equipe {
+        border-radius: 15px;
+        width: 65%;
+        height: 85%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #fff;
+        padding: 2%;
+    }
+
+    h2 {
+        color: #1166ca;
+        margin-bottom: 10px;
+    }
+
+    .container-equipe__conteudo {
+        width: 90%;
+        /* height: auto; */
+        max-height: 120vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .container-equipe__conteudo label {
+        margin-right: 10px;
+    }
+
+    .container-equipe__conteudo input {
+        flex: 2;
+    }
+
+    label {
+        margin-top: 20px;
+        margin-bottom: 5px;
+        margin-left: 10px;
+        font-size: 1rem;
+        color: #444852;
+    }
+
+    input {
+        margin-top: 10px;
+        margin-bottom: 2px;
+        font-size: 1rem;
+        color: #444852;
+        margin-left: 1px;
+    }
+
+    input,
+    textarea {
+        font-size: 1rem;
+        color: #444852;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        border: 1px solid #e8e8f1;
+        width: 99%;
+    }
+
+    input[type="number"] {
+        width: calc(50% - 5px);
+    }
+
+    .nome {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    .equipe {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        color: #444852;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        border: 1px solid #e8e8f1;
+        /* box-shadow: 1px 1px 10px #0200001c; */
+        width: 99%;
+        margin-top: 8px;
+        max-height: 170px;
+        scrollbar-width: none;
+    }
+
+    #info-equipe {
+        display: flex;
+        font-size: 13px;
+    }
+
+    ul {
+        list-style-type: none;
+        color: #222224;
+    }
+
+    ul li {
+        font-size: 15px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .inserir-equipe {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+        flex-direction: row;
+    }
+
+    #adicionar-equipe {
+        border: none;
+        width: 120px;
+        height: 30px;
+        font-size: 1rem;
+        border-radius: 15px;
+        color: #1166ca;
+        margin-left: 5px;
+        align-self: flex-end;
+        margin-bottom: 4px;
+        cursor: pointer;
+    }
+
+    .botao-equipe {
+        align-self: flex-end;
+    }
+
+    .lista {
+        margin-top: 7px;
+        margin-left: 7px;
+    }
+
+    .caixa-equipe label {
+        margin-top: 10px;
+    }
+
+    .btn-criar-equipe {
+        border: none;
+        width: 270px;
+        height: 40px;
+        font-size: 1.2rem;
+        border-radius: 15px;
+        color: #fff;
+        background-color: #1166ca;
+        margin-top: 10px;
+    }
+
+    .btn-criar-equipe:hover {
+        cursor: pointer;
+        background-color: #1255a1;
+    }
+
+    .lider {
+        margin-top: 15px;
+    }
+
+    .lider input {
+        background-color: rgb(239, 239, 239);
+        /* margin-left: 2px; */
+    }
+
+    #equipe {
+        border: none;
+        box-shadow: 0;
+    }
+
+    .input-email {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #444852;
+        border-radius: 10px;
+        border: 1px solid #e8e8f1;
+        box-shadow: 1px 1px 10px #0200001c;
+        width: 80%;
+        height: 35px;
+    }
+
+    .input-email input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 33px;
+        margin-bottom: 10px;
+        margin-right: 2px;
+    }
+
+    /* .input-email input::before {
+        border: 0;
+        outline: 0;
+        background-color: white;
+    } */
+
+    .btn-apagar {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        /* margin-right: 10px ; */
+        border: none;
+        background-color: transparent;
+    }
+
+    .btn-apagar i {
+        font-size: 12px;
+        margin-right: 6px;
+        margin-top: 3px;
+        text-align: center;
+        align-self: center;
+    }
+
+    .btn-apagar i:hover {
+        font-size: 14px;
+    }
+
+    #equipe:hover+.input-email {
+        border: 1px solid #1166ca;
+    }
+
+    li .btn-apagar-pessoa {
+        display: flex;
+        flex-direction: row;
+        width: 15px;
+        height: 15px;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+
+    .botoes {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .btn-cancelar {
+        border: none;
+        width: 200px;
+        height: 40px;
+        font-size: 1.2rem;
+        border: 2px solid #1166ca;
+        border-radius: 15px;
+        color: #1166ca;
+        background-color: white;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    .btn-cancelar:hover {
+        border: 2px solid #1255a1;
+        color: #1255a1;
+    }
+
+   
+
+    @media screen and (max-width: 880px) {
+        .container-equipe {
+            width: 80%;
+            /* height: 80vh; */
+            padding: 1rem 1rem;
+            transition: .2s
+        }
+    }
+
+    @media screen and (max-width: 620px) {
+        .container-equipe__conteudo {
+            gap: 15px
+        }
+
+        .container-equipe {
+            width: 80%;
+            height: 80vh;
+            padding: 1rem 1rem;
+        }
+
+        .input-email {
+            width: 60%;
+        }
+    }
+
+    @media screen and (max-width: 514px) {
+        .container-equipe {
+            width: 90%;
+            height: 80vh;
+            padding: 1rem 1rem;
+            transition: .2s;
+        }
+
+    }
+
+    @media screen and (max-width: 460px) {
+        #equipe::placeholder {
+            color: white;
+        }
+    }
+</style>
+
+<body id="body-equipe">
+    <div class="container-equipe">
+        <h2 class="container-equipe__h2">Criar equipe</h2>
+        <div class="container-equipe__conteudo">
+            <div class="nome">
+                <label for="nome-equipe">Nome da equipe*</label>
+                <input type="text" id="nome-equipe" name="nome-equipe" />
+            </div>
+            <div class="caixa-equipe">
+                <label for="equipe">Adicionar pessoas à sua equipe*</label>
+                <label for="info-equipe" id="info-equipe">Informe o e-mail institucional</label>
+                <div class="equipe">
+                    <div class="equipe-conteudo">
+                        <div class="lista">
+                            <p>
+                            <ul id="listaPessoas"></ul>
+                            </p>
+                        </div>
+
+                        <div class="inserir-equipe">
+                            <div class="input-email">
+                                <input type="text" id="equipe" name="equipe" placeholder="Escolher pessoas" />
+
+                                <button class="btn-apagar" onclick="apagar(event)"><i class="fi fi-tr-x"></i></button>
+                            </div>
+
+                            <div class="botao-equipe">
+                                <button type="button" id="adicionar-equipe"
+                                    onclick="adicionar(event)">Adicionar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="lider">
+                <label for="lider">Líder da equipe*</label>
+                <input type="text" id="lider" name="lider" readonly />
+            </div>
+        </div>
+
+        <div class="botoes">
+            <div class="botao-cancelar">
+                <button id="btn-cancelar" class="btn-cancelar" onclick="cancelar(event)">
+                    Cancelar
+                </button>
+            </div>
+            <div class="botao">
+                <button id="btn-criar-equipe" class="btn-criar-equipe" onclick="validarFormulario()">
+                    Criar equipe
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        let nomesEquipesCadastradas = [];
+        let emailsPorEquipe = [];
+
+        var nomeLider = localStorage.getItem("nome");
+        document.querySelector("#lider").value = nomeLider;
+
+        function validarNomeEquipe(nomeEquipe) {
+            return nomesEquipesCadastradas.includes(nomeEquipe);
+        }
+
+        function adicionarNomeEquipe(nomeEquipe) {
+            nomesEquipesCadastradas.push(nomeEquipe);
+        }
+
+        function validarEmail(email) {
+            var dominiosValidos = [
+                "facens.br",
+                "uniso.br",
+                "usp.br",
+                "aluno.unip.br",
+                "unicamp.br",
+                "ufscar.br",
+                "fatec.sp.gov.br",
+            ];
+
+            var dominio = email.split("@")[1];
+            return dominiosValidos.includes(dominio);
+        }
+
+        function adicionar(event, nomeEquipe) {
+            event.preventDefault();
+            let email = document.querySelector('#equipe').value.trim();
+
+            if (validarEmail(email)) {
+                emailsPorEquipe.push(email);
+
+                let pessoa = document.createElement('li');
+                pessoa.textContent = email;
+                let imagem = document.createElement('img');
+                imagem.src = '../CSS/imagens/marca-retangular-x.png';
+                imagem.className = 'btn-apagar-pessoa';
+
+                imagem.addEventListener('click', function () {
+                    pessoa.remove();
+
+                    let index = emailsPorEquipe.indexOf(email);
+                    if (index !== -1) {
+                        emailsPorEquipe.splice(index, 1);
+                    }
+                });
+
+                pessoa.appendChild(imagem);
+                let listaEquipe = document.querySelector('#listaPessoas');
+                listaEquipe.appendChild(pessoa);
+
+                localStorage.setItem(nomeEquipe, JSON.stringify(emailsPorEquipe));
+
+                document.querySelector('#equipe').value = '';
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Email Inválido!",
+                    text: "Por favor, insira um email institucional válido.",
+                });
+            }
+        }
+
+        function cancelar(event) {
+            event.preventDefault()
+
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção!",
+                text: "Quer mesmo cancelar a criação de equipe?",
+                showCancelButton: true,
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'antes-telaInicialAluno.html';
+                }
+            });
+
+        }
+
+        function validarFormulario() {
+
+            const nomeEquipe = document.getElementById("nome-equipe").value.trim();
+
+            if (validarNomeEquipe(nomeEquipe)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Nome de Equipe Duplicado!",
+                    text: "O nome da equipe já está cadastrado. Por favor, escolha outro nome.",
+                });
+                return false;
+            }
+            // console.log(nomeEquipe)
+
+            const listaPessoas = document.querySelectorAll('ul#listaPessoas li');
+            nomeLider = document.getElementById("lider").value.trim();
+
+            if (listaPessoas.length === 0) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Lista de Pessoas Vazia!",
+                    text: "Por favor, adicione pelo menos uma pessoa à equipe.",
+                });
+                return;
+            }
+
+            if (nomeEquipe === "" || nomeLider === "") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Campos Vazios!",
+                    text: "Por favor, preencha todos os campos.",
+                });
+                return false;
+            }
+
+            var senhaCorreta = "s";
+
+            const swalConfig = {
+                title: "Insira sua senha de login para confirmar sua identidade:",
+                input: "password",
+                inputAttributes: {
+                    class: "swal2-input minha-classe-personalizada",
+                },
+                showCancelButton: true,
+                confirmButtonText: "Confirmar",
+                cancelButtonText: "Cancelar",
+            };
+
+            Swal.fire(swalConfig).then((result) => {
+                if (result.isConfirmed) {
+                    const senhaInserida = result.value;
+
+                    if (senhaInserida === senhaCorreta) {
+                        var nomeEquipe =
+                            document.getElementById(
+                                "nome-equipe"
+                            ).value;
+                        const pessoas = [];
+                        listaPessoas.forEach(function (item) {
+                            pessoas.push(item.textContent);
+                        });
+                        pessoas.push("Líder: " + nomeLider);
+                        const equipe = pessoas.join(', ');
+                        var lider =
+                            document.getElementById(
+                                "lider"
+                            ).value;
+
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Atenção!",
+                            text: "Os dados fornecidos serão transmitidos e armazenados conforme as diretrizes de segurança. Por favor, confirme que está ciente para prosseguirmos com o cadastro.",
+                            showCancelButton: true,
+                            confirmButtonText:
+                                "Estou ciente e quero cadastrar",
+                            cancelButtonText: "Cancelar",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire({
+                                    icon:"success",
+                                    title: "Equipe criada!",
+                                    text: "Sua equipe foi criada com sucesso",
+                                    delay: 1500,
+                                    showCancelButton : false,
+                                }).then(() => {
+                                    localStorage.setItem("equipeRecente", JSON.stringify({
+                                        nomeEquipe: nomeEquipe,
+                                        nomeLider: nomeLider,
+                                        emails: emailsPorEquipe
+
+                                    }));
+                                    console.log("Dados da equipe armazenados:", localStorage.getItem("equipeRecente"));
+                                    window.location.href =
+                                        "telaInicialEquipe.html";
+                                });
+                            }
+                        });
+                        document.getElementById("nome-equipe").value = "";
+                        document.getElementById("lider").value = "";
+                        listaPessoas.forEach(item => item.remove());
+
+                        let imagem = document.createElement('img');
+                        imagem.src = '../CSS/imagens/marca-retangular-x.png'
+                        imagem.className = 'btn-apagar-pessoa';
+                        imagem.addEventListener('click', function () {
+                            pessoa.remove();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Senha incorreta",
+                            text: "Por favor, tente novamente.",
+                        });
+                    }
+                }
+            })
+            adicionarNomeEquipe(nomeEquipe);
+            console.log(nomesEquipesCadastradas);
+            return true;
+        }
+
+        function apagar(event) {
+            event.preventDefault();
+
+            document.querySelector('#equipe').value = '';
+        }
+
+        apagar();
+
+    </script>
+</body>
+
+</html>

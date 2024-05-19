@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="../CSS/styles.css" />
+        <link rel="stylesheet" href="../JAVASCRIPT/telaInicial.js" />
+        <link
+            rel="shortcut icon"
+            href="../CSS/imagens/favicon-32x32.png"
+            type="image/x-icon"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+        <title>VolunteerCoders</title>
+        <style>
+            #password-suggestions {
+                display: none;
+                margin-left: 5px;
+                margin-bottom: 1px;
+                color: rgb(0, 0, 0);
+            }
+
+            #password-suggestions p {
+                background-color: #f2f2f2;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                font-weight: 600;
+                font-size: 13px;
+                font-family: "Inter", sans-serif;
+            }
+
+            .input-boxx {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                position: relative;
+                margin-top: 10px;
+            }
+
+            .input-boxx input {
+                margin: 0.6rem 0;
+                padding: 0.8rem 1.2rem;
+                border: none;
+                border-radius: 10px;
+                box-shadow: 1px 1px 6px #0000001c;
+                font-size: 1rem;
+            }
+
+            .input-box {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 5px;
+                position: relative;
+                margin-top: 1rem;
+            }
+
+            .input-boxx input:hover {
+                background-color: #eeeeee75;
+            }
+
+            .input-boxx input:focus-visible {
+                outline: 1px solid #6c63ff;
+            }
+
+            .input-boxx input::placeholder {
+                color: #000000be;
+            }
+
+            #password-suggestions p.green {
+                color: green;
+            }
+
+            .suggestion-green {
+                color: green;
+            }
+
+            .suggestion-red {
+                color: red;
+            }
+
+            #passwordMatchMessage {
+                background-color: #f2f2f2;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                font-weight: 600;
+                font-size: 13px;
+                font-family: "Inter", sans-serif;
+                width: 190px;
+            }
+
+            #passwordMatchMessage.green {
+                color: green;
+            }
+
+            #passwordMatchMessage.red {
+                color: red;
+            }
+
+            .select-user input {
+                margin-top: 7px;
+            }
+
+            .form-header {
+                margin-top: -115px;
+                margin-bottom: 1.5rem;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .select-user input {
+                margin-top: 7px;
+                padding: 10px;
+                height: 40px;
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="form-image">
+                <h2><span id="conectando" class="center">Conectando</span></h2>
+                <h2><span id="digitando"></span></h2>
+                <br />
+                <h3>transformando códigos em oportunidades reais.</h3>
+                <br />
+                <br />
+                <img src="../CSS/imagens/undraw_educator_re_ju47.svg" />
+            </div>
+            <div class="form">
+                <form>
+                    <!--https://65eb914643ce164189340637.mockapi.io/api/v1/user-->
+                    <div class="title">
+                        <h2>VolunteerCoders</h2>
+                    </div>
+                    <div class="form-header">
+                        <div class="login">
+                            <h1>Cadastre-se</h1>
+                        </div>
+                        <div class="login-button">
+                            <button><a href="login.html">Entrar</a></button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-box">
+                            <input
+                                id="nome"
+                                type="text"
+                                name="nome"
+                                placeholder="Nome"
+                                required
+                            />
+                        </div>
+                        <div class="input-box">
+                            <input
+                                id="email"
+                                type="email"
+                                name="email"
+                                placeholder="E-mail"
+                                required
+                            />
+                        </div>
+                        <div class="input-box">
+                            <input
+                                id="password"
+                                type="password"
+                                name="password"
+                                placeholder="Senha"
+                                onfocus="showPasswordSuggestions(true)"
+                                onblur="showPasswordSuggestions(false)"
+                                oninput="validatePassword(this.value)"
+                            />
+                                
+
+                            <div
+                                class="password-suggestions"
+                                id="password-suggestions"
+                                style="display: none"
+                            >
+                                <p>
+                                    Sua senha deve conter: <br />
+                                    <span id="min-length"
+                                        >- Mínimo de 8 caracteres<br
+                                    /></span>
+                                    <span id="max-length"
+                                        >- Máximo de 70 caracteres<br
+                                    /></span>
+                                    <span id="lowercase"
+                                        >- Pelo menos uma letra minúscula<br
+                                    /></span>
+                                    <span id="uppercase"
+                                        >- Pelo menos uma letra maiúscula<br
+                                    /></span>
+                                    <span id="number"
+                                        >- Pelo menos um número<br
+                                    /></span>
+                                    <span id="special-char"
+                                        >- Pelo menos um caractere especial<br
+                                    /></span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="input-box">
+                            <input
+                                id="confirmPassword"
+                                type="password"
+                                name="confirmPassword"
+                                placeholder="Confirme sua senha"
+                                oninput="checkPasswordMatch(this.value)"
+                                onfocus="showPasswordMatchMessage(true)"
+                                onblur="showPasswordMatchMessage(false)"
+                            />
+                            <span
+                                id="passwordMatchMessage"
+                                style="display: none"
+                            ></span>
+                        </div>
+                        <div class="select-user">
+                            <div class="select">
+                                <select name="options" id="options">
+                                    <option value="Tipo de Cadastro">
+                                        Tipo de Cadastro
+                                    </option>
+                                    <option value="aluno">Aluno</option>
+                                    <option value="ong">ONG</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="continue-button">
+                        <button class="continue-bnt" id="continue-bnt">
+                            <a id="continue-link" href="#">Continuar</a>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            
+            
+            function show(anything) {
+                document.querySelector(".text-box").value = anything;
+            }
+            let selectUser = document.querySelector(".select-user");
+            selectUser.onclick = function () {
+                selectUser.classList.toggle("active");
+            };
+
+            //criando função que altera a pagina
+            //de cadastro dependendo do tipo
+            //de usuario selecionado
+
+            document
+                .getElementById("continue-bnt")
+                .addEventListener("click", function () {
+                    var selectedValue = document
+                        .getElementById("options")
+                        .value.trim()
+                        .toLowerCase();
+
+                    var nome = document.getElementById("nome").value.trim();
+                    var email = document.getElementById("email").value.trim();
+                    var senha = document
+                        .getElementById("password")
+                        .value.trim();
+                    var confirmSenha = document
+                        .getElementById("confirmPassword")
+                        .value.trim();
+
+                    if (
+                        nome === "" ||
+                        email === "" ||
+                        senha === "" ||
+                        confirmSenha === ""
+                    ) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 8000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            },
+                        });
+                        Toast.fire({
+                            icon: "error",
+                            title: "Por favor, Preencha os campos obrigatórios",
+                        });
+                    } else {
+                        if (selectedValue === "aluno") {
+                            // Se a opção selecionada for "Aluno", redireciona para a página de alunos
+
+                            localStorage.setItem('nome', nome)
+                            localStorage.setItem('email', email)
+                            window.location.href = "cadastroAluno.html";
+                        } else if (selectedValue === "ong") {
+                            // Se a opção selecionada for "ONG", redireciona para a página de ONGs
+                            window.location.href = "cadastroONG.html";
+                        } else if (selectedValue === "tipo de cadastro") {
+                            // Se o texto não for "Aluno" nem "ONG", exiba uma mensagem de erro
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: "top-end",
+                                showConfirmButton: false,
+                                timer: 8000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.onmouseenter = Swal.stopTimer;
+                                    toast.onmouseleave = Swal.resumeTimer;
+                                },
+                            });
+                            Toast.fire({
+                                icon: "error",
+                                title: "selecione ou ONG ou Aluno!",
+                            });
+                        }
+                    }
+                });
+
+            function showPasswordSuggestions(show) {
+                const passwordSuggestions = document.getElementById(
+                    "password-suggestions"
+                );
+                passwordSuggestions.style.display = show ? "block" : "none";
+            }
+
+            function showPasswordMatchMessage(show) {
+                const passwordMatchMessage = document.getElementById(
+                    "passwordMatchMessage"
+                );
+                passwordMatchMessage.style.display = show ? "block" : "none";
+            }
+
+            function validatePassword(password) {
+                const passwordSuggestions = document.getElementById(
+                    "password-suggestions"
+                );
+                const minLength = document.getElementById("min-length");
+                const maxLength = document.getElementById("max-length");
+                const lowercase = document.getElementById("lowercase");
+                const uppercase = document.getElementById("uppercase");
+                const number = document.getElementById("number");
+                const specialChar = document.getElementById("special-char");
+                const suggestionText = passwordSuggestions.querySelector("p");
+
+                const hasMinLength = password.length >= 8;
+                const hasMaxLength = password.length <= 70;
+                const hasLowercase = /[a-z]/.test(password);
+                const hasUppercase = /[A-Z]/.test(password);
+                const hasNumber = /\d/.test(password);
+                const hasSpecialChar =
+                    /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
+                minLength.style.color = hasMinLength ? "green" : "red";
+                maxLength.style.color = hasMaxLength ? "green" : "red";
+                lowercase.style.color = hasLowercase ? "green" : "red";
+                uppercase.style.color = hasUppercase ? "green" : "red";
+                number.style.color = hasNumber ? "green" : "red";
+                specialChar.style.color = hasSpecialChar ? "green" : "red";
+
+                if (
+                    hasMinLength &&
+                    hasMaxLength &&
+                    hasLowercase &&
+                    hasUppercase &&
+                    hasNumber &&
+                    hasSpecialChar
+                ) {
+                    suggestionText.innerHTML = "Senha forte!";
+                    suggestionText.classList.add("green");
+                }
+            }
+            function checkPasswordMatch(confirmPassword) {
+                const password = document.getElementById("password").value;
+                const passwordMatchMessage = document.getElementById(
+                    "passwordMatchMessage"
+                );
+
+                if (password === confirmPassword) {
+                    passwordMatchMessage.textContent = "As senhas coincidem.";
+                    passwordMatchMessage.style.color = "green";
+                } else {
+                    passwordMatchMessage.textContent =
+                        "As senhas não coincidem.";
+                    passwordMatchMessage.style.color = "red";
+                }
+            }
+
+            function redirectAndAlert() {
+                // Verifica se alguma opção foi selecionada
+                const alunoSelected = document
+                    .getElementById("aluno")
+                    .classList.contains("selected");
+                const ongSelected = document
+                    .getElementById("ong")
+                    .classList.contains("selected");
+
+                if (!alunoSelected && !ongSelected) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        },
+                    });
+                    Toast.fire({
+                        icon: "error",
+                        title: "selecione ou ONG ou Aluno!",
+                    });
+                    // } else if (ongSelected) {
+                    //     window.location.replace("cadastroONG.html");//
+                }
+            }
+            document.addEventListener("DOMContentLoaded", function () {
+                const campos = document.querySelectorAll(
+                    'input[type="text"], input[type="email"], input[type="password"], select, button, a'
+                );
+                const botaoEnviar = document.getElementById("botaoEnviar");
+
+                campos.forEach(function (campo, index) {
+                    campo.addEventListener("keypress", function (event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault(); // Impede o envio do formulário
+                            const próximoCampo = campos[index + 1];
+                            if (próximoCampo) {
+                                próximoCampo.focus();
+                            } else if (campo === campos[campos.length - 1]) {
+                                window.location.href = botaoEnviar
+                                    .getAttribute("onclick")
+                                    .replace("window.location.href='", "")
+                                    .replace("';", "");
+                            }
+                        }
+                    });
+                });
+            });
+            const text = "talentos digitais ";
+            let index = 1;
+            let direction = 1;
+
+            function type() {
+                if (index === text.length) {
+                    direction = -1; // volta
+                } else if (index === 1) {
+                    direction = 1; // frente
+                }
+
+                document.getElementById("digitando").innerHTML = text.substring(
+                    0,
+                    index
+                );
+
+                if (direction === 1) {
+                    index++;
+                } else {
+                    index--;
+                }
+
+                if (index === 0 || index === text.length) {
+                    setTimeout(type, 1500);
+                } else {
+                    setTimeout(type, 190);
+                }
+            }
+
+            type();
+        </script>
+    </body>
+</html>

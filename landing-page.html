@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.cdnfonts.com/css/lovelo" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <title>VolunteerCoders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        body {
+            background: url("image/background.png") no-repeat;
+            font-family: "Inter" sans-serif;
+            background-size: cover;
+            background-color: #dce4ec;
+            overflow-x: hidden;
+        }
+
+        header {
+            width: 100%;
+            height: 100px;
+        }
+
+        a {
+            margin: 0;
+        }
+
+        h5 {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 0px;
+            color: #4e81b4;
+        }
+
+        .col-11 {
+            margin-top: 3rem;
+            margin-right: -35rem;
+        }
+
+        .col-11 button:hover {
+            background-color: #0a4b8e;
+        }
+
+
+        #cards {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        #cards button {
+            margin-left: -8.5rem;
+        }
+
+
+        .blue-bar {
+            width: 100%;
+            height: 3.5rem;
+            margin-left: -14.5rem;
+            background-color: #1166ca;
+            border-top-right-radius: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+
+            margin-bottom: 30px;
+            font-size: 17px;
+            color: #444852;
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            border: 1px solid #e8e8f1;
+            box-shadow: 1px 1px 10px #0200001c;
+            width: 740px;
+            background-color: white;
+            margin-left: -8rem;
+        }
+
+        .card .titulo {
+            text-align: center;
+            font-weight: 600;
+            color: #4e81b4;
+        }
+
+        .card:hover {
+            background-color: #f0f0f0;
+            box-shadow: 1px 1px 15px #0200001c;
+        }
+
+        .subscribe-btn {
+            background-color: #1166ca;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 10rem;
+            align-self: center;
+
+            transition: background-color 0.3s;
+        }
+
+        .subscribe-btn:hover {
+            background-color: #0a4b8e;
+        }
+
+        main .right-section {
+            padding-right: 30px;
+            margin-right: 0.1rem;
+            display: flex;
+        }
+
+        .form-image {
+            border-radius: 25px;
+            text-align: justify;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #1166ca;
+            width: 31rem;
+            height: 38rem;
+            padding-top: 2rem;
+            cursor: pointer;
+            margin-right: -7rem;
+        }
+
+        .form-image h2 {
+            font-size: 47px;
+            margin-bottom: 0;
+            color: #fff;
+            text-align: center;
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                sans-serif;
+            font-weight: 300;
+        }
+
+
+
+        .form-image h3 {
+            font-size: 33px;
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                sans-serif;
+            font-weight: 300;
+            margin-bottom: 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .form-image img {
+            margin-top: 10px;
+            width: 400px;
+            height: 400px;
+        }
+
+        .causas-container {
+            display: flex;
+
+            padding: 2rem;
+        }
+
+        .causas-item {
+            overflow: hidden;
+            width: 10rem;
+            height: 17rem;
+            transition: transform 0.3s ease-in-out;
+            margin: 0.7rem;
+        }
+
+        .causas-item img {
+            width: 100%;
+            height: 90%;
+            border-radius: 16px;
+        }
+
+        .causas-item:hover {
+            transform: scale(1.1);
+            /* flex: 2; */
+        }
+
+        .causas-item:hover .causas-overlay {
+            display: flex;
+        }
+
+        .causas-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background-color: rgb(18, 104, 201, 0.8); */
+            background-color: rgb(18, 104, 201);
+            color: #fff;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .causas-item .causas-overlay h3 {
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                sans-serif;
+            font-weight: 300;
+            font-size: 30px;
+        }
+
+        .row-causa {
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .linguagens-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .linguagens-info h6 {
+            font-size: 16px;
+            width: 41rem;
+            text-align: center;
+            color: #ffffff;
+            background-color: #4e81b4;
+            padding: 10px 20px;
+            border-radius: 10px;
+
+
+        }
+
+        .linguagens {
+            width: 91%;
+            height: 10rem;
+            margin-bottom: 2rem;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        .tags {
+            display: flex;
+            flex-direction: column;
+            margin: 2rem;
+            width: 2rem;
+            text-align: center;
+            font-size: 20px;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .tags svg {
+            width: 90px;
+            height: 90px;
+        }
+
+        .login {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 7rem;
+        }
+
+        .como_comecar_ong,
+        .como_comecar_aluno {
+            width: 90%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            padding-top: 2rem;
+
+        }
+
+        .como_comecar_ong h1 {
+            color: #1166ca;
+            font-weight: 900;
+            font-size: 35px;
+
+        }
+
+        .como_comecar_aluno h1 {
+
+            color: #1166ca;
+            font-weight: 900;
+            margin-left: 3rem;
+            font-size: 35px;
+
+        }
+
+        .como_comecar_ong li {
+            margin-left: 20px;
+            margin-top: 0px;
+            color: #000000;
+            font-weight: 700;
+            list-style-type: none;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .como_comecar_aluno li {
+            margin-left: 50px;
+            margin-top: 0px;
+            color: #000000;
+            font-weight: 700;
+            list-style-type: none;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+       
+
+        .como_comecar_ong h4 {
+
+            color: #4e81b4;
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                sans-serif;
+            font-weight: 500;
+            font-size: 25px;
+        }
+
+        .como_comecar_aluno h4 {
+            margin-left: 3rem;
+            color: #4e81b4;
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                sans-serif;
+            font-weight: 500;
+            font-size: 25px;
+        }
+
+        .como_comecar_ong img {
+            float: left;
+            margin-right: 150px;
+            margin-top: 35px;
+            margin-left: 100px;
+        }
+
+        .como_comecar_aluno img {
+            float: right;
+            margin-right: 100px;
+            margin-top: 60px;
+        }
+
+        .form-container {
+            background-color: #f2f2f2;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 40px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .input-box {
+            text-align: left;
+        }
+
+        input[type="email"],
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-btn {
+            background-color: #1166ca;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-btn:hover {
+            background-color: #0a4b8e;
+        }
+
+        .btn {
+            background-color: #fff;
+            color: #1166ca;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a {
+            color: #1166ca;
+            text-decoration: none;
+            padding: 10px 20px;
+            position: relative;
+            margin-right: 3rem;
+
+        }
+
+        .btn-login {
+            background-color: #1166ca;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: #0a4b8e;
+            color: #fff;
+        }
+
+        .btn:hover {
+            background-color: #0a4b8e;
+            color: #fff;
+        }
+
+        .col-1 {
+            text-align: center;
+        }
+
+        /* ------------------------------------- */
+        footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+
+            font-size: 18px;
+        }
+
+        .container,
+        .causas-container,
+        .half-section,
+        .linguagens-info,
+        .final-section-ong,
+        .final-section-aluno,
+        .form-container {
+            visibility: hidden;
+        }
+
+
+
+
+        @media (max-width: 768px) {
+
+            /* Estilos para dispositivos móveis */
+            .container {
+                padding: 0;
+                margin: 0;
+            }
+
+            #title {
+                margin-left: 1.5rem;
+            }
+
+            #nav-links {
+                display: none;
+            }
+
+            .blue-bar {
+                display: none;
+            }
+
+            .row {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+            }
+
+            #imagem {
+                order: -1;
+                display: flex;
+
+            }
+
+            .form-image {
+                text-align: center;
+                width: 106.4%;
+                border-radius: 0px;
+                margin-bottom: 3rem;
+                
+            }
+
+            .form-image h2 {
+                font-size: 40px;
+            }
+
+            .form-image h3 {
+                font-size: 28px;
+            }
+
+            .card {
+                border-radius: 0px;
+                width: 100%;
+                margin: 0;
+                margin-left: 9%;
+                margin-bottom: 2rem;
+            }
+
+            #cards button {
+                margin-left: 9.5%;
+                
+            }
+            #cards{
+                margin-left: -2.5%;
+            }
+
+            .linguagens-info h6 {
+                width: 98%;
+                margin-top: -2rem;
+                margin-bottom: -2rem;
+            }
+
+            #tags svg {
+                width: 3rem;
+                height: 3rem;
+            }
+
+            #tags {
+                margin-bottom: 1rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-left: 1.5rem;
+            }
+
+            #linguagens {
+                height: 13rem;
+            }
+
+            .causas-container {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-bottom: -3rem;
+            }
+
+            .causas-item:hover .causas-overlay {
+                display: flex;
+            }
+            .causas-item .causas-overlay h3 {
+                font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                    sans-serif;
+                font-weight: 300;
+                font-size: 12px;
+            }
+            .causas-item {
+                height: 5rem;
+
+            }
+
+            .como_comecar_ong img {
+                margin: 0;
+                float: right;
+                width: 6rem;
+                height: 6rem;
+            }
+
+            .como_comecar_aluno img {
+                margin: 0;
+                width: 7rem;
+                height: rem;
+            }
+            .como_comecar_aluno h4{
+                font-size: 25px;
+                margin-left: -1px;
+            }
+            .como_comecar_aluno h1{
+                font-size: 20px;
+                margin-left: -1px;
+            }
+            .como_comecar_aluno li{
+                margin-left: -1rem;
+            }
+            .como_comecar_ong h1{
+                font-size: 20px;
+            }
+           .como_comecar_ong li{
+                margin-left: -1rem;
+           }
+
+        }
+
+
+
+
+
+        @media (max-width: 400px) {
+            #title img {
+                width: 100%;
+            }
+
+            #title {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row" id="title">
+            <div class="col-12 col-md-1">
+                <img src="CSS/imagens/icon.png" alt="" width="350px" height="130px" />
+            </div>
+            <div class="col-11" id="nav-links">
+                <a href="#">Sobre</a>
+                <a href="#">ONGs</a>
+                <a href="#">Alunos</a>
+                <a href="#">Contato</a>
+                <button type="button" class="btn btn-primary"
+                    style="background-color: #1166ca; color: #fff;">Login</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-8" id="cards">
+                <div class="blue-bar">
+                </div>
+
+                <div class="card">
+                    <div class="titulo">É ONG?</div>
+                    Você tem um problema que pode ser solucionado com
+                    programação? Aqui você pode se cadastrar e cadastrar o seu
+                    problema e encontrar estudantes universitários interessados
+                    a achar um projeto e te ajudar de forma voluntária. Precisa
+                    de um site informativo para sua ONG? um site para cadastrar
+                    as pessoas e/ou coisas que ajudam e defende? ou qualquer
+                    outra necessidade que possam ser solucionado com algumas
+                    linhas de código? Aqui é o lugar certo! Gostou? Se inscreva
+                    já e cadastre o seu problema!!
+                </div>
+                <div class="card">
+                    <div class="titulo">É estudante?</div>
+                    Você ai estudante de tecnologia, a sua faculdade está
+                    pedindo um projeto para o semestre? E você não consegue
+                    pensar em nenhuma temática ou não tem nenhuma ideia? Aqui
+                    você pode encontrar problemas reais de ONGs reais e ainda
+                    vai poder ter a chance de transformá-los em projetos
+                    acadêmicos, com isso você já garante a sua nota e também
+                    colabora voluntariamente com alguma causa. Se interessou? Se
+                    inscreva e vamos conferir juntos o que as ONGs estão
+                    precisando!
+                </div>
+                <button class="subscribe-btn" onclick="scrollToForm()">Inscreva-se</button>
+            </div>
+            <div class="col-12 col-lg-4" id="imagem" onclick="scrollToForm()">
+                <div class="form-image">
+                    <h2>Conectando</h2>
+                    <h2>talentos digitais</h2>
+                    <br />
+                    <h3>transformando códigos em oportunidades reais.</h3>
+                    <br />
+                    <br />
+                    <img src="CSS/imagens/undraw_pair_programming_re_or4x.svg" />
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+        <div class="linguagens-info">
+            <h6>
+                Essas são as causas e linguagens que mais aparecem por
+                aqui, dê uma olhada!
+            </h6>
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <div class="linguagens">
+                <div class="row" id="linguagens">
+
+                    <div class="col-2 col-lg-1 " id="tags"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                            width="100" height="100" viewBox="0 0 48 48">
+                            <path fill="#F44336"
+                                d="M23.65,24.898c-0.998-1.609-1.722-2.943-2.725-5.455C19.229,15.2,31.24,11.366,26.37,3.999c2.111,5.089-7.577,8.235-8.477,12.473C17.07,20.37,23.645,24.898,23.65,24.898z">
+                            </path>
+                            <path fill="#F44336"
+                                d="M23.878,17.27c-0.192,2.516,2.229,3.857,2.299,5.695c0.056,1.496-1.447,2.743-1.447,2.743s2.728-0.536,3.579-2.818c0.945-2.534-1.834-4.269-1.548-6.298c0.267-1.938,6.031-5.543,6.031-5.543S24.311,11.611,23.878,17.27z">
+                            </path>
+                            <g>
+                                <path fill="#1565C0"
+                                    d="M32.084 25.055c1.754-.394 3.233.723 3.233 2.01 0 2.901-4.021 5.643-4.021 5.643s6.225-.742 6.225-5.505C37.521 24.053 34.464 23.266 32.084 25.055zM29.129 27.395c0 0 1.941-1.383 2.458-1.902-4.763 1.011-15.638 1.147-15.638.269 0-.809 3.507-1.638 3.507-1.638s-7.773-.112-7.773 2.181C11.683 28.695 21.858 28.866 29.129 27.395z">
+                                </path>
+                                <path fill="#1565C0"
+                                    d="M27.935,29.571c-4.509,1.499-12.814,1.02-10.354-0.993c-1.198,0-2.974,0.963-2.974,1.889c0,1.857,8.982,3.291,15.63,0.572L27.935,29.571z">
+                                </path>
+                                <path fill="#1565C0"
+                                    d="M18.686,32.739c-1.636,0-2.695,1.054-2.695,1.822c0,2.391,9.76,2.632,13.627,0.205l-2.458-1.632C24.271,34.404,17.014,34.579,18.686,32.739z">
+                                </path>
+                                <path fill="#1565C0"
+                                    d="M36.281,36.632c0-0.936-1.055-1.377-1.433-1.588c2.228,5.373-22.317,4.956-22.317,1.784c0-0.721,1.807-1.427,3.477-1.093l-1.42-0.839C11.26,34.374,9,35.837,9,37.017C9,42.52,36.281,42.255,36.281,36.632z">
+                                </path>
+                                <path fill="#1565C0"
+                                    d="M39,38.604c-4.146,4.095-14.659,5.587-25.231,3.057C24.341,46.164,38.95,43.628,39,38.604z">
+                                </path>
+                            </g>
+                        </svg>
+                        Java
+                    </div>
+                    <div class="col-2 col-lg-1" id="tags"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                            width="100" height="100" viewBox="0 0 48 48">
+                            <path fill="#E65100" d="M41,5H7l3,34l14,4l14-4L41,5L41,5z"></path>
+                            <path fill="#FF6D00" d="M24 8L24 39.9 35.2 36.7 37.7 8z"></path>
+                            <path fill="#FFF"
+                                d="M24,25v-4h8.6l-0.7,11.5L24,35.1v-4.2l4.1-1.4l0.3-4.5H24z M32.9,17l0.3-4H24v4H32.9z">
+                            </path>
+                            <path fill="#EEE"
+                                d="M24,30.9v4.2l-7.9-2.6L15.7,27h4l0.2,2.5L24,30.9z M19.1,17H24v-4h-9.1l0.7,12H24v-4h-4.6L19.1,17z">
+                            </path>
+                        </svg>
+                        HTML
+                    </div>
+                    <div class="col-2 col-lg-1" id="tags">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+                            viewBox="0 0 48 48">
+                            <path fill="#0277BD" d="M41,5H7l3,34l14,4l14-4L41,5L41,5z"></path>
+                            <path fill="#039BE5" d="M24 8L24 39.9 35.2 36.7 37.7 8z"></path>
+                            <path fill="#FFF"
+                                d="M33.1 13L24 13 24 17 28.9 17 28.6 21 24 21 24 25 28.4 25 28.1 29.5 24 30.9 24 35.1 31.9 32.5 32.6 21 32.6 21z">
+                            </path>
+                            <path fill="#EEE"
+                                d="M24,13v4h-8.9l-0.3-4H24z M19.4,21l0.2,4H24v-4H19.4z M19.8,27h-4l0.3,5.5l7.9,2.6v-4.2l-4.1-1.4L19.8,27z">
+                            </path>
+                        </svg>
+                        CSS
+                    </div>
+                    <div class="col-2 col-lg-1" id="tags">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+                            viewBox="0 0 48 48">
+                            <path fill="#f7df1e" d="M6,42V6h36v36H6z"></path>
+                            <path fill="#000001"
+                                d="M29.538,32.947c0.692,1.124,1.444,2.201,3.037,2.201c1.338,0,2.04-0.665,2.04-1.585 c0-1.101-0.726-1.492-2.198-2.133l-0.807-0.344c-2.329-0.988-3.878-2.226-3.878-4.841c0-2.41,1.845-4.244,4.728-4.244 c2.053,0,3.528,0.711,4.592,2.573l-2.514,1.607c-0.553-0.988-1.151-1.377-2.078-1.377c-0.946,0-1.545,0.597-1.545,1.377 c0,0.964,0.6,1.354,1.985,1.951l0.807,0.344C36.452,29.645,38,30.839,38,33.523C38,36.415,35.716,38,32.65,38 c-2.999,0-4.702-1.505-5.65-3.368L29.538,32.947z M17.952,33.029c0.506,0.906,1.275,1.603,2.381,1.603 c1.058,0,1.667-0.418,1.667-2.043V22h3.333v11.101c0,3.367-1.953,4.899-4.805,4.899c-2.577,0-4.437-1.746-5.195-3.368 L17.952,33.029z">
+                            </path>
+                        </svg>
+                        Javascript
+                    </div>
+                    <div class="col-2 col-lg-1" id="tags">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+                            viewBox="0 0 48 48">
+                            <path fill="#00549d" fill-rule="evenodd"
+                                d="M22.903,3.286c0.679-0.381,1.515-0.381,2.193,0 c3.355,1.883,13.451,7.551,16.807,9.434C42.582,13.1,43,13.804,43,14.566c0,3.766,0,15.101,0,18.867 c0,0.762-0.418,1.466-1.097,1.847c-3.355,1.883-13.451,7.551-16.807,9.434c-0.679,0.381-1.515,0.381-2.193,0 c-3.355-1.883-13.451-7.551-16.807-9.434C5.418,34.899,5,34.196,5,33.434c0-3.766,0-15.101,0-18.867 c0-0.762,0.418-1.466,1.097-1.847C9.451,10.837,19.549,5.169,22.903,3.286z"
+                                clip-rule="evenodd"></path>
+                            <path fill="#0086d4" fill-rule="evenodd"
+                                d="M5.304,34.404C5.038,34.048,5,33.71,5,33.255 c0-3.744,0-15.014,0-18.759c0-0.758,0.417-1.458,1.094-1.836c3.343-1.872,13.405-7.507,16.748-9.38 c0.677-0.379,1.594-0.371,2.271,0.008c3.343,1.872,13.371,7.459,16.714,9.331c0.27,0.152,0.476,0.335,0.66,0.576L5.304,34.404z"
+                                clip-rule="evenodd"></path>
+                            <path fill="#fff" fill-rule="evenodd"
+                                d="M24,10c7.727,0,14,6.273,14,14s-6.273,14-14,14 s-14-6.273-14-14S16.273,10,24,10z M24,17c3.863,0,7,3.136,7,7c0,3.863-3.137,7-7,7s-7-3.137-7-7C17,20.136,20.136,17,24,17z"
+                                clip-rule="evenodd"></path>
+                            <path fill="#0075c0" fill-rule="evenodd"
+                                d="M42.485,13.205c0.516,0.483,0.506,1.211,0.506,1.784 c0,3.795-0.032,14.589,0.009,18.384c0.004,0.396-0.127,0.813-0.323,1.127L23.593,24L42.485,13.205z"
+                                clip-rule="evenodd"></path>
+                            <path fill="#fff" fill-rule="evenodd" d="M31 21H33V27H31zM38 21H40V27H38z"
+                                clip-rule="evenodd"></path>
+                            <path fill="#fff" fill-rule="evenodd" d="M29 23H35V25H29zM36 23H42V25H36z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        C++
+                    </div>
+                    <div class="col-2 col-lg-1" id="tags">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+                            viewBox="0,0,256,256">
+                            <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <g transform="scale(5.33333,5.33333)">
+                                    <path
+                                        d="M22.903,3.286c0.679,-0.381 1.515,-0.381 2.193,0c3.355,1.883 13.451,7.551 16.807,9.434c0.679,0.38 1.097,1.084 1.097,1.846c0,3.766 0,15.101 0,18.867c0,0.762 -0.418,1.466 -1.097,1.847c-3.355,1.883 -13.451,7.551 -16.807,9.434c-0.679,0.381 -1.515,0.381 -2.193,0c-3.355,-1.883 -13.451,-7.551 -16.807,-9.434c-0.678,-0.381 -1.096,-1.084 -1.096,-1.846c0,-3.766 0,-15.101 0,-18.867c0,-0.762 0.418,-1.466 1.097,-1.847c3.354,-1.883 13.452,-7.551 16.806,-9.434z"
+                                        fill="#612c6e"></path>
+                                    <path
+                                        d="M5.304,34.404c-0.266,-0.356 -0.304,-0.694 -0.304,-1.149c0,-3.744 0,-15.014 0,-18.759c0,-0.758 0.417,-1.458 1.094,-1.836c3.343,-1.872 13.405,-7.507 16.748,-9.38c0.677,-0.379 1.594,-0.371 2.271,0.008c3.343,1.872 13.371,7.459 16.714,9.331c0.27,0.152 0.476,0.335 0.66,0.576z"
+                                        fill="#633e6e"></path>
+                                    <path
+                                        d="M24,10c7.727,0 14,6.273 14,14c0,7.727 -6.273,14 -14,14c-7.727,0 -14,-6.273 -14,-14c0,-7.727 6.273,-14 14,-14zM24,17c3.863,0 7,3.136 7,7c0,3.863 -3.137,7 -7,7c-3.863,0 -7,-3.137 -7,-7c0,-3.864 3.136,-7 7,-7z"
+                                        fill="#ffffff"></path>
+                                    <path
+                                        d="M42.485,13.205c0.516,0.483 0.506,1.211 0.506,1.784c0,3.795 -0.032,14.589 0.009,18.384c0.004,0.396 -0.127,0.813 -0.323,1.127l-19.084,-10.5z"
+                                        fill="#623f6a"></path>
+                                    <path d="M34,20h1v8h-1zM37,20h1v8h-1z" fill="#ffffff"></path>
+                                    <path d="M32,25h8v1h-8zM32,22h8v1h-8z" fill="#ffffff"></path>
+                                </g>
+                            </g>
+                        </svg>
+                        C#
+                    </div>
+                    <div class="col-2 col-lg-1" id="tags">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+                            viewBox="0 0 48 48">
+                            <path fill="#0277BD"
+                                d="M24.047,5c-1.555,0.005-2.633,0.142-3.936,0.367c-3.848,0.67-4.549,2.077-4.549,4.67V14h9v2H15.22h-4.35c-2.636,0-4.943,1.242-5.674,4.219c-0.826,3.417-0.863,5.557,0,9.125C5.851,32.005,7.294,34,9.931,34h3.632v-5.104c0-2.966,2.686-5.896,5.764-5.896h7.236c2.523,0,5-1.862,5-4.377v-8.586c0-2.439-1.759-4.263-4.218-4.672C27.406,5.359,25.589,4.994,24.047,5z M19.063,9c0.821,0,1.5,0.677,1.5,1.502c0,0.833-0.679,1.498-1.5,1.498c-0.837,0-1.5-0.664-1.5-1.498C17.563,9.68,18.226,9,19.063,9z">
+                            </path>
+                            <path fill="#FFC107"
+                                d="M23.078,43c1.555-0.005,2.633-0.142,3.936-0.367c3.848-0.67,4.549-2.077,4.549-4.67V34h-9v-2h9.343h4.35c2.636,0,4.943-1.242,5.674-4.219c0.826-3.417,0.863-5.557,0-9.125C41.274,15.995,39.831,14,37.194,14h-3.632v5.104c0,2.966-2.686,5.896-5.764,5.896h-7.236c-2.523,0-5,1.862-5,4.377v8.586c0,2.439,1.759,4.263,4.218,4.672C19.719,42.641,21.536,43.006,23.078,43z M28.063,39c-0.821,0-1.5-0.677-1.5-1.502c0-0.833,0.679-1.498,1.5-1.498c0.837,0,1.5,0.664,1.5,1.498C29.563,38.32,28.899,39,28.063,39z">
+                            </path>
+                        </svg>
+                        Python
+                    </div>
+
+                    <div class="col-2 col-lg-1" id="tags">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+                            viewBox="0 0 48 48">
+                            <rect width="36" height="36" x="6" y="6" fill="#1976d2"></rect>
+                            <polygon fill="#fff"
+                                points="27.49,22 14.227,22 14.227,25.264 18.984,25.264 18.984,40 22.753,40 22.753,25.264 27.49,25.264">
+                            </polygon>
+                            <path fill="#fff"
+                                d="M39.194,26.084c0,0-1.787-1.192-3.807-1.192s-2.747,0.96-2.747,1.986 c0,2.648,7.381,2.383,7.381,7.712c0,8.209-11.254,4.568-11.254,4.568V35.22c0,0,2.152,1.622,4.733,1.622s2.483-1.688,2.483-1.92 c0-2.449-7.315-2.449-7.315-7.878c0-7.381,10.658-4.469,10.658-4.469L39.194,26.084z">
+                            </path>
+                        </svg>
+                        Typescript
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="causas-container">
+                <div class="row-causa">
+                    <div class="causas-item">
+                        <img src="CSS/imagens/foto fome.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Fome</h3>
+                            <!-- <p>Ajude a defender essa causa</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="CSS/imagens/foto lgbtqiap+.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>LGBTQIAP+</h3>
+                            <!-- <p>Texto da imagem 2</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="CSS/imagens/foto alunos.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Crianças</h3>
+                            <!-- <p>Texto da imagem 3</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="CSS/imagens/foto naatureza.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Natureza</h3>
+                            <!-- <p>Texto da imagem 4</p> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row-causa">
+                    <div class="causas-item">
+                        <img src="CSS/imagens/foto animais.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Animais</h3>
+                            <!-- <p>Texto da imagem 5</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="CSS/imagens/foto educação.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Educação</h3>
+                            <!-- <p>Texto da imagem 6</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="CSS/imagens/foto pobreza.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Pobreza</h3>
+                            <!-- <p>Texto da imagem 7</p> -->
+                        </div>
+                    </div>
+                    <div class="causas-item">
+                        <img src="CSS/imagens/foto clima.jpeg" alt="" />
+                        <div class="causas-overlay">
+                            <h3>Clima</h3>
+                            <!-- <p>Texto da imagem 8</p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="login">
+            <div class="como_comecar_ong">
+                <img src="CSS/imagens/foto ong.jpeg" alt="" />
+                <h4>ONG | Como começar?</h4>
+                <h1>Passo a passo do que você precisa fazer:</h1>
+                <ul>
+                    <li><i class="bi bi-arrow-right-circle"></i>
+                        Login (para segundo acesso em diante) / Cadastro
+                        inicial (primeiro acesso)
+                    </li>
+                    <li><i class="bi bi-arrow-right-circle"></i>Cadastrar sua ONG</li>
+                    <li><i class="bi bi-arrow-right-circle"></i>Cadastrar seu(s) problema(s)</li>
+                    <li><i class="bi bi-arrow-right-circle"></i>
+                        Esperar as chamadas de reunião para aceite do
+                        projeto
+                    </li>
+                </ul>
+
+            </div>
+            <div class="como_comecar_aluno">
+                <img src="CSS/imagens/foto grupo.jpeg" alt="" />
+
+                <h4>Aluno | Como começar?</h4>
+                <h1>Passo a passo do que você precisa fazer:</h1>
+                <ul>
+                    <li><i class="bi bi-arrow-right-circle"></i>
+                        Login (para segundo acesso em diante) / Cadastro
+                        inicial (primeiro acesso)
+                    </li>
+                    <li><i class="bi bi-arrow-right-circle"></i>Se cadastrar</li>
+                    <li><i class="bi bi-arrow-right-circle"></i>Definir um lider e cadastrar sua equipe</li>
+                    <li><i class="bi bi-arrow-right-circle"></i>
+                        Explorar nossa plataforma e encontrar um
+                        problema
+                    </li>
+                    <li><i class="bi bi-arrow-right-circle"></i>
+                        Propor uma reunião com a ONG e receber o aceite
+                        do projeto
+                    </li>
+                    <li><i class="bi bi-arrow-right-circle"></i>Desenvolver!!</li>
+                </ul>
+
+            </div>
+        </div>
+        <div id="form-section" class="form-container">
+            <h2>Inscreva-se para receber mais informações</h2>
+            <form>
+                <div class="input-box">
+                    <input type="text" id="nome" placeholder="Seu nome" required>
+                    <input type="email" id="email" placeholder="Seu email" required>
+                    <input type="number" id="tel" placeholder="Seu telefone">
+
+                </div>
+                <button class="form-btn" onclick="inscrever(event)">Inscrever-se</button>
+            </form>
+        </div>
+        <footer>&copy;VolunteerCoders 2024</footer>
+    </div>
+    <script>
+        window.sr = ScrollReveal({ reset: true });
+
+        sr.reveal(".container", {
+            rotate: { x: 0, y: 80, z: 0 },
+            duration: 2000,
+        });
+        sr.reveal(".causas-container", {
+            rotate: { x: 0, y: 80, z: 0 },
+            delay: 200,
+            duration: 2000,
+        });
+
+        sr.reveal(".linguagens-info", {
+            // origin: 'left',
+            rotate: { x: 0, y: 80, z: 0 },
+            delay: 200,
+            duration: 2000,
+        });
+
+        sr.reveal(".login", {
+            origin: "top",
+            distance: "10px",
+            duration: 2000,
+            delay: 500,
+            easing: "ease",
+        });
+        sr.reveal(".form-container", {
+            origin: "top",
+            distance: "10px",
+            duration: 2000,
+            delay: 500,
+            easing: "ease",
+        });
+
+
+        function scrollToForm() {
+            const formSection = document.getElementById('form-section');
+            formSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        function inscrever(event) {
+            event.preventDefault()
+            var nome = document.querySelector('#nome').value
+            var email = document.querySelector('#email').value
+
+
+            if (nome == "" || email == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Preencha todos os campos.'
+                })
+
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Email enviado',
+                    text: 'Enviaremos um email para mais informações.'
+                }).then(() => {
+                    window.location.href = '';
+                });
+
+            }
+            document.querySelector('#nome').value = ""
+            document.querySelector('#email').value = ""
+        }
+    </script>
+</body>
+
+</html>

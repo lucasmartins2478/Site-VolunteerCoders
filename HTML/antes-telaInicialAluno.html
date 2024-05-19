@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tela Inicial Aluno 2</title>
+        <link rel="stylesheet" href="../CSS/styles.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <style>
+            .equipes-cadastradas {
+                width: 100%;
+                padding: 30px 50px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card-equipe {
+                display: flex;
+                margin-top: 30px;
+                width: 85%;
+                height: 90%;
+                border-radius: 35px;
+                background-color: #fff;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .minha-equipe {
+                margin-top: 5px;
+                margin-bottom: 1px;
+                color: #1166ca;
+                width: 60%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+            }
+
+            .card-conteudo {
+                display: flex;
+                width: 100%;
+                height: 100%;
+            }
+
+            #user-aluno {
+                margin-bottom: 10px;
+                margin-top: 1.3rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .side-item {
+                height: 60px;
+                display: flex;
+                justify-content: center;
+            }
+
+            #user-aluno img {
+                margin-bottom: 30px;
+            }
+
+            #nome-aluno,
+            #faculdade-aluno {
+                margin-bottom: 10px;
+            }
+
+            .detalhe-aluno {
+                display: none;
+            }
+
+            .open-sidebar .detalhe-aluno {
+                display: block;
+                background-color: #eaf4ff;
+                height: 35px;
+                display: flex;
+                width: 170px;
+                border-radius: 15px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .img-etc {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .congrats {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 20px;
+                margin: 5px;
+                margin-top: 20px;
+            }
+
+            .equipe-info {
+                width: 50%;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .group {
+                height: 80%;
+                opacity: 0.9;
+                max-width: 80%;
+            }
+
+            .equipe-info-conteudo {
+                padding: 25px 5px 40px 30px;
+                width: 90%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .minha-equipe {
+                align-self: center;
+            }
+
+            .nome-equipe,
+            .nome-lider,
+            .membros {
+                display: flex;
+            }
+
+            .tudo-de-membros {
+                height: 60%;
+            }
+
+            .membros {
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 15px 30px 10px 0;
+                height: 100%;
+
+                border-radius: 20px;
+                background-color: #ffffff;
+                box-shadow: 0px 0px 10px rgba(175, 188, 202, 0.5);
+            }
+
+            .nome-equipe,
+            .nome-lider {
+                justify-content: space-between;
+                height: 40px;
+                border-radius: 20px;
+                background-color: #ffffff;
+                box-shadow: 0px 0px 10px rgba(175, 188, 202, 0.5);
+                padding: 12px 30px;
+            }
+
+            .membro {
+                width: 100%;
+                height: 15%;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+
+            .membro-img {
+                height: 100%;
+                width: 32%;
+                display: flex;
+                justify-content: center;
+                cursor: pointer;
+            }
+
+            .membro-img img {
+                max-width: 100%;
+                border-radius: 20px;
+            }
+
+            .membro-infos {
+                width: 70%;
+                display: flex;
+                justify-content: space-between;
+                align-items: end;
+                padding: 12px 20px;
+
+                border-radius: 20px;
+                background-color: #ffffff;
+                box-shadow: 0px 0px 10px rgba(175, 188, 202, 0.5);
+            }
+
+            .membro-infos-p {
+                font-size: 15px;
+            }
+
+            .participantes {
+                margin-left: 17px;
+                margin-bottom: 5px;
+                text-align: center;
+            }
+
+            .img-fundo {
+                height: 350px;
+                position: absolute;
+                top: 250px;
+                opacity: 0.7;
+            }
+
+            .equipes-cadastradas-h3 {
+                color: #0a52a3;
+                margin-top: 30px;
+            }
+
+            .equipes-cadastradas-p {
+                margin-top: 40px;
+                color: #4e5358;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container-tela-ong">
+            <div class="nav-bar">
+                <div class="button-cadastro-problema">
+                    <button>
+                        <a href="../HTML/cadastroEquipe.html">Criar Equipe</a>
+                    </button>
+                </div>
+            </div>
+            <div class="conteudo-tela">
+                <div id="side-bar" class="side-bar-aluno">
+                    <div id="content-items">
+                        <div class="user" id="user-aluno">
+                            <img
+                                src="../CSS/imagens/usuario-de-perfil.png"
+                                alt="Avatar"
+                            />
+                            <span id="nome-aluno" class="detalhe-aluno"
+                                >Aluno</span
+                            >
+                            <span id="faculdade-aluno" class="detalhe-aluno"
+                                >Faculdade do Aluno</span
+                            >
+                        </div>
+
+                        <ul class="side-items" id="side-items-aluno">
+                            <li class="side-item" id="side-item-aluno">
+                                <a href="../HTML/homeAluno.html">
+                                    <i
+                                        id="open-icon"
+                                        class="fa-solid fa-home"
+                                        onclick="redirecionarParaHome()"
+                                    ></i>
+                                    <span
+                                        class="item-description"
+                                        onclick="redirecionarParaHome()"
+                                    >
+                                        Home
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li class="side-item" id="side-item-aluno">
+                                <a href="#">
+                                    <i
+                                        id="open-icon"
+                                        class="fa-solid fa-gear home"
+                                    ></i>
+                                    <span class="item-description">
+                                        Configurações
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li class="side-item" id="side-item-aluno">
+                                <a href="#">
+                                    <i
+                                        id="open-icon"
+                                        class="fa-solid fa-circle-question"
+                                    ></i>
+                                    <span class="item-description"> Info </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <button id="btn-open-side-bar">
+                            <i
+                                id="open-btn-icon"
+                                class="fa-solid fa-chevron-right"
+                            ></i>
+                        </button>
+                    </div>
+                    <div id="logout">
+                        <button id="logout-btn" onclick="logout(event)">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="item-description"> Sair </span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="equipes-cadastradas">
+                    <h3 class="equipes-cadastradas-h3">
+                        Ei, não trabalhe sozinho!
+                    </h3>
+                    <p class="equipes-cadastradas-p">
+                        Crie uma equipe e juntos, solucionem o problema de uma
+                        ONG. :)
+                    </p>
+                    <img
+                        class="img-fundo"
+                        src="../CSS/imagens/Programming-amico.png"
+                        alt=""
+                    />
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document
+                .getElementById("btn-open-side-bar")
+                .addEventListener("click", function () {
+                    document
+                        .getElementById("side-bar")
+                        .classList.toggle("open-sidebar");
+                });
+
+            function logout(event) {
+                event.preventDefault();
+
+                Swal.fire({
+                    icon: "warning",
+                    title: "Atenção!",
+                    text: "Quer mesmo sair do Sistema!?",
+                    showCancelButton: true,
+                    confirmButtonText: "Sim",
+                    cancelButtonText: "Não",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "telaInicialONG.html";
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minha equipe</title>
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .equipes-cadastradas {
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-equipe {
+            display: flex;
+            margin-top: 30px;
+            width: 85%;
+            height: 90%;
+            border-radius: 35px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .minha-equipe {
+            /* margin-top: 5px; */
+            margin-bottom: 1px;
+            color: #1166ca;
+            width: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card-conteudo {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        #user-aluno {
+            margin-bottom: 10px;
+            margin-top: 1.3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .side-item {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #user-aluno img {
+            margin-bottom: 30px;
+        }
+
+        #nome-aluno,
+        #faculdade-aluno {
+            margin-bottom: 10px;
+        }
+
+        .detalhe-aluno {
+            display: none;
+        }
+
+        .open-sidebar .detalhe-aluno {
+            display: block;
+            background-color: #eaf4ff;
+            height: 35px;
+            display: flex;
+            width: 170px;
+            border-radius: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-etc {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .congrats {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px 20px;
+            margin: 5px;
+            margin-top: 20px;
+        }
+
+        .equipe-info {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .group {
+            height: 80%;
+            opacity: 0.9;
+            max-width: 80%;
+        }
+
+        .equipe-info-conteudo {
+            padding: 25px 5px 40px 30px;
+            width: 90%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .minha-equipe {
+            align-self: center;
+        }
+
+        .nome-equipe,
+        .nome-lider,
+        .membros {
+            display: flex;
+        }
+
+        .tudo-de-membros {
+            height: 60%;
+        }
+
+        .membros {
+            /* flex-direction: column;
+            justify-content: space-between;
+            padding: 15px 30px 10px 0;
+            height: 100%;
+            border-radius: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(175, 188, 202, 0.5); */
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            flex-direction: column;
+            padding: 15px 30px 10px 0;
+            height: 100%;
+            border-radius: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(175, 188, 202, 0.5);
+        }
+
+        .nome-equipe,
+        .nome-lider {
+            justify-content: space-around;
+            height: 40px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(175, 188, 202, 0.5);
+            padding: 12px 0 12px 0;
+        }
+
+        .membro {
+            /* width: 100%; */
+            height: 15%;
+            width: 60%;
+            /* height: auto; */
+            display: flex;
+            justify-content: space-between;
+            margin-top:20px;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .membro img {
+            width: 45px;
+            height: 35px;
+            border-radius: 30px;
+            padding: 2px;
+            margin-left: 10px;
+        }
+
+        .membro-img {
+            height: 40%;
+            width: 10%;
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .membro-img img {
+            max-width: 100%;
+            border-radius: 20px;
+            padding: 3px;
+        }
+
+        .membro-infos {
+            width: 70%;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            padding: 12px 20px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(175, 188, 202, 0.5);
+        }
+
+        .membro-infos-p {
+            font-size: 15px;
+        }
+
+        .participantes {
+            margin-left: 17px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .equipe-info .x {
+            background-color: #fff;
+            border: #fff;
+            width: 30px;
+            margin-top: 15px;
+            margin-left: 510px;
+            font-size: 25px;
+            margin-bottom: 0px;
+            border-radius: 50px;
+            padding: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 100px;
+            right: 170px;
+        }
+
+        .equipe-info .x:hover {
+            background-color: #eaf4ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-tela-ong">
+        <div class="nav-bar">
+            <div class="button-cadastro-problema"></div>
+        </div>
+        <div class="conteudo-tela">
+            <div id="side-bar" class="side-bar-aluno">
+                <div id="content-items">
+                    <div class="user" id="user-aluno">
+                        <img src="../CSS/imagens/usuario-de-perfil.png" alt="Avatar" />
+                        <span id="nome-aluno" class="detalhe-aluno">Aluno</span>
+                        <span id="faculdade-aluno" class="detalhe-aluno">Faculdade do Aluno</span>
+                    </div>
+
+                    <ul class="side-items" id="side-items-aluno">
+                        <li class="side-item" id="side-item-aluno">
+                            <a href="../HTML/homeAluno.html">
+                                <i id="open-icon" class="fa-solid fa-home" onclick="redirecionarParaHome()"></i>
+                                <span class="item-description" onclick="redirecionarParaHome()">
+                                    Home
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="side-item" id="side-item-aluno">
+                            <a href="../HTML/telaRedirecionamentoEquipe.html">
+                                <i id="open-icon" class="fa-solid fa-users" onclick="redirecionarParaMinhaEquipe()"></i>
+                                <span class="item-description" onclick="redirecionarParaMinhaEquipe()">
+                                    Minha Equipe
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="side-item" id="side-item-aluno">
+                            <a href="#">
+                                <i id="open-icon" class="fa-solid fa-gear home"></i>
+                                <span class="item-description">
+                                    Configurações
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="side-item" id="side-item-aluno">
+                            <a href="#">
+                                <i id="open-icon" class="fa-solid fa-circle-question"></i>
+                                <span class="item-description"> Info </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <button id="btn-open-side-bar">
+                        <i id="open-btn-icon" class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div id="logout">
+                    <button id="logout-btn" onclick="logout(event)">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="item-description"> Sair </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="equipes-cadastradas">
+                <div class="texto-explicacao">
+                    Clique no X e explore os problemas das ONG's
+                </div>
+                <div class="card-equipe" id="card-equipe">
+                    <div class="card-conteudo">
+                        <div class="img-etc">
+                            <div class="congrats">
+                                <p>Parabéns! Agora você tem um time.</p>
+                                <p>
+                                    Comece a explorar as possibilidades e
+                                    ajude uma ONG.
+                                </p>
+                            </div>
+                            <img class="group" src="../CSS/imagens/Group discussion.gif" alt="" />
+                        </div>
+
+                        <div class="equipe-info">
+                            <button class="x" onclick="fecharEquipe()">
+                                X
+                            </button>
+                            <div class="equipe-info-conteudo">
+                                <h2 class="minha-equipe">Minha Equipe</h2>
+
+                                <div class="nome-equipe">
+                                    <span id="nome-equipe">Nome da Equipe:</span>
+                                    <p> </p>
+                                </div>
+
+                                <div class="nome-lider">
+                                    <span id="nome-lider">Líder da Equipe:</span>
+                                    <p></p>
+                                </div>
+
+                                <div class="tudo-de-membros">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var nomeLider = localStorage.getItem("nome");
+
+        document
+            .getElementById("btn-open-side-bar")
+            .addEventListener("click", function () {
+                document
+                    .getElementById("side-bar")
+                    .classList.toggle("open-sidebar");
+            });
+
+        function logout(event) {
+            event.preventDefault();
+
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção!",
+                text: "Quer mesmo sair do Sistema!?",
+                showCancelButton: true,
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "apresentacao.html";
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            let equipeRecente = JSON.parse(localStorage.getItem("equipeRecente"));
+            console.log("Dados da equipe recuperados:", equipeRecente);
+
+            // console.log(equipeRecente)
+
+            if (equipeRecente) {
+                document.querySelector(".nome-equipe p").textContent = equipeRecente.nomeEquipe;
+                document.querySelector(".nome-lider p").textContent = nomeLider;
+                console.log(nomeLider)
+
+                let tudoDeMembros = document.querySelector('.tudo-de-membros');
+
+                let membrosDiv = document.createElement('div');
+                membrosDiv.classList.add('membros');
+
+                let equipeInfoDiv = document.querySelector('.membros');
+                // equipeInfoDiv.innerHTML = '';
+
+                let span = document.createElement('span');
+                span.classList.add('participantes');
+                span.textContent = "Participantes:";
+                membrosDiv.appendChild(span);
+
+                let imagens = [
+                    '../CSS/imagens/menina.png',
+                    '../CSS/imagens/homem.png',
+                    '../CSS/imagens/menina2.png',
+                    '../CSS/imagens/homem2.png'
+                ];
+
+                let indiceAleatorio = Math.floor(Math.random() * imagens.length);
+                let src = imagens[indiceAleatorio];
+
+                equipeRecente.emails.forEach(function (email) {
+                    let membroEquipe = document.createElement('div');
+                    membroEquipe.classList.add('membro');
+
+                    // let membroImg = document.createElement('div');
+                    // membroImg.classList.add('membro-img');
+
+                    let indiceAleatorio = Math.floor(Math.random() * imagens.length);
+                    let src = imagens[indiceAleatorio];
+
+                    let img = document.createElement('img');
+                    img.classList.add('membro-img');
+                    img.setAttribute('src', src);
+
+                    membroEquipe.appendChild(img);
+                    // membrosDiv.appendChild(membroImg);
+
+                    let membroInfosDiv = document.createElement('div');
+                    membroInfosDiv.classList.add('membro-infos');
+
+                    let membroEmailP = document.createElement('p');
+                    membroEmailP.className = 'membro-infos-p';
+                    membroEmailP.textContent = email;
+
+                    membroInfosDiv.appendChild(membroEmailP);
+                    membroEquipe.appendChild(membroInfosDiv);
+                    membrosDiv.appendChild(membroEquipe);
+
+                });
+                tudoDeMembros.appendChild(membrosDiv);
+            }
+        });
+
+        function fecharEquipe() {
+            var equipeCadastrada = document.querySelector(
+                ".equipes-cadastradas"
+            );
+            equipeCadastrada.style.display = "none";
+            window.location.href = "../HTML/homeAluno.html";
+        }
+        function redirecionarParaMinhaEquipe() {
+            window.location.href = "../HTML/telaInicialEquipe.html";
+        }
+        function redirecionarParaHome() {
+            window.location.href = "../HTML/homeAluno.html";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tela Inicial</title>
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            pointer-events: none;
+            display: none;
+        }
+
+        .detalhes-open .overlay {
+            pointer-events: auto;
+            display: block;
+        }
+
+        .detalhes {
+            text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 700px;
+            height: 600px;
+            max-width: 700px;
+            word-wrap: break-word;
+        }
+
+        .scrollable {
+            overflow-x: scroll;
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .btn-detalhes {
+            color: #fff;
+            font-size: 17px;
+            position: static;
+            top: 590px;
+        }
+
+        .detalhes .button-detalhe {
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .detalhes .button-detalhe button {
+            background-color: #1166ca;
+            width: 100px;
+            height: 30px;
+            border-radius: 16px;
+            border: solid 0px;
+            font-size: 18px;
+            color: #fff;
+            margin-top: 50px;
+        }
+
+        .card {
+            word-wrap: break-word;
+            flex: 0 0 auto;
+            width: 25rem;
+        }
+
+        .card p {
+            margin-top: 3px;
+            font-size: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            margin-bottom: s;
+        }
+
+        .seta {
+            position: static;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+        }
+
+        .side-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            list-style: none;
+            margin-top: 45px;
+        }
+
+        .wrapper {
+            max-width: 1100px;
+            width: 100%;
+            position: relative;
+          }
+          .wrapper i {
+            top: 50%;
+            height: 50px;
+            width: 50px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            position: absolute;
+            text-align: center;
+            line-height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+            transform: translateY(-50%);
+            transition: transform 0.1s linear;
+          }
+          .wrapper i:active{
+            transform: translateY(-50%) scale(0.85);
+          }
+          .wrapper i:first-child{
+            left: -50px;
+          }
+          .wrapper i:last-child{
+            right: -12px;
+          }
+          .wrapper .carousel{
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: calc((100% / 3) - 12px);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 16px;
+            border-radius: 8px;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+          }
+          .carousel::-webkit-scrollbar {
+            display: none;
+          }
+          .carousel.no-transition {
+            scroll-behavior: auto;
+          }
+          .carousel.dragging {
+            scroll-snap-type: none;
+            scroll-behavior: auto;
+          }
+          .carousel.dragging .card {
+            cursor: grab;
+            user-select: none;
+          }
+          .carousel :where(.card, .img) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .carousel .card {
+            scroll-snap-align: start;
+            height: 15rem;
+            width: 20rem;
+            list-style: none;
+            background: #fff;
+            cursor: pointer;
+            padding-bottom: 15px;
+            flex-direction: column;
+            border-radius: 8px;
+          }
+          .carousel .card .img {
+            background: #8B53FF;
+            height: 148px;
+            width: 148px;
+            border-radius: 50%;
+          }
+          .card .img img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+          }
+          .carousel .card h2 {
+            font-weight: 500;
+            font-size: 1.56rem;
+            margin: 30px 0 5px;
+          }
+          .carousel .card span {
+            color: #6A6D78;
+            font-size: 1.31rem;
+          }
+          .title{
+            margin-bottom: 2rem;
+          }
+          
+          @media screen and (max-width: 900px) {
+            .wrapper .carousel {
+              grid-auto-columns: calc((100% / 2) - 9px);
+            }
+          }
+          
+          @media screen and (max-width: 600px) {
+            .wrapper .carousel {
+              grid-auto-columns: 100%;
+            }
+          }
+    </style>
+</head>
+
+<body>
+    <div class="container-tela-ong">
+        <div class="nav-bar">
+            <div class="button-cadastro-problema">
+                <button>
+                    <a href="../HTML/cadastroProblema.html">Cadastrar Problema</a>
+                </button>
+            </div>
+        </div>
+        <div class="conteudo-tela">
+            <div id="side-bar">
+                <div id="content-items">
+                    <div class="user">
+                        <img src="../CSS/imagens/usuario-de-perfil.png" alt="Avatar" />
+                    </div>
+                    <ul class="side-items">
+                        <li class="side-item" id="side-item-aluno">
+                            <a href="../HTML/telaInicialONG.html">
+                                <i id="open-icon" class="fa-solid fa-home" onclick="redirecionarParaInicialONG()"></i>
+                                <span class="item-description" onclick="redirecionarParaInicialONG()">
+                                    Home
+                                </span>
+                            </a>
+                        </li>
+                        <li class="side-item">
+                            <a href="#">
+                                <i id="open-icon" class="fa-solid fa-gear"></i>
+                                <span class="item-description">Configurações</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <button id="btn-open-side-bar">
+                        <i id="open-btn-icon" class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div id="logout">
+                    <button id="logout-btn" onclick="logout(event)">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="item-description">Sair</span>
+                    </button>
+                </div>
+            </div>
+            <div class="conteudo">
+
+                <h3 class="title">Problemas Cadastrados</h3>
+                <div class="wrapper">
+                    <i id="left" class="fa-solid fa-angle-left"></i>
+                    <ul class="carousel">
+    
+                      
+                    </ul>
+                    <i id="right" class="fa-solid fa-angle-right"></i>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay"></div>
+    <div id="detalhes-container" class="detalhes-container"></div>
+    <script>
+        document
+            .getElementById("btn-open-side-bar")
+            .addEventListener("click", function () {
+                document
+                    .getElementById("side-bar")
+                    .classList.toggle("open-sidebar");
+            });
+
+        function logout(event) {
+            event.preventDefault();
+
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção!",
+                text: "Quer mesmo sair do Sistema!?",
+                showCancelButton: true,
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "apresentacao.html";
+                }
+            });
+        }
+
+        function excluirCard(event, titulo) {
+            event.preventDefault();
+
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção!",
+                text: "Quer mesmo excluir esse problema?",
+                showCancelButton: true,
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Remover o card do problema da tela
+                    const card = event.target.closest(".card");
+                    card.remove();
+
+                    // Recuperar todos os problemas cadastrados
+                    let problemas =
+                        JSON.parse(localStorage.getItem("problemas")) || [];
+
+                    // Marcar o problema como excluído
+                    problemas.forEach((problema) => {
+                        if (problema.titulo === titulo) {
+                            problema.excluido = true;
+                        }
+                    });
+
+                    localStorage.setItem(
+                        "problemas",
+                        JSON.stringify(problemas)
+                    );
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const problemContainer =
+                document.querySelector(".carousel");
+
+            // Recuperar todos os problemas cadastrados
+            let problemas =
+                JSON.parse(localStorage.getItem("problemas")) || [];
+
+            // Para cada problema, criar e adicionar um card ao container de problemas
+            problemas.forEach(function (problema) {
+                // Verificar se o problema não está excluído antes de criar o card
+                if (!problema.excluido) {
+                    const newCard = document.createElement("li");
+                    newCard.classList.add("card");
+                    newCard.innerHTML = `
+                    <li>
+                        <h2>${problema.responsavel}</h2>
+                        <span>${problema.titulo}</span>
+                      </li>
+                `;
+                    problemContainer.appendChild(newCard);
+                }
+            });
+
+            const detalhesContainer =
+                document.getElementById("detalhes-container");
+            detalhesContainer.addEventListener("scroll", function () {
+                const closeButton = document.querySelector(
+                    ".button-detalhe button"
+                );
+                const contentHeight = detalhesContainer.scrollHeight;
+                const containerHeight = detalhesContainer.clientHeight;
+                const scrollTop = detalhesContainer.scrollTop;
+                const distanceToBottom =
+                    contentHeight - (scrollTop + containerHeight);
+                if (distanceToBottom <= 10) {
+                    closeButton.style.bottom = 10 - distanceToBottom + "px";
+                } else {
+                    closeButton.style.bottom = "20px";
+                }
+            });
+            if (
+                detalhesContainer.scrollHeight >
+                detalhesContainer.clientHeight
+            ) {
+                detalhesContainer.classList.add("scrollable");
+            }
+        });
+
+        function mostrarDetalhes(titulo, segmento, descricaoProblema) {
+            const dadosONG = JSON.parse(localStorage.getItem("dadosONG"));
+
+            // Verificar se os dados da ONG existem antes de passá-los para a função
+            if (dadosONG) {
+                const { nome, sobre, cidade, telefone, email, url } =
+                    dadosONG;
+
+                document.body.classList.add("detalhes-open");
+
+                const detalhesContainer =
+                    document.getElementById("detalhes-container");
+                detalhesContainer.innerHTML = `
+                <div class="detalhes">
+                
+                        <h2>Detalhes do Problema</h2>
+                        <p><b>Título:</b> ${titulo}</p>
+                        <p><b>Segmento:</b> ${segmento}</p>
+                        <p><b>Descrição:</b> <p>
+                        <p class="descricao">${descricaoProblema}</p>
+
+                        <br>
+                        <h2>Detalhes da ONG</h2>
+                        <p><b>Nome:</b> ${nome}</p>
+                        <p><b>Descrição:</b> ${sobre}</p>
+                        <p><b>Endereço:</b> ${cidade}</p>
+                        <br>
+                        <p>Contato:</p>
+                        <p><b>Telefone:</b> ${telefone}</p>
+                        <p><b>E-mail:</b> ${email}</p>
+                        <p><b>Site:</b> ${url}</p>
+                    
+                    <div class="button-detalhe">
+                        <button onclick="fecharDetalhes()">Fechar</button>
+                    </div>
+                </div>
+            `;
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro",
+                    text: "Os dados da ONG não foram encontrados.",
+                });
+            }
+        }
+
+        function fecharDetalhes() {
+            document.getElementById("detalhes-container").innerHTML = "";
+            document.body.classList.remove("detalhes-open");
+        }
+        function redirecionarParaInicialONG() {
+            window.location.href = "../HTML/telaInicialONG.html";
+        }
+
+
+
+        const wrapper = document.querySelector(".wrapper");
+        const carousel = document.querySelector(".carousel");
+        const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+        const arrowBtns = document.querySelectorAll(".wrapper i");
+        const carouselChildrens = [...carousel.children];
+
+        let isDragging = false, isAutoPlay = true, startX, startScrollLeft, timeoutId;
+
+        // Get the number of cards that can fit in the carousel at once
+        let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+
+        // Insert copies of the last few cards to beginning of carousel for infinite scrolling
+        carouselChildrens.slice(-cardPerView).reverse().forEach(card => {
+            carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+        });
+
+        // Insert copies of the first few cards to end of carousel for infinite scrolling
+        carouselChildrens.slice(0, cardPerView).forEach(card => {
+            carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+        });
+
+        // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox
+        carousel.classList.add("no-transition");
+        carousel.scrollLeft = carousel.offsetWidth;
+        carousel.classList.remove("no-transition");
+
+        // Add event listeners for the arrow buttons to scroll the carousel left and right
+        arrowBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                carousel.scrollLeft += btn.id == "left" ? -firstCardWidth : firstCardWidth;
+            });
+        });
+
+        const dragStart = (e) => {
+            isDragging = true;
+            carousel.classList.add("dragging");
+            // Records the initial cursor and scroll position of the carousel
+            startX = e.pageX;
+            startScrollLeft = carousel.scrollLeft;
+        }
+
+        const dragging = (e) => {
+            if (!isDragging) return; // if isDragging is false return from here
+            // Updates the scroll position of the carousel based on the cursor movement
+            carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+        }
+
+        const dragStop = () => {
+            isDragging = false;
+            carousel.classList.remove("dragging");
+        }
+
+        const infiniteScroll = () => {
+            // If the carousel is at the beginning, scroll to the end
+            if (carousel.scrollLeft === 0) {
+                carousel.classList.add("no-transition");
+                carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth);
+                carousel.classList.remove("no-transition");
+            }
+            // If the carousel is at the end, scroll to the beginning
+            else if (Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
+                carousel.classList.add("no-transition");
+                carousel.scrollLeft = carousel.offsetWidth;
+                carousel.classList.remove("no-transition");
+            }
+
+            // Clear existing timeout & start autoplay if mouse is not hovering over carousel
+            clearTimeout(timeoutId);
+            if (!wrapper.matches(":hover")) autoPlay();
+        }
+
+        const autoPlay = () => {
+            if (window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
+            // Autoplay the carousel after every 2500 ms
+            timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2500);
+        }
+        autoPlay();
+
+        carousel.addEventListener("mousedown", dragStart);
+        carousel.addEventListener("mousemove", dragging);
+        document.addEventListener("mouseup", dragStop);
+        carousel.addEventListener("scroll", infiniteScroll);
+        wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+        wrapper.addEventListener("mouseleave", autoPlay);
+    </script>
+</body>
+
+</html>

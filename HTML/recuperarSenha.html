@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <title>Recuperação de Senha</title>
+        <link rel="stylesheet" href="../CSS/styles.css" />
+        <style>
+            body {
+                background-color: #4e81bb;
+            }
+            .container {
+                width: 35%;
+                height: 30rem;
+                margin-top: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 100px;
+            }
+            .input-box {
+                align-items: center;
+                padding-top: 1rem;
+            }
+
+            .input-box input {
+                font-size: 18px;
+            }
+            .input-box h5 {
+                font-size: 13px;
+                color: #333;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+
+            .continue-button button a {
+                font-size: 1.2rem;
+            }
+
+            .Rec-card a:hover {
+                color: #28a062;
+            }
+
+            @media screen and (max-width: 1064px) {
+                .container {
+                    width: 70%;
+                    height: 70%;
+                }
+
+                .input-group {
+                    flex-direction: column;
+                    z-index: 5;
+                    padding-right: 5rem;
+                    max-height: 10rem;
+                    overflow-y: scroll;
+                    flex-wrap: nowrap;
+                }
+
+                .continue-button {
+                    padding-bottom: 1rem;
+                }
+
+                .continue-button button:hover {
+                    background-color: #1a62b4;
+                }
+
+                .login-card h2 {
+                    padding-top: 1rem;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="login-card">
+                <h2>Recuperação de Senha</h2>
+                <div class="input-box">
+                    <h5>Ultima senha que lembra de ter usado:</h5>
+                    <input
+                        type="password"
+                        name="senha"
+                        id="senha"
+                        placeholder="Senha"
+                        required
+                    />
+                    <h5>E-mail para link de redefinição:</h5>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="E-mail"
+                        required
+                    />
+                </div>
+                <div class="continue-button">
+                    <button type="submit" id="enviar-email">
+                        <a href="#" onclick="enviarEmail()">Enviar e-mail</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function enviarEmail() {
+                var email = document.getElementById("email").value;
+                if (email === "") {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        },
+                    });
+                    Toast.fire({
+                        icon: "error",
+                        title: "E-mail de recuperação inválido!",
+                    });
+                } else {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        },
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "E-mail de recuperação enviado!",
+                    });
+                }
+            }
+            document.addEventListener("DOMContentLoaded", function () {
+                const campos = document.querySelectorAll(
+                    'input[type="text"], input[type="email"], input[type="password"], select, button, a'
+                );
+                const botaoEnviar = document.getElementById("botaoEnviar");
+
+                campos.forEach(function (campo, index) {
+                    campo.addEventListener("keypress", function (event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault(); // Impede o envio do formulário
+                            const próximoCampo = campos[index + 1];
+                            if (próximoCampo) {
+                                próximoCampo.focus();
+                            } else if (campo === campos[campos.length - 1]) {
+                                window.location.href = botaoEnviar
+                                    .getAttribute("onclick")
+                                    .replace("window.location.href='", "")
+                                    .replace("';", "");
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

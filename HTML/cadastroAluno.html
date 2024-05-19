@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cadastro de Aluno</title>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="../CSS/styles.css" />
+        <style>
+            body {
+                padding-top: 0;
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #4e81b4;
+                font-size: 1rem;
+            }
+
+            .container-problema {
+                border-radius: 15px;
+                width: 65%;
+                height: 85%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                background-color: #fff;
+                padding: 2%;
+                margin-bottom: 0px;
+            }
+
+            h2 {
+                color: #1166ca;
+                font-size: 30px;
+            }
+
+            .container-problema__conteudo {
+                width: 90%;
+                max-height: 85vh;
+                padding: 0.4rem;
+                justify-content: space-between;
+                margin-top: 0px;
+            }
+
+            label {
+                margin-top: 20px;
+                margin-bottom: 5px;
+                margin-left: 10px;
+                font-size: 1rem;
+                color: #444852;
+            }
+
+            input {
+                margin: 0.6rem 0 2px;
+                padding: 0.8rem 1.2rem;
+                border: 1px solid #e8e8f1;
+                border-radius: 10px;
+                box-shadow: 1px 1px 6px #0000001c;
+                width: 100%;
+                font-size: 1rem;
+                color: #444852;
+            }
+
+            /* ------------------------------- */
+            .nome-aluno {
+                display: flex;
+                justify-content: space-between;
+            }
+            .nome-aluno input {
+                margin-left: 10px;
+                width: 750px;
+                height: 40px;
+                background-color: rgb(239, 239, 239);
+            }
+
+            .cidade {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .cidade input {
+                margin-left: 10px;
+                width: 735px;
+                height: 40px;
+            }
+            /* ------------------------------- */
+
+            .nasc-cpf {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .data-nasc input {
+                margin-left: 10px;
+                width: 210px;
+                height: 40px;
+            }
+
+            .cpf input {
+                margin-left: 10px;
+                width: 325px;
+                height: 40px;
+            }
+
+            /* ----------------------------------*/
+
+            .email-telefone {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .email-aluno {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .email-aluno input {
+                margin-left: 10px;
+                width: 335px;
+                height: 40px;
+                background-color: rgb(239, 239, 239);
+            }
+
+            .telefone-aluno {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .telefone-aluno input {
+                margin-left: 10px;
+                width: 300px;
+                height: 40px;
+            }
+
+            /* --------------------------------- */
+            .instituicao {
+                display: flex;
+            }
+            .instituicao #instituicao {
+                margin-left: 10px;
+                width: 100%;
+                height: 40px;
+            }
+            /* --------------------------------- */
+            .validacao {
+                display: flex;
+            }
+            .validacao #email {
+                margin-left: 10px;
+                width: 510px;
+                height: 40px;
+            }
+            /* --------------------------------- */
+            .botao {
+                display: flex;
+                justify-content: center;
+            }
+
+            .botao button {
+                border-radius: 13px;
+                height: 40px;
+                font-size: 1rem;
+                padding: 0.6rem 1rem;
+                border: 1px solid #e8e8f1;
+                box-shadow: 1px 1px 10px #0200001c;
+                margin-top: 13px;
+                margin-bottom: 3px;
+                font-size: 1rem;
+                color: #ffffff;
+            }
+            /* ----------------------------------- */
+            .validacao button {
+                border-radius: 13px;
+                height: 40px;
+                font-size: 1rem;
+                padding: 0.6rem 1rem;
+                border: 1px solid #e8e8f1;
+                box-shadow: 1px 1px 10px #0200001c;
+                margin-top: 8px;
+                margin-bottom: 3px;
+                font-size: 1rem;
+                color: #ffffff;
+                background-color: #4e81b4;
+                margin-left: 15px;
+                width: 100px;
+            }
+
+            .validacao button:hover {
+                background-color: #3a628e;
+            }
+            /* ----------------------------------- */
+            @media screen and (max-width: 768px) {
+                .container-problema {
+                    width: 90%;
+                    height: auto;
+                }
+
+                .container-problema__conteudo {
+                    height: auto;
+                }
+
+                #nome-aluno,
+                #cidade-aluno,
+                .nasc-cpf,
+                .email-telefone,
+                .instituicao,
+                .validacao,
+                #email {
+                    flex-direction: column;
+                }
+
+                label {
+                    width: 100%;
+                }
+                #nome-aluno,
+                #cidade-aluno,
+                .nasc-cpf,
+                .email-telefone,
+                .instituicao,
+                .validacao,
+                #email {
+                    flex-direction: column;
+                }
+
+                input {
+                    width: 5px;
+                }
+
+                .botao button,
+                .validacao button {
+                    align-items: center;
+                    width: 50%;
+                }
+            }
+
+            .validacao #email {
+                margin-left: 10px;
+                width: 510px;
+                height: 40px;
+            }
+
+            .validacao #email.icone-visivel {
+                width: 450px;
+            }
+
+            #icone-incorreto,
+            #icone-correto {
+                margin-left: 5px;
+                margin-top: 18px;
+                width: 25px;
+                height: 25px;
+            }
+        </style>
+    </head>
+
+    <body id="body-cadastro">
+        <div class="container-problema">
+            <h2 class="container-problema__h2">Cadastro Aluno</h2>
+            <div class="container-problema__conteudo">
+                <div class="nome-aluno">
+                    <label for="nome-aluno">Nome*</label>
+                    <input
+                        type="text"
+                        id="nome-aluno"
+                        name="nome-aluno"
+                        readonly
+                    />
+                </div>
+                <div class="cidade">
+                    <label for="cidade-aluno">Cidade*</label>
+                    <input type="text" id="cidade-aluno" name="cidade-aluno" />
+                </div>
+                <div class="nasc-cpf">
+                    <div class="data-nasc">
+                        <label for="data-nasc">Data de Nascimento*</label>
+                        <input type="date" name="data-nasc" id="data-nasc" />
+                    </div>
+                    <div class="cpf">
+                        <label for="cpf">CPF*</label>
+                        <input type="text" id="cpf" name="cpf" />
+                    </div>
+                </div>
+                <div class="email-telefone">
+                    <div class="email-aluno">
+                        <label for="email-aluno">E-mail*</label>
+                        <input
+                            type="email"
+                            id="email-aluno"
+                            name="email-aluno"
+                            readonly
+                        />
+                    </div>
+                    <div class="telefone-aluno">
+                        <label for="telefone-aluno">Telefone*</label>
+                        <input
+                            type="number"
+                            id="telefone-aluno"
+                            name="telefone-aluno"
+                        />
+                    </div>
+                </div>
+                <div class="instituicao">
+                    <label for="instituicao">Instituição*</label>
+                    <input type="text" name="instituicao" id="instituicao" />
+                </div>
+                <div class="validacao">
+                    <label for="validacao">E-mail Institucional*</label>
+                    <input type="email" id="email" class="icone-visivel" />
+                    <img
+                        id="icone-correto"
+                        src="https://cdn-icons-png.flaticon.com/256/4436/4436481.png"
+                        style="display: none"
+                    />
+                    <img
+                        id="icone-incorreto"
+                        src="https://cdn-icons-png.flaticon.com/256/2569/2569174.png"
+                        style="display: none"
+                    />
+                    <button onclick="validarEstudante()">Validar</button>
+                </div>
+                <div class="botao">
+                    <button
+                        class="btn-cadastrar-problema"
+                        onclick="validarFormulario()"
+                    >
+                        Cadastrar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script>
+            var email = localStorage.getItem("email");
+            var nome = localStorage.getItem("nome");
+
+            document.querySelector("#nome-aluno").value = nome;
+            document.querySelector("#email-aluno").value = email;
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const campos = document.querySelectorAll(
+                    'input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="number"], select, textarea'
+                );
+                const botaoCadastrar = document.querySelector(
+                    ".btn-cadastrar-problema"
+                );
+
+                campos.forEach(function (campo, index) {
+                    campo.addEventListener("keypress", function (event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                            const próximoCampo = campos[index + 1];
+                            if (próximoCampo) {
+                                próximoCampo.focus();
+                            } else if (campo === campos[campos.length - 1]) {
+                                botaoCadastrar.click();
+                            }
+                        }
+                    });
+                });
+
+                botaoCadastrar.addEventListener("click", function () {
+                    if (todosCamposPreenchidos()) {
+                        var senhaCorreta = "s";
+
+                        const swalConfig = {
+                            title: "Insira sua senha de login para confirmar sua identidade:",
+                            input: "password",
+                            inputAttributes: {
+                                class: "swal2-input minha-classe-personalizada",
+                            },
+                            showCancelButton: true,
+                            confirmButtonText: "Confirmar",
+                            cancelButtonText: "Cancelar",
+                        };
+
+                        Swal.fire(swalConfig).then((result) => {
+                            if (result.isConfirmed) {
+                                var senhaInserida = result.value;
+
+                                if (senhaInserida === senhaCorreta) {
+                                    var nome =
+                                        document.getElementById(
+                                            "nome-aluno"
+                                        ).value;
+                                    var cidade =
+                                        document.getElementById(
+                                            "cidade-aluno"
+                                        ).value;
+                                    var dataNascimento =
+                                        document.getElementById(
+                                            "data-nasc"
+                                        ).value;
+                                    var cpf =
+                                        document.getElementById("cpf").value;
+                                    var email =
+                                        document.getElementById(
+                                            "email-aluno"
+                                        ).value;
+                                    var telefone =
+                                        document.getElementById(
+                                            "telefone-aluno"
+                                        ).value;
+                                    var instituicao =
+                                        document.getElementById(
+                                            "instituicao"
+                                        ).value;
+                                    var email =
+                                        document.getElementById("email").value;
+
+                                    Swal.fire({
+                                        icon: "warning",
+                                        title: "Atenção!",
+                                        text: "Os dados fornecidos serão transmitidos e armazenados conforme as diretrizes de segurança. Por favor, confirme que está ciente para prosseguirmos com o cadastro.",
+                                        showCancelButton: true,
+                                        confirmButtonText:
+                                            "Estou ciente e quero cadastrar",
+                                        cancelButtonText: "Cancelar",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            Swal.fire({
+                                                icon: "success",
+                                                title: "Cadastrado!",
+                                                text: "Os dados foram cadastrados com sucesso.",
+                                                timer: 3000,
+                                                showConfirmButton: false,
+                                            }).then(() => {
+                                                window.location.href =
+                                                    "antes-telaInicialAluno.html";
+                                            });
+                                        }
+                                    });
+                                    document.getElementById(
+                                        "nome-aluno"
+                                    ).value = "";
+                                    document.getElementById(
+                                        "cidade-aluno"
+                                    ).value = "";
+                                    document.getElementById("data-nasc").value =
+                                        "";
+                                    document.getElementById("cpf").value = "";
+                                    document.getElementById(
+                                        "email-aluno"
+                                    ).value = "";
+                                    document.getElementById(
+                                        "telefone-aluno"
+                                    ).value = "";
+                                    document.getElementById(
+                                        "instituicao"
+                                    ).value = "";
+                                    document.getElementById("email").value = "";
+                                } else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Senha incorreta",
+                                        text: "Por favor, tente novamente.",
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Campos vazios",
+                            text: "Por favor, preencha todos os campos antes de prosseguir.",
+                        });
+                    }
+                });
+            });
+
+            function todosCamposPreenchidos() {
+                var nome = document.getElementById("nome-aluno").value;
+                var cidade = document.getElementById("cidade-aluno").value;
+                var dataNascimento = document.getElementById("data-nasc").value;
+                var cpf = document.getElementById("cpf").value;
+                var email = document.getElementById("email-aluno").value;
+                var telefone = document.getElementById("telefone-aluno").value;
+                var instituicao = document.getElementById("instituicao").value;
+                var instituicao = document.getElementById("email").value;
+
+                if (
+                    nome === "" ||
+                    cidade === "" ||
+                    dataNascimento === "" ||
+                    cpf === "" ||
+                    email === "" ||
+                    telefone === "" ||
+                    instituicao === "" ||
+                    email === ""
+                ) {
+                    return false;
+                }
+
+                return true;
+            }
+            function validarEstudante() {
+                var email = document.getElementById("email").value;
+                var dominiosValidos = [
+                    "facens.br",
+                    "uniso.br",
+                    "uniso.br",
+                    "usp.br",
+                    "unicamp.br",
+                    "ufscar.br",
+                ];
+                var dominio = email.split("@")[1];
+
+                var iconeCorreto = document.getElementById("icone-correto");
+                var iconeIncorreto = document.getElementById("icone-incorreto");
+
+                if (dominiosValidos.includes(dominio)) {
+                    iconeCorreto.style.display = "inline";
+                    iconeIncorreto.style.display = "none";
+                    Swal.fire({
+                        icon: "success",
+                        title: "E-mail institucional correto!",
+                        text: "Você foi autenticado com sucesso.",
+                    });
+                } else {
+                    iconeCorreto.style.display = "none";
+                    iconeIncorreto.style.display = "inline";
+                    Swal.fire({
+                        icon: "error",
+                        title: "E-mail da instituição inválido!",
+                        text: "Por favor, insira um e-mail institucional válido.",
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>
