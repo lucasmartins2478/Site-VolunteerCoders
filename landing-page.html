@@ -657,7 +657,7 @@
                 <a href="#">Alunos</a>
                 <a href="#">Contato</a>
                 <button type="button" class="btn btn-primary"
-                    style="background-color: #1166ca; color: #fff;">Login</button>
+                    style="background-color: #1166ca; color: #fff;" onclick="login()"> Login </button>
             </div>
         </div>
         <div class="row">
@@ -1045,12 +1045,15 @@
                     title: 'Email enviado',
                     text: 'Enviaremos um email para mais informações.'
                 }).then(() => {
-                    window.location.href = '';
+                    window.location.href = 'HTML/index.html';
                 });
 
             }
             document.querySelector('#nome').value = ""
             document.querySelector('#email').value = ""
+        }
+        function login(){
+            window.location.href = 'HTML/login.html';
         }
     </script>
 </body>
