@@ -488,10 +488,6 @@
     <div class="overlay"></div>
     <div id="detalhes-container" class="detalhes-container"></div>
     <script>
-
-
-
-
         let problema = [];
 
         function carregaDados() {
@@ -517,7 +513,7 @@
                     <div>
                         <div class="titulo-card">
                             <h4>${element.titulo}</h4>
-                            <button onclick='excluirCard(event, "${element.titulo}")'>
+                            <button onclick='excluirCard(${element.id})'>
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
@@ -534,30 +530,15 @@
 
         window.onload = carregaDados;
 
-        function excluirCard(event, titulo) {
-            // Função para excluir o card, se necessário
-            console.log('Excluir card:', titulo);
-        }
 
         function mostrarDetalhes(titulo, causa, descricao) {
             // Função para mostrar detalhes do card, se necessário
             alert(`Título: ${titulo}\nCausa: ${causa}\nDescrição: ${descricao}`);
         }
 
-
-
-
-
-
-
-
-        document
-            .getElementById("btn-open-side-bar")
-            .addEventListener("click", function () {
-                document
-                    .getElementById("side-bar")
-                    .classList.toggle("open-sidebar");
-            });
+        document.getElementById("btn-open-side-bar").addEventListener("click", function () {
+            document.getElementById("side-bar").classList.toggle("open-sidebar");
+        });
 
         function logout(event) {
             event.preventDefault();
@@ -571,14 +552,13 @@
                 cancelButtonText: "Não",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "apresentacao.html";
+                    window.location.href = "../landing-page.html";
                 }
             });
         }
 
-        function excluirCard(event, titulo) {
-            event.preventDefault();
-
+        function excluirCard(id) {
+    
             Swal.fire({
                 icon: "warning",
                 title: "Atenção!",
@@ -588,28 +568,27 @@
                 cancelButtonText: "Não",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    const card = event.target.closest(".card");
-                    card.remove();
-
-                    let problemas =
-                        JSON.parse(localStorage.getItem("problemas")) || [];
-
-                    problemas.forEach((problema) => {
-                        if (problema.titulo === titulo) {
-                            problema.excluido = true;
-                        }
-                    });
-
-                    localStorage.setItem(
-                        "problemas",
-                        JSON.stringify(problemas)
-                    );
-                }
+                        const url = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
+                        fetch(url + '/' + id,{
+                            method: 'Delete',
+                            headers:{
+                                "Content-Type":"application/json",
+                            }
+                        }).then(resposta =>{
+                            carregarDados();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Excluido',
+                                text: 'Problema excluido com sucesso!.'
+                            })
+                            
+                        })
+                    }
             });
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            
+
 
             const detalhesContainer =
                 document.getElementById("detalhes-container");

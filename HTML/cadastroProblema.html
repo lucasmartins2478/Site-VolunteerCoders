@@ -208,13 +208,23 @@
                 },
                 body: JSON.stringify(problema) // Converte o objeto problema para uma string JSON
             }).then(response => response.json()).then(data => {
-                console.log('Success:', data);
+
                 // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
-
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cadastrado',
+                    text: 'Problema cadastrado com sucesso!.'
+                })
+                window.location.href="telaInicialONG.html";
             }).catch((error) => {
-                console.error('Error:', error);
+            
                 // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
-
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Não foi possível realizar essa ação!.'
+                })
+                return
             });
         })
 

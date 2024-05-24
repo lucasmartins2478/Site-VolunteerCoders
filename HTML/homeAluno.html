@@ -1,460 +1,936 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tela Inicial</title>
-        <link rel="stylesheet" href="../CSS/styles.css" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <style>
-            .overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-                pointer-events: none;
-                display: none;
-            }
 
-            .detalhes-open .overlay {
-                pointer-events: auto;
-                display: block;
-            }
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tela Inicial</title>
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            pointer-events: none;
+            display: none;
+        }
 
-            .detalhes {
-                text-align: center;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: #fff;
-                border-radius: 16px;
-                padding: 20px;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-                z-index: 1000;
-                width: 700px;
-                height: 600px;
-                max-width: 700px;
-                word-wrap: break-word;
-            }
+        .detalhes-open .overlay {
+            pointer-events: auto;
+            display: block;
+        }
 
-            .scrollable {
-                overflow-x: scroll;
-                display: flex;
-                flex-wrap: nowrap;
-                padding-bottom: 20px;
-                -webkit-overflow-scrolling: touch;
-            }
+        .detalhes {
+            text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 700px;
+            height: 600px;
+            max-width: 700px;
+            word-wrap: break-word;
+        }
 
-            .btn-detalhes {
-                color: #fff;
-                font-size: 17px;
-                position: static;
-                top: 590px;
-            }
+        .scrollable {
+            overflow-x: scroll;
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
 
-            .detalhes .button-detalhe {
-                display: flex;
-                align-items: end;
-                justify-content: center;
-                position: absolute;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
+        .btn-detalhes {
+            color: #fff;
+            font-size: 17px;
+            position: static;
+            top: 590px;
+        }
 
-            .detalhes .button-detalhe button {
-                background-color: #1166ca;
-                width: 100px;
-                height: 30px;
-                border-radius: 16px;
-                border: solid 0px;
-                font-size: 18px;
-                color: #fff;
-                margin-top: 50px;
-            }
+        .btn-fechar {
+            color: #fff;
+            font-size: 17px;
+            position: static;
+            top: 590px;
+        }
 
-            .card {
-                word-wrap: break-word;
-                flex: 0 0 auto;
-                width: 400px;
-            }
+        .detalhes .button-detalhe {
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            position: absolute;
+            bottom: 20px;
+            left: 40%;
+            transform: translateX(-50%);
+        }
 
-            .card p {
-                margin-top: 3px;
-                font-size: 14px;
-                display: -webkit-box;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
+        .detalhes .button-fechar {
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            position: absolute;
+            bottom: 20px;
+            left: 40%;
+            transform: translateX(-50%);
+        }
 
-            .card-container {
-                display: flex;
-                flex-wrap: nowrap;
-                gap: 20px;
-                margin-bottom: s;
-            }
+        .detalhes .button-fechar button {
+            background-color: #1166ca;
+            width: 100px;
+            height: 30px;
+            border-radius: 16px;
+            border: solid 0px;
+            font-size: 18px;
+            color: #fff;
+            margin-top: -150px;
+            margin-left: 300px;
+        }
 
-            .seta {
-                position: static;
-                display: flex;
-                align-items: end;
-                justify-content: center;
-                width: 100px;
-                height: 100px;
-            }
+        .detalhes .button-detalhe button {
+            background-color: #1166ca;
+            width: 100px;
+            height: 30px;
+            border-radius: 16px;
+            border: solid 0px;
+            font-size: 18px;
+            color: #fff;
+            margin-top: 50px;
+        }
 
-            #user-aluno {
-                margin-bottom: 10px;
-                margin-top: 1.3rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-            }
+        .card {
+            word-wrap: break-word;
+            flex: 0 0 auto;
+            width: 400px;
+        }
 
-            .side-item {
-                height: 60px;
-                display: flex;
-                justify-content: center;
-            }
+        .card p {
+            margin-top: 3px;
+            font-size: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-            #user-aluno img {
-                margin-bottom: 30px;
-            }
+        .card-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            margin-bottom: s;
+        }
 
-            #nome-aluno,
-            #faculdade-aluno {
-                margin-bottom: 10px;
-            }
+        .seta {
+            position: static;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+        }
 
-            .detalhe-aluno {
-                display: none;
-            }
+        #user-aluno {
+            margin-bottom: 10px;
+            margin-top: 1.3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-            .open-sidebar .detalhe-aluno {
-                display: block;
-                background-color: #eaf4ff;
-                height: 35px;
-                display: flex;
-                width: 170px;
-                border-radius: 15px;
-                justify-content: center;
-                align-items: center;
-            }
+        .side-item {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+        }
 
-            /* .nav-bar {
-                    background-color: #fff;
-                    height: 10vh;
-                    width: 100vw;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                }
+        #user-aluno img {
+            margin-bottom: 30px;
+        }
 
-                .nav-bar .nome-pagina {
-                    margin-left: -500px;
-                    font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
-                        sans-serif;
-                } */
+        #nome-aluno,
+        #faculdade-aluno {
+            margin-bottom: 10px;
+        }
 
-            .detalhes img {
-                max-width: 100px;
-                max-height: 100px;
-                width: 100px;
-                height: 100px;
-                margin: 0 auto;
-                display: block;
-            }
-        </style>
-    </head>
+        .detalhe-aluno {
+            display: none;
+        }
 
-    <body>
-        <div class="container-tela-ong">
-            <div class="nav-bar">
-                <!-- <div class="nome-pagina">home</div> -->
-            </div>
-            <div class="conteudo-tela">
-                <div id="side-bar">
-                    <div id="content-items">
-                        <div class="user" id="user-aluno">
-                            <img
-                                src="../CSS/imagens/usuario-de-perfil.png"
-                                alt="Avatar"
-                            />
-                            <span id="nome-aluno" class="detalhe-aluno"
-                                >Aluno</span
-                            >
-                            <span id="faculdade-aluno" class="detalhe-aluno"
-                                >Faculdade do Aluno</span
-                            >
-                        </div>
-                        <ul class="side-items">
-                            <li class="side-item" id="side-item-aluno">
-                                <a href="../HTML/homeAluno.html">
-                                    <i
-                                        id="open-icon"
-                                        class="fa-solid fa-home"
-                                        onclick="redirecionarParaHome()"
-                                    ></i>
-                                    <span
-                                        class="item-description"
-                                        onclick="redirecionarParaHome()"
-                                    >
-                                        Home
-                                    </span>
-                                </a>
-                            </li>
+        .open-sidebar .detalhe-aluno {
+            display: block;
+            background-color: #eaf4ff;
+            height: 35px;
+            display: flex;
+            width: 170px;
+            border-radius: 15px;
+            justify-content: center;
+            align-items: center;
+        }
 
-                            <li class="side-item" id="side-item-aluno">
-                                <a
-                                    href="../HTML/telaRedirecionamentoEquipe.html"
-                                >
-                                    <i
-                                        id="open-icon"
-                                        class="fa-solid fa-users"
-                                        onclick="redirecionarParaMinhaEquipe()"
-                                    ></i>
-                                    <span
-                                        class="item-description"
-                                        onclick="redirecionarParaMinhaEquipe()"
-                                    >
-                                        Minha Equipe
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="side-item">
-                                <a href="#">
-                                    <i
-                                        id="open-icon"
-                                        class="fa-solid fa-gear"
-                                    ></i>
-                                    <span class="item-description"
-                                        >Configurações</span
-                                    >
-                                </a>
-                            </li>
-                            <li class="side-item" id="side-item-aluno">
-                                <a href="#">
-                                    <i
-                                        id="open-icon"
-                                        class="fa-solid fa-circle-question"
-                                    ></i>
-                                    <span class="item-description"> Info </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <button id="btn-open-side-bar">
-                            <i
-                                id="open-btn-icon"
-                                class="fa-solid fa-chevron-right"
-                            ></i>
-                        </button>
+        .detalhes img {
+            max-width: 100px;
+            max-height: 100px;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .projetos-andamento {
+            margin-top: 2rem;
+        }
+
+        .card-replicado .titulo-card {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-replicado h4 {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .card-replicado p {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .card-replicado {
+            background-color: #fff;
+            border-radius: 5px;
+            margin-top: 1rem;
+            width: 400px;
+            height: 13rem;
+            display: flex;
+            justify-self: center;
+            padding: 19px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-replicado .btn-pedir-aceite {
+            height: 40px;
+            width: 360px;
+            margin-top: 8rem;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin-left: -385px;
+        }
+
+        .btn-pedir-aceite {
+            color: #fff;
+            font-size: 17px;
+            position: static;
+            top: 590px;
+        }
+
+        .btn-pedir-aceite {
+            width: 100%;
+            border: none;
+            background-color: #1166ca;
+            padding: 0.62rem;
+            border-radius: 13px;
+            cursor: pointer;
+            justify-self: end;
+        }
+
+        .card-replicado div {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            margin-left: -10px;
+        }
+
+        .card-replicado .btn-detalhes::before {
+            visibility: 0%;
+        }
+
+        .segundo-processo {
+            display: flex;
+        }
+
+        .aguardando-resposta,
+        .projetos-andamento {
+            flex: 1;
+            width: 50%;
+        }
+
+        .aguardando-resposta {
+            margin-top: 35px;
+        }
+
+        .projetos-andamento {
+            margin-top: 20px;
+        }
+
+        .card-replicado .status {
+            margin-left: 360px;
+            margin-top: -10px;
+            position: relative;
+        }
+
+        .card-replicado .status-message {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            bottom: calc(100% + 10px);
+            right: 0;
+            font-size: 14px;
+            white-space: nowrap;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-chat {
+            border: none;
+            background-color: #1166ca;
+            padding: 0.62rem;
+            border-radius: 13px;
+            cursor: pointer;
+            justify-self: end;
+            color: #fff;
+            font-size: 17px;
+            position: static;
+            top: 600px;
+            height: 40px;
+        }
+
+        .card-replicado .btn-chat {
+            height: 40px;
+            width: 90px;
+            margin-top: 8rem;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin-left: -220px;
+        }
+
+        .offcanvas-title {
+            position: relative;
+            text-align: center;
+            top: 8px;
+            font-size: 30px;
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                sans-serif;
+            font-weight: 200;
+            margin-left: -10px;
+        }
+
+        .offcanvas-header {
+            width: 399px;
+            height: 50px;
+            background-color: #1166ca;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .close-icon {
+            width: 40px;
+            height: 40px;
+            margin-top: -90px;
+            cursor: pointer;
+            position: relative;
+            top: 0;
+            margin-left: 20px;
+            fill: #c1dcfa;
+            margin-bottom: 3px;
+        }
+
+        .offcanvas-input {
+            background-color: #eaf4ff;
+            margin-top: 370px;
+            width: 340px;
+            height: 40px;
+            margin-left: 30px;
+            border: solid 1px #c1dcfa;
+            border-radius: 12px;
+            padding: 5px;
+            box-sizing: border-box;
+            padding-right: 40px;
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .header-title::after {
+            content: "";
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="%23c1dcfa" class="bi bi-chat-square-text-fill" viewBox="0 0 16 16"><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/></svg>');
+            background-repeat: no-repeat;
+            display: block;
+            width: 25%;
+            height: 25px;
+            margin-top: -75px;
+            margin-left: 190px;
+        }
+
+        .offcanvas {
+            position: fixed;
+            z-index: 1000;
+        }
+
+        .send-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .bi-send-fill {
+            color: #1166ca;
+            transition: color 0.3s ease;
+            margin-left: 165px;
+            margin-bottom: 150px;
+            margin-top: -27px;
+        }
+
+        .send-button:hover .send-icon {
+            color: #004080;
+        }
+    </style>
+</head>
+
+<body onload="carregaDados()">
+    <div class="container-tela-ong">
+        <div class="nav-bar"></div>
+        <div class="conteudo-tela">
+            <div id="side-bar">
+                <div id="content-items">
+                    <div class="user" id="user-aluno">
+                        <img src="../CSS/imagens/usuario-de-perfil.png" alt="Avatar" />
+                        <span id="nome-aluno" class="detalhe-aluno">Aluno</span>
+                        <span id="faculdade-aluno" class="detalhe-aluno">Faculdade do Aluno</span>
                     </div>
-                    <div id="logout">
-                        <button id="logout-btn" onclick="logout(event)">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            <span class="item-description">Sair</span>
-                        </button>
+                    <ul class="side-items">
+                        <li class="side-item" id="side-item-aluno">
+                            <a href="../HTML/homeAluno.html">
+                                <i id="open-icon" class="fa-solid fa-home" onclick="redirecionarParaHome()"></i>
+                                <span class="item-description" onclick="redirecionarParaHome()">
+                                    Home
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="side-item" id="side-item-aluno">
+                            <a href="../HTML/telaRedirecionamentoEquipe.html">
+                                <i id="open-icon" class="fa-solid fa-users" onclick="redirecionarParaMinhaEquipe()"></i>
+                                <span class="item-description" onclick="redirecionarParaMinhaEquipe()">
+                                    Minha Equipe
+                                </span>
+                            </a>
+                        </li>
+                        <li class="side-item">
+                            <a href="#">
+                                <i id="open-icon" class="fa-solid fa-gear"></i>
+                                <span class="item-description">Configurações</span>
+                            </a>
+                        </li>
+                        <li class="side-item" id="side-item-aluno">
+                            <a href="#">
+                                <i id="open-icon" class="fa-solid fa-circle-question"></i>
+                                <span class="item-description"> Info </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <button id="btn-open-side-bar">
+                        <i id="open-btn-icon" class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div id="logout">
+                    <button id="logout-btn" onclick="logout(event)">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="item-description">Sair</span>
+                    </button>
+                </div>
+            </div>
+            <div class="conteudo">
+                <div class="problemas-cadastrados">
+                    <h3 class="title-problema">
+                        Veja os problemas disponíveis:
+                    </h3>
+                    <div class="card-container">
+                        <div class="card-problema" id="card-problema"></div>
                     </div>
                 </div>
-                <div class="conteudo">
-                    <div class="problemas-cadastrados">
-                        <h3 class="title-problema">
-                            Veja os problemas disponiveis:
+                <div class="segundo-processo">
+                    <div class="aguardando-resposta" id="aguardando-resposta">
+                        <h3 class="title-projeto">
+                            Aguardando resposta da ONG
                         </h3>
-                        <div class="scrollable">
-                            <div class="card-problema" id="card-problema"></div>
-                        </div>
+                        <div class="card-projeto" id="card-projeto-container"></div>
                     </div>
-
                     <div class="projetos-andamento">
-                        <h3 class="title-projeto">Projetos em Andamento</h3>
-                        <div class="card-projeto" id="card-projeto"></div>
+                        <h3 class="title-projeto">Projeto em andamento</h3>
+                        <div class="card-projeto" id="card-projeto-container"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="overlay"></div>
-        <div id="detalhes-container" class="detalhes-container"></div>
-        <script>
-            document
-                .getElementById("btn-open-side-bar")
-                .addEventListener("click", function () {
-                    document
-                        .getElementById("side-bar")
-                        .classList.toggle("open-sidebar");
+    </div>
+    <div class="overlay"></div>
+    <div id="detalhes-container" class="detalhes-container"></div>
+
+    <script>
+
+        let problema = [];
+
+        function carregaDados() {
+            const url = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
+            fetch(url)
+                .then(resposta => resposta.json())
+                .then(dados => {
+                    problema = dados;
+                    montaTela(problema);
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar dados:', error);
                 });
+        }
 
-            function logout(event) {
-                event.preventDefault();
-
-                Swal.fire({
-                    icon: "warning",
-                    title: "Atenção!",
-                    text: "Quer mesmo sair do Sistema!?",
-                    showCancelButton: true,
-                    confirmButtonText: "Sim",
-                    cancelButtonText: "Não",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "apresentacao.html";
-                    }
-                });
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const problemContainer =
-                    document.getElementById("card-problema");
-
-                let problemas =
-                    JSON.parse(localStorage.getItem("problemas")) || [];
-
-                problemas.forEach(function (problema) {
-                    if (!problema.excluido) {
-                        const newCard = document.createElement("div");
-                        newCard.classList.add("card");
-                        newCard.innerHTML = `
+        function montaTela(problema) {
+            let cardContainer = document.querySelector(".card-container");
+            cardContainer.textContent = ''; // Limpa o container antes de adicionar os novos cards
+            problema.forEach(element => {
+                const newCard = document.createElement("div");
+                newCard.classList.add("card");
+                newCard.innerHTML = `
                     <div>
                         <div class="titulo-card">
-                            <h4>${problema.titulo}</h4>
-                            
+                            <h4>${element.titulo}</h4>
+                            <button onclick='excluirCard(${element.id})'>
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
                         </div>
-                        <p><b>Segmento:</b> ${problema.segmento}</p>
-                        <p><b>Descrição</b>:</p>
-                        <p>${problema.descricao}</p>
+                        <p><b>Causa:</b> ${element.causa}</p>
+                        <p><b>Descrição:</b> ${element.descricao}</p>
                     </div>
-                    <button class="btn-detalhes"onclick='mostrarDetalhes("${problema.titulo}", "${problema.segmento}", "${problema.descricao}")'>
+                    <button class="btn-detalhes" onclick='mostrarDetalhes("${element.titulo}", "${element.causa}", "${element.descricao}")'>
                         Detalhes
                     </button>
                 `;
-                        problemContainer.appendChild(newCard);
-                    }
-                });
+                cardContainer.appendChild(newCard);
+            });
+        }
+
+        window.onload = carregaDados;
+
+
+        document.getElementById("btn-open-side-bar").addEventListener("click", function () {
+                document.getElementById("side-bar").classList.toggle("open-sidebar");
+            });
+
+        function logout(event) {
+            event.preventDefault();
+
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção!",
+                text: "Quer mesmo sair do Sistema!?",
+                showCancelButton: true,
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "../landing-page.html";
+                }
+            });
+        }
+
+        function excluirCard(id){
+            event.preventDefault()
+            const url = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
+            fetch(url + '/' + id,{
+                method: 'Delete',
+                headers:{
+                    "Content-Type":"application/json",
+                }
+            }).then(resposta =>{
+                carregarDados();
+                
+            })
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const detalhesContainer =
+                document.getElementById("detalhes-container");
+            detalhesContainer.addEventListener("card-container", function () {
+                const closeButton = document.querySelector(
+                    ".button-detalhe button"
+                );
+                const contentHeight = detalhesContainer.scrollHeight;
+                const containerHeight = detalhesContainer.clientHeight;
+                const scrollTop = detalhesContainer.scrollTop;
+                const distanceToBottom =
+                    contentHeight - (scrollTop + containerHeight);
+                if (distanceToBottom <= 10) {
+                    closeButton.style.bottom = 10 - distanceToBottom + "px";
+                } else {
+                    closeButton.style.bottom = "20px";
+                }
+            });
+            if (
+                detalhesContainer.scrollHeight >
+                detalhesContainer.clientHeight
+            ) {
+                detalhesContainer.classList.add("scrollable");
+            }
+        });
+
+        document
+            .getElementById("imagem")
+            .addEventListener("change", function (event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+                    localStorage.setItem("imagem", event.target.result);
+                };
+
+                reader.readAsDataURL(file);
+            });
+
+        function mostrarDetalhes(titulo, segmento, descricaoProblema) {
+            const dadosONG = JSON.parse(localStorage.getItem("dadosONG"));
+
+            if (dadosONG) {
+                const { nome, sobre, cidade, telefone, email, url } =
+                    dadosONG;
+                document.body.classList.add("detalhes-open");
 
                 const detalhesContainer =
                     document.getElementById("detalhes-container");
-                detalhesContainer.addEventListener("scroll", function () {
-                    const closeButton = document.querySelector(
-                        ".button-detalhe button"
-                    );
-                    const contentHeight = detalhesContainer.scrollHeight;
-                    const containerHeight = detalhesContainer.clientHeight;
-                    const scrollTop = detalhesContainer.scrollTop;
-                    const distanceToBottom =
-                        contentHeight - (scrollTop + containerHeight);
-                    if (distanceToBottom <= 10) {
-                        closeButton.style.bottom = 10 - distanceToBottom + "px";
+
+                const imagemBase64 = localStorage.getItem("imagem");
+                const imagem64 = localStorage.getItem("imagem");
+
+                detalhesContainer.innerHTML = `
+                    <div class="detalhes">
+                        <h2>Detalhes do Problema</h2>
+                        <p><b>Título:</b> ${titulo}</p>
+                        <p><b>Segmento:</b> ${segmento}</p>
+                        <p><b>Descrição:</b> <p>
+                        <p class="descricao">${descricaoProblema}</p>
+                        <br>
+                        <div class="imagem">
+                            <img src="${imagemBase64}" alt="Imagem ilustrativa">
+                        </div>
+                        <br>
+                        <h2>Detalhes da ONG</h2>
+                        <div class="imagem">
+                            <img src="${imagem64}" alt="Imagem ilustrativa">
+                        </div>
+                        <p><b>Nome:</b> ${nome}</p>
+                        <p><b>Descrição:</b> ${sobre}</p>
+                        <p><b>Endereço:</b> ${cidade}</p>
+                        <br>
+                        <p>Contato:</p>
+                        <p><b>Telefone:</b> ${telefone}</p>
+                        <p><b>E-mail:</b> ${email}</p>
+                        <p><b>Site:</b> ${url}</p>
+                        <div class="button-detalhe">
+                        <button onclick="selecionarProblema('${titulo}', '${nome}')">Selecionar</button>
+                    </div>
+                        <div class="button-fechar">
+                            <button onclick="fecharDetalhes()">Fechar</button>
+                         </div>
+                    </div>
+                `;
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro",
+                    text: "Os dados da ONG não foram encontrados.",
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            visualizarImagem();
+        });
+
+        function fecharDetalhes() {
+            document.getElementById("detalhes-container").innerHTML = "";
+            document.body.classList.remove("detalhes-open");
+            document.querySelector(".overlay").style.display = "none";
+        }
+
+        function selecionarProblema(tituloProblema, nomeONG) {
+            
+            
+
+
+            };
+
+            const btnEnviarAceite =
+                novoCardProjeto.querySelector(".btn-pedir-aceite");
+
+            btnEnviarAceite.addEventListener("click", function () {
+                Swal.fire({
+                    title: "Digite a senha definida para equipe:",
+                    input: "password",
+                    inputAttributes: {
+                        autocapitalize: "off",
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: "Confirmar",
+                    cancelButtonText: "Cancelar",
+                    showLoaderOnConfirm: true,
+                    preConfirm: (password) => {
+                        return new Promise((resolve) => {
+                            setTimeout(() => {
+                                if (password === "s") {
+                                    resolve();
+                                } else {
+                                    Swal.showValidationMessage(
+                                        "Senha incorreta!"
+                                    );
+                                }
+                            }, 1000);
+                        });
+                    },
+                    allowOutsideClick: () => !Swal.isLoading(),
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const statusImage = document.createElement("img");
+                        statusImage.src = "../CSS/imagens/circulo.png";
+                        statusImage.alt = "amarelo";
+                        statusImage.classList.add("status");
+
+                        const statusMessage = document.createElement("div");
+                        statusMessage.classList.add("status-message");
+                        statusMessage.textContent = "aguardando resposta";
+                        statusMessage.style.visibility = "hidden";
+                        statusMessage.style.opacity = "0";
+
+                        novoCardProjeto
+                            .querySelector("div")
+                            .appendChild(statusImage);
+                        novoCardProjeto
+                            .querySelector("div")
+                            .appendChild(statusMessage);
+
+                        statusImage.addEventListener(
+                            "mouseout",
+                            function () {
+                                this.nextElementSibling.style.visibility =
+                                    "hidden";
+                                this.nextElementSibling.style.opacity = "0";
+                            }
+                        );
+
+                        statusImage.style.position = "absolute";
+                        statusImage.style.top = "400";
+                        statusImage.style.right = "500";
+                        statusImage.style.width = "20px";
+
+                        btnEnviarAceite.classList.add(
+                            "solicitacao-enviada"
+                        );
+                        btnEnviarAceite.disabled = true;
+                        btnEnviarAceite.style.backgroundColor = "#808080";
+                        btnEnviarAceite.style.color = "#ffffff";
+                        btnEnviarAceite.style.width = "230px";
+                        btnEnviarAceite.style.position = "relative";
+                        btnEnviarAceite.style.left = "120px";
+                        btnEnviarAceite.style.top = "0";
+
+                        const btnChat = document.createElement("button");
+                        btnChat.textContent = "Chat";
+                        btnChat.classList.add("btn-chat");
+                        btnChat.addEventListener("click", function () {
+                            let overlay =
+                                document.querySelector(".overlay");
+                            if (!overlay) {
+                                overlay = document.createElement("div");
+                                overlay.classList.add("overlay");
+                                document.body.appendChild(overlay);
+                            }
+                            overlay.style.display = "block";
+                            const offcanvasDiv =
+                                document.createElement("div");
+                            offcanvasDiv.classList.add(
+                                "offcanvas",
+                                "offcanvas-bottom"
+                            );
+                            offcanvasDiv.tabIndex = "-1";
+                            offcanvasDiv.id = "offcanvasBottom";
+
+                            offcanvasDiv.style.width = "400px";
+                            offcanvasDiv.style.height = "70%";
+                            offcanvasDiv.style.color = "white";
+                            offcanvasDiv.style.position = "fixed";
+                            offcanvasDiv.style.bottom = "10px";
+                            offcanvasDiv.style.right = "10px";
+                            offcanvasDiv.style.backgroundColor = "white";
+                            offcanvasDiv.style.borderRadius = "12px";
+                            offcanvasDiv.style.border = "solid 1px black";
+
+                            const offcanvasHeader =
+                                document.createElement("div");
+                            offcanvasHeader.classList.add(
+                                "offcanvas-header"
+                            );
+
+                            const headerTitle =
+                                document.createElement("span");
+                            headerTitle.classList.add("header-title");
+                            headerTitle.textContent = "Chat";
+
+                            const offcanvasTitle =
+                                document.createElement("h5");
+                            offcanvasTitle.classList.add("offcanvas-title");
+                            offcanvasTitle.textContent = "Chat";
+
+                            const closeButton =
+                                document.createElement("button");
+                            closeButton.type = "button";
+                            closeButton.classList.add("btn-close");
+                            closeButton.dataset.bsDismiss = "offcanvas";
+                            closeButton.setAttribute("aria-label", "Close");
+
+                            offcanvasHeader.appendChild(offcanvasTitle);
+                            offcanvasHeader.appendChild(closeButton);
+
+                            const offcanvasBody =
+                                document.createElement("div");
+                            offcanvasBody.classList.add(
+                                "offcanvas-body",
+                                "small"
+                            );
+                            const inputContainer =
+                                document.createElement("div");
+                            inputContainer.classList.add("input-container");
+                            offcanvasBody.appendChild(inputContainer);
+
+                            const offcanvasInput =
+                                document.createElement("input");
+                            offcanvasInput.type = "text";
+                            offcanvasInput.classList.add("offcanvas-input");
+                            offcanvasInput.placeholder =
+                                "Digite uma mensagem";
+
+                            const sendButton =
+                                document.createElement("button");
+                            sendButton.classList.add("send-button");
+
+                            const sendIcon = document.createElement("i");
+                            sendIcon.classList.add(
+                                "bi",
+                                "bi-send-fill",
+                                "send-icon"
+                            );
+                            sendIcon.innerHTML = `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                                </svg>`;
+                            sendButton.appendChild(sendIcon);
+
+                            sendButton.addEventListener(
+                                "mouseover",
+                                function () {
+                                    sendIcon.style.color = "#004080";
+                                }
+                            );
+
+                            sendButton.addEventListener(
+                                "mouseout",
+                                function () {
+                                    sendIcon.style.color = "#1166ca";
+                                }
+                            );
+
+                            const closeIcon = document.createElementNS(
+                                "http://www.w3.org/2000/svg",
+                                "svg"
+                            );
+                            closeIcon.setAttribute(
+                                "xmlns",
+                                "http://www.w3.org/2000/svg"
+                            );
+                            closeIcon.setAttribute("width", "16");
+                            closeIcon.setAttribute("height", "16");
+                            closeIcon.setAttribute("fill", "currentColor");
+                            closeIcon.setAttribute(
+                                "class",
+                                "bi bi-x close-icon"
+                            );
+                            closeIcon.setAttribute("viewBox", "0 0 16 16");
+                            closeIcon.innerHTML = `<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>`;
+                            closeIcon.addEventListener(
+                                "click",
+                                function () {
+                                    offcanvasDiv.remove();
+                                    overlay.style.display = "none";
+                                }
+                            );
+
+                            offcanvasHeader.appendChild(closeIcon);
+                            offcanvasHeader.appendChild(headerTitle);
+                            offcanvasDiv.appendChild(offcanvasHeader);
+                            offcanvasBody.appendChild(offcanvasInput);
+                            offcanvasBody.appendChild(sendButton);
+                            const offcanvasFooter =
+                                document.createElement("footer");
+                            offcanvasBody.classList.add("offcanvas-footer");
+
+                            offcanvasDiv.appendChild(offcanvasHeader);
+                            offcanvasDiv.appendChild(offcanvasBody);
+
+                            document.body.appendChild(offcanvasDiv);
+                        });
+
+                        btnEnviarAceite.parentNode.insertBefore(
+                            btnChat,
+                            btnEnviarAceite.nextSibling
+                        );
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Sucesso!",
+                            text: "Solicitação enviada para a ONG.",
+                        }).then(() => {
+                            const btnEnviarAceite =
+                                novoCardProjeto.querySelector(
+                                    ".btn-pedir-aceite"
+                                );
+                        });
                     } else {
-                        closeButton.style.bottom = "20px";
+                        processingIndicator.style.display = "none";
                     }
                 });
-                if (
-                    detalhesContainer.scrollHeight >
-                    detalhesContainer.clientHeight
-                ) {
-                    detalhesContainer.classList.add("scrollable");
-                }
             });
+        
+    </script>
+</body>
 
-            document
-                .getElementById("imagem")
-                .addEventListener("change", function (event) {
-                    const file = event.target.files[0];
-                    const reader = new FileReader();
-
-                    reader.onload = function (event) {
-                        localStorage.setItem("imagem", event.target.result);
-                    };
-
-                    reader.readAsDataURL(file);
-                });
-
-            function mostrarDetalhes(titulo, segmento, descricaoProblema) {
-                const dadosONG = JSON.parse(localStorage.getItem("dadosONG"));
-
-                if (dadosONG) {
-                    const { nome, sobre, cidade, telefone, email, url } =
-                        dadosONG;
-                    document.body.classList.add("detalhes-open");
-
-                    const detalhesContainer =
-                        document.getElementById("detalhes-container");
-
-                    const imagemBase64 = localStorage.getItem("imagem");
-
-                    detalhesContainer.innerHTML = `
-            <div class="detalhes">
-                <h2>Detalhes do Problema</h2>
-                <p><b>Título:</b> ${titulo}</p>
-                <p><b>Segmento:</b> ${segmento}</p>
-                <p><b>Descrição:</b> <p>
-                <p class="descricao">${descricaoProblema}</p>
-                <br>
-                <div class="imagem">
-                    <img src="${imagemBase64}" alt="Imagem ilustrativa">
-                </div>
-                <br>
-                <h2>Detalhes da ONG</h2>
-                <p><b>Nome:</b> ${nome}</p>
-                <p><b>Descrição:</b> ${sobre}</p>
-                <p><b>Endereço:</b> ${cidade}</p>
-                <br>
-                <p>Contato:</p>
-                <p><b>Telefone:</b> ${telefone}</p>
-                <p><b>E-mail:</b> ${email}</p>
-                <p><b>Site:</b> ${url}</p>
-                <div class="button-detalhe">
-                    <button onclick="fecharDetalhes()">Selecionar</button>
-                </div>
-            </div>
-        `;
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Erro",
-                        text: "Os dados da ONG não foram encontrados.",
-                    });
-                }
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                visualizarImagem();
-            });
-
-            function fecharDetalhes() {
-                document.getElementById("detalhes-container").innerHTML = "";
-                document.body.classList.remove("detalhes-open");
-            }
-
-            // function verificarEquipe() {
-            //     let equipeRecente = JSON.parse(
-            //         localStorage.getItem("equipeRecente")
-            //     );
-            //     return equipeRecente !== null && equipeRecente !== undefined;
-            // }
-
-            // function redirecionarParaHome() {
-            //     if (verificarEquipe()) {
-            //         window.location.href =
-            //             "../HTML/antes-telaInicialAluno.html"; // Redirecionar para a tela da equipe
-            //     } else {
-            //         window.location.href = "../HTML/cadastroEquipe.html"; // Redirecionar para a tela de aluno sem equipe
-            //     }
-            // }
-        </script>
-    </body>
 </html>
