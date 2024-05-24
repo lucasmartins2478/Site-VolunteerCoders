@@ -18,17 +18,16 @@
                 font-size: 1rem;
             }
 
-            .container-problema {
+            .container{
                 border-radius: 15px;
                 width: 65%;
                 height: 85%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: space-around;
                 background-color: #fff;
                 padding: 2%;
-                margin-bottom: 0px;
+
             }
 
             h2 {
@@ -191,28 +190,35 @@
                 background-color: #3a628e;
             }
             /* ----------------------------------- */
-            @media screen and (max-width: 768px) {
-                .container-problema {
-                    width: 90%;
-                    height: auto;
+            @media screen and (max-width: 1064px) {
+
+                .container {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0;
                 }
 
                 .container-problema__conteudo {
-                    height: auto;
-                }
-
-                #nome-aluno,
-                #cidade-aluno,
-                .nasc-cpf,
-                .email-telefone,
-                .instituicao,
-                .validacao,
-                #email {
-                    flex-direction: column;
-                }
-
-                label {
                     width: 100%;
+                    height: 100%;
+                    padding: 0;
+                }
+                input[type="date"]{
+                    width: 10rem;
+                }
+                #cpf{
+                    width: 17rem;
+                }
+                .instituicao{
+                    display: flex;
+                    width: 100%;    
+                }
+                .instituicao input{
+                    width: 2rem;
+                    margin: 0;
+                }
+                #email{
+                    width: 2rem;
                 }
                 #nome-aluno,
                 #cidade-aluno,
@@ -224,9 +230,18 @@
                     flex-direction: column;
                 }
 
-                input {
-                    width: 5px;
+                
+                #nome-aluno,
+                #cidade-aluno,
+                .nasc-cpf,
+                .email-telefone,
+                .instituicao,
+                .validacao,
+                #email {
+                    flex-direction: column;
                 }
+
+                
 
                 .botao button,
                 .validacao button {
@@ -235,11 +250,7 @@
                 }
             }
 
-            .validacao #email {
-                margin-left: 10px;
-                width: 510px;
-                height: 40px;
-            }
+            
 
             .validacao #email.icone-visivel {
                 width: 450px;
@@ -255,8 +266,8 @@
         </style>
     </head>
 
-    <body id="body-cadastro">
-        <div class="container-problema">
+    <body>
+        <div class="container">
             <h2 class="container-problema__h2">Cadastro Aluno</h2>
             <div class="container-problema__conteudo">
                 <div class="nome-aluno">
