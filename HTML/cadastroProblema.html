@@ -210,14 +210,35 @@
             }).then(response => response.json()).then(data => {
 
                 // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Cadastrado',
-                    text: 'Problema cadastrado com sucesso!.'
-                })
-                window.location.href="telaInicialONG.html";
+                const swalConfig = {
+                    title: 'Insira sua senha de login para confirmar sua identidade:',
+                    input: 'password', // Define o tipo de entrada como senha
+                    inputAttributes: {
+                        // Adiciona classes personalizadas ao campo de senha
+                        class: 'swal2-input minha-classe-personalizada'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: 'Cancelar'
+                };
+                var senha = 's'
+                Swal.fire(swalConfig).then((result) => {
+                    if (result.isConfirmed) {
+                        var senhaInserida = result.value;
+
+                        if (senhaInserida === senha) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Problema cadastrado com sucesso!',
+                                text: 'Os dados sensíveis de ONG e estudante são privados.'
+                            }).then(() => {
+                                window.location.href = 'telaInicialONG.html';
+                            });
+                        }
+                    }
+                });
             }).catch((error) => {
-            
+
                 // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
                 Swal.fire({
                     icon: 'error',
@@ -228,7 +249,7 @@
             });
         })
 
-        
+
     </script>
 </body>
 

@@ -45,13 +45,7 @@
             word-wrap: break-word;
         }
 
-        .scrollable {
-            overflow-x: scroll;
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 20px;
-            -webkit-overflow-scrolling: touch;
-        }
+
 
         .btn-detalhes {
             color: #fff;
@@ -63,22 +57,21 @@
         .detalhes .button-detalhe {
             display: flex;
             align-items: end;
-            justify-content: center;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            justify-content: space-around;
+
+            width: 100%;
         }
 
         .detalhes .button-detalhe button {
             background-color: #1166ca;
             width: 100px;
             height: 30px;
-            border-radius: 16px;
+            border-radius: 8px;
             border: solid 0px;
             font-size: 18px;
             color: #fff;
             margin-top: 50px;
+            cursor: pointer;
         }
 
         .card {
@@ -97,24 +90,30 @@
             text-overflow: ellipsis;
         }
 
+        .problemas-cadastrados {
+            height: 18rem;
+        }
+
         .card-container {
             display: flex;
             flex-wrap: nowrap;
             gap: 20px;
             margin-bottom: s;
             overflow-x: scroll;
-            height: 15rem;
+            height: auto;
             max-width: 78rem;
         }
-        .select-container{
+
+        .select-container {
             display: flex;
             flex-wrap: nowrap;
             gap: 20px;
             margin-bottom: s;
             overflow-x: scroll;
             max-width: 35rem;
-            height: 15rem;
+            height: auto;
         }
+
         .seta {
             position: static;
             display: flex;
@@ -156,6 +155,12 @@
             margin-top: 20px;
             border-left: solid 2px #bab8b2;
             padding-left: 20px;
+        }
+        .projeto-container{
+            display: flex;
+            height: auto;
+            width: 20rem;
+            overflow-x: scroll;
         }
 
         .card-replicado .titulo-card {
@@ -491,7 +496,9 @@
                     </div>
                     <div class="projetos-andamento">
                         <h3 class="title-projeto">Projetos em andamento</h3>
-                        <div class="card-projeto" id="card-projeto-container"></div>
+                        <div class="projeto-container">
+                            <div class="card-selecionado"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -502,6 +509,7 @@
     <script>
         const problemaApiUrl = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
         const ongApiUrl = 'https://664f28a4fafad45dfae29755.mockapi.io/api/v1/ong';
+        const projetoApiUrl = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto';
 
         // Função para carregar dados dos problemas
         function carregaDados() {
@@ -510,6 +518,7 @@
                 .then(dados => {
                     console.log('Problemas carregados:', dados); // Log dos dados carregados
                     montaTela(dados);
+                    carregaProjetos(); // Chama a função para carregar projetos
                 })
                 .catch(error => console.error('Erro ao carregar dados:', error));
         }
@@ -522,14 +531,15 @@
             selecionadoConteiner.textContent = '';
 
             problemas.forEach(element => {
-                if (element.selecionado == true){
-                    const newCard = document.createElement("div");
+                const newCard = document.createElement("div");
                 newCard.classList.add("card");
                 newCard.innerHTML = `
                     <div>
                         <div class="titulo-card">
                             <h4>${element.titulo}</h4>
-                            
+                            <button onclick='excluirCard(${element.id})'>
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
                         </div>
                         <p><b>Causa:</b> ${element.causa}</p>
                         <p><b>Descrição:</b> ${element.descricao}</p>
@@ -538,26 +548,43 @@
                         Detalhes
                     </button>
                 `;
-                selecionadoConteiner.appendChild(newCard);
-                }else{
-                    const newCard = document.createElement("div");
-                newCard.classList.add("card");
-                newCard.innerHTML = `
-                    <div>
-                        <div class="titulo-card">
-                            <h4>${element.titulo}</h4>
-                            
-                        </div>
-                        <p><b>Causa:</b> ${element.causa}</p>
-                        <p><b>Descrição:</b> ${element.descricao}</p>
-                    </div>
-                    <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.ongId}")'>
-                        Detalhes
-                    </button>
-                `;
-                cardContainer.appendChild(newCard);
+                if (element.selecionado == true) {
+                    selecionadoConteiner.appendChild(newCard);
+                } else {
+                    cardContainer.appendChild(newCard);
                 }
-                
+            });
+        }
+
+        // Função para carregar dados dos projetos
+        function carregaProjetos() {
+            fetch(projetoApiUrl)
+                .then(response => response.json())
+                .then(dados => {
+                    console.log('Projetos carregados:', dados); // Log dos dados carregados
+                    montaProjetos(dados);
+                })
+                .catch(error => console.error('Erro ao carregar dados:', error));
+        }
+
+        // Função para montar os cards de projetos na tela
+        function montaProjetos(projetos) {
+            let projectContainer = document.querySelector(".projeto-container");
+            projectContainer.textContent = ''; // Limpa o container antes de adicionar os novos cards
+
+            projetos.forEach(element => {
+                const newCard = document.createElement("div");
+                newCard.classList.add("card");
+                newCard.innerHTML = `
+                    <div>
+                        <div class="titulo-card">
+                            <h4>${element.titulo}</h4>
+                        </div>
+                        <p><b>Causa:</b> ${element.causa}</p>
+                        <p><b>Descrição:</b> ${element.descricao}</p>
+                    </div>
+                `;
+                projectContainer.appendChild(newCard);
             });
         }
 
@@ -583,12 +610,15 @@
                     fetch(`${problemaApiUrl}/${problemaId}`).then(res => res.json()),
                     fetchOng(ongId)
                 ]);
+                if (problema.selecionado == true) {
+                    console.log('Detalhes do problema:', problema); // Log dos dados do problema
+                    console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
 
-                console.log('Detalhes do problema:', problema); // Log dos dados do problema
-                console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
-
-                detalhesContainer.innerHTML = `
+                    detalhesContainer.innerHTML = `
                     <div class="detalhes">
+                        <br>
+                        <br>
+                        <br>
                         <h2>Detalhes do Problema</h2>
                         <p><b>Título:</b> ${problema.titulo}</p>
                         <p><b>Causa:</b> ${problema.causa}</p>
@@ -603,13 +633,57 @@
                         <p><b>Telefone:</b> ${ong.telefone}</p>
                         <p><b>E-mail:</b> ${ong.email}</p>
                         <p><b>Site:</b> ${ong.site}</p>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="button-detalhe">
+                            <button onclick="aceitarProjeto(${problemaId})">Aceitar Projeto</button>
+                            <button onclick="fecharDetalhes()">Fechar</button>
+                        </div>
+                        
+                    </div>
+                `;
+
+                    detalhesContainer.style.display = 'block';
+                } else {
+                    console.log('Detalhes do problema:', problema); // Log dos dados do problema
+                    console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
+
+                    detalhesContainer.innerHTML = `
+                    <div class="detalhes">
+                        <br>
+                        <br>
+                        <br>
+                        <h2>Detalhes do Problema</h2>
+                        <p><b>Título:</b> ${problema.titulo}</p>
+                        <p><b>Causa:</b> ${problema.causa}</p>
+                        <p><b>Descrição:</b> ${problema.descricao}</p>
+                        <br>
+                        <h2>Detalhes da ONG</h2>
+                        <p><b>Nome:</b> ${ong.nome}</p>
+                        <p><b>Descrição:</b> ${ong.descricao}</p>
+                        <p><b>Endereço:</b> ${ong.endereco}</p>
+                        <br>
+                        <p>Contato:</p>
+                        <p><b>Telefone:</b> ${ong.telefone}</p>
+                        <p><b>E-mail:</b> ${ong.email}</p>
+                        <p><b>Site:</b> ${ong.site}</p>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                         <div class="button-detalhe">
                             <button onclick="fecharDetalhes()">Fechar</button>
                         </div>
                     </div>
                 `;
 
-                detalhesContainer.style.display = 'block';
+                    detalhesContainer.style.display = 'block';
+                }
+
             } catch (error) {
                 console.error('Erro ao carregar detalhes:', error);
             }
@@ -623,6 +697,80 @@
         }
 
         // Função para excluir um card
+        
+        function removerProblema(id) {
+
+            fetch(`${problemaApiUrl}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }).then(response => {
+                carregaDados();
+                
+            }).catch(error => console.error('Erro ao excluir problema:', error));
+        }
+
+
+        function aceitarProjeto(problemaId) {
+            // Busca os dados do problema correspondente na API de problemas
+            fetch(`${problemaApiUrl}/${problemaId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao buscar os dados do problema.');
+                    }
+                    return response.json();
+                })
+                .then(problema => {
+                    // Cria um objeto 'projeto' e carrega os dados do problema nele
+                    const projeto = {
+                        titulo: problema.titulo,
+                        causa: problema.causa,
+                        descricao: problema.descricao,
+                        ongId: problema.ongId
+                        // Adicione mais campos conforme necessário
+                    };
+
+                    const url = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto';
+
+                    // Envia os dados para a API usando fetch
+                    fetch(url, {
+                        method: 'POST', // Define o método como POST
+                        headers: {
+                            'Content-Type': 'application/json' // Define o cabeçalho como JSON
+                        },
+                        body: JSON.stringify(projeto) // Converte o objeto problema para uma string JSON
+                    }).then(response => response.json()).then(data => {
+
+                        // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
+
+
+                        removerProblema(problemaId)
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Problema cadastrado com sucesso!',
+                            text: 'Os dados sensíveis de ONG e estudante são privados.'
+                        }).then(() => {
+                            window.location.href = 'telaInicialONG.html';
+                        });
+                    }).catch((error) => {
+
+                        // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro',
+                            text: 'Não foi possível realizar essa ação!.'
+                        })
+                        return
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar os dados do problema:', error);
+                    alert('Erro ao buscar os dados do problema. Por favor, tente novamente mais tarde.');
+                });
+        }
+
         function excluirCard(id) {
             Swal.fire({
                 icon: "warning",
@@ -642,14 +790,14 @@
                         carregaDados();
                         Swal.fire({
                             icon: 'success',
-                            title: 'Excluído',
-                            text: 'Problema excluído com sucesso!'
+                            title: 'Excluido',
+                            text: 'Problema excluido com sucesso!'
                         });
-                    }).catch(error => console.error('Erro ao excluir problema:', error));
+                    });
                 }
+
             });
         }
-
         // Carrega dados ao iniciar a página
         window.onload = carregaDados;
 
