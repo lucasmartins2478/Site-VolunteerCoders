@@ -112,6 +112,7 @@
             width: 100px;
             height: 100px;
         }
+
         .detalhes .button-detalhe {
             display: flex;
             align-items: end;
@@ -149,6 +150,7 @@
         .segundo-processo {
             display: flex;
         }
+
         .problemas-cadastrados {
             height: 18rem;
         }
@@ -500,7 +502,7 @@
                     </button>
                 </div>
                 <div id="logout">
-                    <button id="logout-btn" onclick="logout(event)">
+                    <button id="logout-btn" onclick="sair(event)">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span class="item-description">Sair</span>
                     </button>
@@ -542,7 +544,7 @@
                     .classList.toggle("open-sidebar");
             });
 
-        function logout(event) {
+        function sair(event) {
             event.preventDefault();
 
             Swal.fire({
@@ -554,7 +556,7 @@
                 cancelButtonText: "Não",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "apresentacao.html";
+                    window.location.href = "../landing-page.html";
                 }
             });
         }
@@ -563,32 +565,32 @@
 
 
         const problemaApiUrl = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
-            const ongApiUrl = 'https://664f28a4fafad45dfae29755.mockapi.io/api/v1/ong';
-            const projetoApiUrl = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto';
-    
-            // Função para carregar dados dos problemas
-            function carregaDados() {
-                fetch(problemaApiUrl)
-                    .then(response => response.json())
-                    .then(dados => {
-                        console.log('Problemas carregados:', dados); // Log dos dados carregados
-                        montaTela(dados);
-                        carregaProjetos(); // Chama a função para carregar projetos
-                    })
-                    .catch(error => console.error('Erro ao carregar dados:', error));
-            }
-    
-            // Função para montar os cards na tela
-            function montaTela(problemas) {
-                let cardContainer = document.querySelector(".card-container");
-                cardContainer.textContent = ''; // Limpa o container antes de adicionar os novos cards
-                let selecionadoConteiner = document.querySelector('.select-container');
-                selecionadoConteiner.textContent = '';
-    
-                problemas.forEach(element => {
-                    const newCard = document.createElement("div");
-                    newCard.classList.add("card");
-                    newCard.innerHTML = `
+        const ongApiUrl = 'https://664f28a4fafad45dfae29755.mockapi.io/api/v1/ong';
+        const projetoApiUrl = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto';
+
+        // Função para carregar dados dos problemas
+        function carregaDados() {
+            fetch(problemaApiUrl)
+                .then(response => response.json())
+                .then(dados => {
+                    console.log('Problemas carregados:', dados); // Log dos dados carregados
+                    montaTela(dados);
+                    carregaProjetos(); // Chama a função para carregar projetos
+                })
+                .catch(error => console.error('Erro ao carregar dados:', error));
+        }
+
+        // Função para montar os cards na tela
+        function montaTela(problemas) {
+            let cardContainer = document.querySelector(".card-container");
+            cardContainer.textContent = ''; // Limpa o container antes de adicionar os novos cards
+            let selecionadoConteiner = document.querySelector('.select-container');
+            selecionadoConteiner.textContent = '';
+
+            problemas.forEach(element => {
+                const newCard = document.createElement("div");
+                newCard.classList.add("card");
+                newCard.innerHTML = `
                         <div>
                             <div class="titulo-card">
                                 <h4>${element.titulo}</h4>
@@ -603,34 +605,34 @@
                             Detalhes
                         </button>
                     `;
-                    if (element.selecionado == true) {
-                        selecionadoConteiner.appendChild(newCard);
-                    } else {
-                        cardContainer.appendChild(newCard);
-                    }
-                });
-            }
-    
-            // Função para carregar dados dos projetos
-            function carregaProjetos() {
-                fetch(projetoApiUrl)
-                    .then(response => response.json())
-                    .then(dados => {
-                        console.log('Projetos carregados:', dados); // Log dos dados carregados
-                        montaProjetos(dados);
-                    })
-                    .catch(error => console.error('Erro ao carregar dados:', error));
-            }
-    
-            // Função para montar os cards de projetos na tela
-            function montaProjetos(projetos) {
-                let projectContainer = document.querySelector(".projeto-container");
-                projectContainer.textContent = ''; // Limpa o container antes de adicionar os novos cards
-    
-                projetos.forEach(element => {
-                    const newCard = document.createElement("div");
-                    newCard.classList.add("card");
-                    newCard.innerHTML = `
+                if (element.selecionado == true) {
+                    selecionadoConteiner.appendChild(newCard);
+                } else {
+                    cardContainer.appendChild(newCard);
+                }
+            });
+        }
+
+        // Função para carregar dados dos projetos
+        function carregaProjetos() {
+            fetch(projetoApiUrl)
+                .then(response => response.json())
+                .then(dados => {
+                    console.log('Projetos carregados:', dados); // Log dos dados carregados
+                    montaProjetos(dados);
+                })
+                .catch(error => console.error('Erro ao carregar dados:', error));
+        }
+
+        // Função para montar os cards de projetos na tela
+        function montaProjetos(projetos) {
+            let projectContainer = document.querySelector(".projeto-container");
+            projectContainer.textContent = ''; // Limpa o container antes de adicionar os novos cards
+
+            projetos.forEach(element => {
+                const newCard = document.createElement("div");
+                newCard.classList.add("card");
+                newCard.innerHTML = `
                         <div>
                             <div class="titulo-card">
                                 <h4>${element.titulo}</h4>
@@ -639,37 +641,37 @@
                             <p><b>Descrição:</b> ${element.descricao}</p>
                         </div>
                     `;
-                    projectContainer.appendChild(newCard);
-                });
+                projectContainer.appendChild(newCard);
+            });
+        }
+
+        // Função para buscar dados da ONG
+        async function fetchOng(ongId) {
+            try {
+                const response = await fetch(`${ongApiUrl}/${ongId}`);
+                const data = await response.json();
+                console.log('ONG carregada:', data); // Log dos dados da ONG
+                return data;
+            } catch (error) {
+                console.error('Erro ao carregar dados da ONG:', error);
             }
-    
-            // Função para buscar dados da ONG
-            async function fetchOng(ongId) {
-                try {
-                    const response = await fetch(`${ongApiUrl}/${ongId}`);
-                    const data = await response.json();
-                    console.log('ONG carregada:', data); // Log dos dados da ONG
-                    return data;
-                } catch (error) {
-                    console.error('Erro ao carregar dados da ONG:', error);
-                }
-            }
-    
-            // Função para mostrar os detalhes do problema e da ONG
-            async function mostrarDetalhes(problemaId, ongId) {
-                try {
-                    const detalhesContainer = document.getElementById("detalhes-container");
-    
-                    // Fetch dados do problema e da ONG
-                    const [problema, ong] = await Promise.all([
-                        fetch(`${problemaApiUrl}/${problemaId}`).then(res => res.json()),
-                        fetchOng(ongId)
-                    ]);
-                    if (problema.selecionado == true) {
-                        console.log('Detalhes do problema:', problema); // Log dos dados do problema
-                        console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
-    
-                        detalhesContainer.innerHTML = `
+        }
+
+        // Função para mostrar os detalhes do problema e da ONG
+        async function mostrarDetalhes(problemaId, ongId) {
+            try {
+                const detalhesContainer = document.getElementById("detalhes-container");
+
+                // Fetch dados do problema e da ONG
+                const [problema, ong] = await Promise.all([
+                    fetch(`${problemaApiUrl}/${problemaId}`).then(res => res.json()),
+                    fetchOng(ongId)
+                ]);
+                if (problema.selecionado == true) {
+                    console.log('Detalhes do problema:', problema); // Log dos dados do problema
+                    console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
+
+                    detalhesContainer.innerHTML = `
                         <div class="detalhes">
                             <br>
                             <br>
@@ -700,13 +702,13 @@
                             
                         </div>
                     `;
-    
-                        detalhesContainer.style.display = 'block';
-                    } else {
-                        console.log('Detalhes do problema:', problema); // Log dos dados do problema
-                        console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
-    
-                        detalhesContainer.innerHTML = `
+
+                    detalhesContainer.style.display = 'block';
+                } else {
+                    console.log('Detalhes do problema:', problema); // Log dos dados do problema
+                    console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
+
+                    detalhesContainer.innerHTML = `
                         <div class="detalhes">
                             <br>
                             <br>
@@ -735,142 +737,137 @@
                             </div>
                         </div>
                     `;
-    
-                        detalhesContainer.style.display = 'block';
-                    }
-    
-                } catch (error) {
-                    console.error('Erro ao carregar detalhes:', error);
+
+                    detalhesContainer.style.display = 'block';
                 }
+
+            } catch (error) {
+                console.error('Erro ao carregar detalhes:', error);
             }
-    
-            // Função para fechar os detalhes
-            function fecharDetalhes() {
-                const detalhesContainer = document.getElementById("detalhes-container");
-                detalhesContainer.innerHTML = '';
-                detalhesContainer.style.display = 'none';
-            }
-    
-            // Função para excluir um card
-            
-            function removerProblema(id) {
-    
-                fetch(`${problemaApiUrl}/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        "Content-Type": "application/json",
+        }
+
+        // Função para fechar os detalhes
+        function fecharDetalhes() {
+            const detalhesContainer = document.getElementById("detalhes-container");
+            detalhesContainer.innerHTML = '';
+            detalhesContainer.style.display = 'none';
+        }
+
+        // Função para excluir um card
+
+        function removerProblema(id) {
+
+            fetch(`${problemaApiUrl}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }).then(response => {
+                carregaDados();
+
+            }).catch(error => console.error('Erro ao excluir problema:', error));
+        }
+
+
+        function aceitarProjeto(problemaId) {
+            // Busca os dados do problema correspondente na API de problemas
+            fetch(`${problemaApiUrl}/${problemaId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao buscar os dados do problema.');
                     }
-                }).then(response => {
-                    carregaDados();
-                    
-                }).catch(error => console.error('Erro ao excluir problema:', error));
-            }
-    
-    
-            function aceitarProjeto(problemaId) {
-                // Busca os dados do problema correspondente na API de problemas
-                fetch(`${problemaApiUrl}/${problemaId}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Erro ao buscar os dados do problema.');
-                        }
-                        return response.json();
-                    })
-                    .then(problema => {
-                        // Cria um objeto 'projeto' e carrega os dados do problema nele
-                        const projeto = {
-                            titulo: problema.titulo,
-                            causa: problema.causa,
-                            descricao: problema.descricao,
-                            ongId: problema.ongId
-                            // Adicione mais campos conforme necessário
-                        };
-    
-                        const url = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto';
-    
-                        // Envia os dados para a API usando fetch
-                        fetch(url, {
-                            method: 'POST', // Define o método como POST
-                            headers: {
-                                'Content-Type': 'application/json' // Define o cabeçalho como JSON
-                            },
-                            body: JSON.stringify(projeto) // Converte o objeto problema para uma string JSON
-                        }).then(response => response.json()).then(data => {
-    
-                            // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
-    
-    
-                            removerProblema(problemaId)
-    
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Problema cadastrado com sucesso!',
-                                text: 'Os dados sensíveis de ONG e estudante são privados.'
-                            }).then(() => {
-                                window.location.href = 'telaInicialONG.html';
-                            });
-                        }).catch((error) => {
-    
-                            // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Erro',
-                                text: 'Não foi possível realizar essa ação!.'
-                            })
-                            return
+                    return response.json();
+                })
+                .then(problema => {
+                    // Cria um objeto 'projeto' e carrega os dados do problema nele
+                    const projeto = {
+                        titulo: problema.titulo,
+                        causa: problema.causa,
+                        descricao: problema.descricao,
+                        ongId: problema.ongId
+                        // Adicione mais campos conforme necessário
+                    };
+
+                    const url = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto';
+
+                    // Envia os dados para a API usando fetch
+                    fetch(url, {
+                        method: 'POST', // Define o método como POST
+                        headers: {
+                            'Content-Type': 'application/json' // Define o cabeçalho como JSON
+                        },
+                        body: JSON.stringify(projeto) // Converte o objeto problema para uma string JSON
+                    }).then(response => response.json()).then(data => {
+
+                        // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
+
+
+                        removerProblema(problemaId)
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Problema cadastrado com sucesso!',
+                            text: 'Os dados sensíveis de ONG e estudante são privados.'
+                        }).then(() => {
+                            window.location.href = 'telaInicialONG.html';
                         });
-                    })
-                    .catch(error => {
-                        console.error('Erro ao buscar os dados do problema:', error);
-                        alert('Erro ao buscar os dados do problema. Por favor, tente novamente mais tarde.');
+                    }).catch((error) => {
+
+                        // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro',
+                            text: 'Não foi possível realizar essa ação!.'
+                        })
+                        return
                     });
-            }
-    
-            function excluirCard(id) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "Atenção!",
-                    text: "Quer mesmo excluir esse problema?",
-                    showCancelButton: true,
-                    confirmButtonText: "Sim",
-                    cancelButtonText: "Não",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch(`${problemaApiUrl}/${id}`, {
-                            method: 'DELETE',
-                            headers: {
-                                "Content-Type": "application/json",
-                            }
-                        }).then(response => {
-                            carregaDados();
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Excluido',
-                                text: 'Problema excluido com sucesso!'
-                            });
-                        });
-                    }
-    
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar os dados do problema:', error);
+                    alert('Erro ao buscar os dados do problema. Por favor, tente novamente mais tarde.');
                 });
-            }
-            // Carrega dados ao iniciar a página
-            window.onload = carregaDados;
-    
-            // Adiciona o evento de fechar detalhes ao DOM
-            window.fecharDetalhes = fecharDetalhes;
-    
-            // Função de logout (apenas para completar o código)
-            function logout(event) {
-                event.preventDefault();
-                // Implementar logout aqui
-            }
+        }
 
+        function excluirCard(id) {
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção!",
+                text: "Quer mesmo excluir esse problema?",
+                showCancelButton: true,
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`${problemaApiUrl}/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    }).then(response => {
+                        carregaDados();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Excluido',
+                            text: 'Problema excluido com sucesso!'
+                        });
+                    });
+                }
 
+            });
+        }
+        // Carrega dados ao iniciar a página
+        window.onload = carregaDados;
 
-        const btnChat = document.createElement("button");
-        btnChat.textContent = "Chat";
-        btnChat.classList.add("btn-chat");
-        btnChat.addEventListener("click", function () {
+        // Adiciona o evento de fechar detalhes ao DOM
+        window.fecharDetalhes = fecharDetalhes;
+
+        // Função de logout (apenas para completar o código)
+        function logout(event) {
+            event.preventDefault();
+            // Implementar logout aqui
+        }
+
+        function abrirChat() {
             let overlay = document.querySelector(".overlay");
             if (!overlay) {
                 overlay = document.createElement("div");
@@ -878,14 +875,11 @@
                 document.body.appendChild(overlay);
             }
             overlay.style.display = "block";
+
             const offcanvasDiv = document.createElement("div");
-            offcanvasDiv.classList.add(
-                "offcanvas",
-                "offcanvas-bottom"
-            );
+            offcanvasDiv.classList.add("offcanvas", "offcanvas-bottom");
             offcanvasDiv.tabIndex = "-1";
             offcanvasDiv.id = "offcanvasBottom";
-
             offcanvasDiv.style.width = "400px";
             offcanvasDiv.style.height = "70%";
             offcanvasDiv.style.color = "white";
@@ -913,6 +907,11 @@
             closeButton.dataset.bsDismiss = "offcanvas";
             closeButton.setAttribute("aria-label", "Close");
 
+            closeButton.addEventListener("click", function () {
+                offcanvasDiv.remove();
+                overlay.style.display = "none";
+            });
+
             offcanvasHeader.appendChild(offcanvasTitle);
             offcanvasHeader.appendChild(closeButton);
 
@@ -931,15 +930,11 @@
             sendButton.classList.add("send-button");
 
             const sendIcon = document.createElement("i");
-            sendIcon.classList.add(
-                "bi",
-                "bi-send-fill",
-                "send-icon"
-            );
+            sendIcon.classList.add("bi", "bi-send-fill", "send-icon");
             sendIcon.innerHTML = `
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-                                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-                            </svg>`;
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                </svg>`;
             sendButton.appendChild(sendIcon);
 
             sendButton.addEventListener("mouseover", function () {
@@ -950,47 +945,13 @@
                 sendIcon.style.color = "#1166ca";
             });
 
-            const closeIcon = document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "svg"
-            );
-            closeIcon.setAttribute(
-                "xmlns",
-                "http://www.w3.org/2000/svg"
-            );
-            closeIcon.setAttribute("width", "16");
-            closeIcon.setAttribute("height", "16");
-            closeIcon.setAttribute("fill", "currentColor");
-            closeIcon.setAttribute("class", "bi bi-x close-icon");
-            closeIcon.setAttribute("viewBox", "0 0 16 16");
-            closeIcon.innerHTML = `<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708"/>`;
-            closeIcon.addEventListener("click", function () {
-                offcanvasDiv.remove();
-                overlay.style.display = "none";
-            });
-
-            offcanvasHeader.appendChild(closeIcon);
-            offcanvasHeader.appendChild(headerTitle);
-            offcanvasDiv.appendChild(offcanvasHeader);
-            offcanvasBody.appendChild(offcanvasInput);
-            offcanvasBody.appendChild(sendButton);
-            const offcanvasFooter =
-                document.createElement("footer");
-            offcanvasBody.classList.add("offcanvas-footer");
-
+            inputContainer.appendChild(offcanvasInput);
+            inputContainer.appendChild(sendButton);
             offcanvasDiv.appendChild(offcanvasHeader);
             offcanvasDiv.appendChild(offcanvasBody);
 
             document.body.appendChild(offcanvasDiv);
-        });
-
-        novoCardProjeto.appendChild(btnChat);
-
-        cardProjetoContainer.appendChild(novoCardProjeto);
-
-        const btnEnviarAceite =
-            novoCardProjeto.querySelector(".btn-pedir-aceite");
-        btnEnviarAceite.addEventListener("click", function () { });
+        }
 
     </script>
 </body>

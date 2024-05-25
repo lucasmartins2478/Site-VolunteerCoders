@@ -50,6 +50,7 @@
             display: flex;
             flex-wrap: nowrap;
             -webkit-overflow-scrolling: touch;
+            width: 78rem;
         }
 
         .btn-detalhes {
@@ -125,12 +126,7 @@
             text-overflow: ellipsis;
         }
 
-        .card-container {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 20px;
-            margin-bottom: s;
-        }
+
 
         .seta {
             position: static;
@@ -261,16 +257,29 @@
             visibility: 0%;
         }
 
+        #btn-selecionar {
+            width: 10rem;
+            margin-left: 1rem;
+
+        }
+
+        #select-buttons {
+            display: flex;
+            width: 100%;
+        }
+
         .segundo-processo {
             display: flex;
         }
+
         .detalhes .button-detalhe {
             display: flex;
             align-items: end;
             justify-content: space-around;
             width: 100%;
-}
-            .detalhes .button-detalhe button {
+        }
+
+        .detalhes .button-detalhe button {
             background-color: #1166ca;
             width: 100px;
             height: 30px;
@@ -483,7 +492,7 @@
                     </button>
                 </div>
                 <div id="logout">
-                    <button id="logout-btn" onclick="logout(event)">
+                    <button id="logout-btn" onclick="sair(event)">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span class="item-description">Sair</span>
                     </button>
@@ -531,7 +540,7 @@
                     .classList.toggle("open-sidebar");
             });
 
-        function logout(event) {
+        function sair(event) {
             event.preventDefault();
 
             Swal.fire({
@@ -543,7 +552,7 @@
                 cancelButtonText: "Não",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "apresentacao.html";
+                    window.location.href = "../landing-page.html";
                 }
             });
         }
@@ -571,9 +580,29 @@
             selecionadoConteiner.textContent = '';
 
             problemas.forEach(element => {
-                const newCard = document.createElement("div");
-                newCard.classList.add("card");
-                newCard.innerHTML = `
+
+                if (element.selecionado == true) {
+                    const newCard = document.createElement("div");
+                    newCard.classList.add("card");
+                    newCard.innerHTML = `
+                        <div>
+                            <div class="titulo-card">
+                                <h4>${element.titulo}</h4>
+                            </div>
+                            <p><b>Causa:</b> ${element.causa}</p>
+                            <p><b>Descrição:</b> ${element.descricao}</p>
+                        </div>
+                        <div class="select-buttons">
+                        <button class="btn-pedir-aceite" id="btn-selecionar" onclick="selecionarProblema(${element.id})">Solicitar aceite</button>
+                        <button class="btn-chat" id="btn-selecionar" onclick="abrirChat()">Chat</button>
+                        </div>
+                        `;
+
+                    selecionadoConteiner.appendChild(newCard);
+                } else {
+                    const newCard = document.createElement("div");
+                    newCard.classList.add("card");
+                    newCard.innerHTML = `
                         <div>
                             <div class="titulo-card">
                                 <h4>${element.titulo}</h4>
@@ -585,9 +614,6 @@
                             Detalhes
                         </button>
                     `;
-                if (element.selecionado == true) {
-                    selecionadoConteiner.appendChild(newCard);
-                } else {
                     cardContainer.appendChild(newCard);
                 }
             });
@@ -619,6 +645,7 @@
                             </div>
                             <p><b>Causa:</b> ${element.causa}</p>
                             <p><b>Descrição:</b> ${element.descricao}</p>
+                            <button class="btn-detalhes">Iniciar Desenvolvimento</button>
                         </div>
                     `;
                 projectContainer.appendChild(newCard);
@@ -750,7 +777,149 @@
 
         }
 
+        function abrirChat() {
+            let overlay =
+                document.querySelector(".overlay");
+            if (!overlay) {
+                overlay = document.createElement("div");
+                overlay.classList.add("overlay");
+                document.body.appendChild(overlay);
+            }
+            overlay.style.display = "block";
+            const offcanvasDiv =
+                document.createElement("div");
+            offcanvasDiv.classList.add(
+                "offcanvas",
+                "offcanvas-bottom"
+            );
+            offcanvasDiv.tabIndex = "-1";
+            offcanvasDiv.id = "offcanvasBottom";
 
+            offcanvasDiv.style.width = "400px";
+            offcanvasDiv.style.height = "70%";
+            offcanvasDiv.style.color = "white";
+            offcanvasDiv.style.position = "fixed";
+            offcanvasDiv.style.bottom = "10px";
+            offcanvasDiv.style.right = "10px";
+            offcanvasDiv.style.backgroundColor = "white";
+            offcanvasDiv.style.borderRadius = "12px";
+            offcanvasDiv.style.border = "solid 1px black";
+
+            const offcanvasHeader =
+                document.createElement("div");
+            offcanvasHeader.classList.add(
+                "offcanvas-header"
+            );
+
+            const headerTitle =
+                document.createElement("span");
+            headerTitle.classList.add("header-title");
+            headerTitle.textContent = "Chat";
+
+            const offcanvasTitle =
+                document.createElement("h5");
+            offcanvasTitle.classList.add("offcanvas-title");
+            offcanvasTitle.textContent = "Chat";
+
+            const closeButton =
+                document.createElement("button");
+            closeButton.type = "button";
+            closeButton.classList.add("btn-close");
+            closeButton.dataset.bsDismiss = "offcanvas";
+            closeButton.setAttribute("aria-label", "Close");
+
+            offcanvasHeader.appendChild(offcanvasTitle);
+            offcanvasHeader.appendChild(closeButton);
+
+            const offcanvasBody =
+                document.createElement("div");
+            offcanvasBody.classList.add(
+                "offcanvas-body",
+                "small"
+            );
+            const inputContainer =
+                document.createElement("div");
+            inputContainer.classList.add("input-container");
+            offcanvasBody.appendChild(inputContainer);
+
+            const offcanvasInput =
+                document.createElement("input");
+            offcanvasInput.type = "text";
+            offcanvasInput.classList.add("offcanvas-input");
+            offcanvasInput.placeholder =
+                "Digite uma mensagem";
+
+            const sendButton =
+                document.createElement("button");
+            sendButton.classList.add("send-button");
+
+            const sendIcon = document.createElement("i");
+            sendIcon.classList.add(
+                "bi",
+                "bi-send-fill",
+                "send-icon"
+            );
+            sendIcon.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                </svg>`;
+            sendButton.appendChild(sendIcon);
+
+            sendButton.addEventListener(
+                "mouseover",
+                function () {
+                    sendIcon.style.color = "#004080";
+                }
+            );
+
+            sendButton.addEventListener(
+                "mouseout",
+                function () {
+                    sendIcon.style.color = "#1166ca";
+                }
+            );
+
+            const closeIcon = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "svg"
+            );
+            closeIcon.setAttribute(
+                "xmlns",
+                "http://www.w3.org/2000/svg"
+            );
+            closeIcon.setAttribute("width", "16");
+            closeIcon.setAttribute("height", "16");
+            closeIcon.setAttribute("fill", "currentColor");
+            closeIcon.setAttribute(
+                "class",
+                "bi bi-x close-icon"
+            );
+            closeIcon.setAttribute("viewBox", "0 0 16 16");
+            closeIcon.innerHTML = `<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>`;
+            closeIcon.addEventListener(
+                "click",
+                function () {
+                    offcanvasDiv.remove();
+                    overlay.style.display = "none";
+                }
+            );
+
+            offcanvasHeader.appendChild(closeIcon);
+            offcanvasHeader.appendChild(headerTitle);
+            offcanvasDiv.appendChild(offcanvasHeader);
+            offcanvasBody.appendChild(offcanvasInput);
+            offcanvasBody.appendChild(sendButton);
+            const offcanvasFooter =
+                document.createElement("footer");
+            offcanvasBody.classList.add("offcanvas-footer");
+
+            offcanvasDiv.appendChild(offcanvasHeader);
+            offcanvasDiv.appendChild(offcanvasBody);
+
+            document.body.appendChild(offcanvasDiv);
+        };
+
+    
 
     </script>
 </body>
