@@ -471,7 +471,6 @@
                         <div class="card-problema" id="card-problema"></div>
                     </div>
                 </div>
-
                 <div class="segundo-processo">
                     <div class="aguardando-resposta" id="aguardando-resposta">
                         <h3 class="title-projeto">Aguardando aceite</h3>
@@ -488,25 +487,25 @@
     <div class="overlay"></div>
     <div id="detalhes-container" class="detalhes-container"></div>
     <script>
-        let problema = [];
+        const problemaApiUrl = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
+        const ongApiUrl = 'https://664f28a4fafad45dfae29755.mockapi.io/api/v1/ong';
 
+        // Função para carregar dados dos problemas
         function carregaDados() {
-            const url = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
-            fetch(url)
-                .then(resposta => resposta.json())
+            fetch(problemaApiUrl)
+                .then(response => response.json())
                 .then(dados => {
-                    problema = dados;
-                    montaTela(problema);
+                    console.log('Problemas carregados:', dados); // Log dos dados carregados
+                    montaTela(dados);
                 })
-                .catch(error => {
-                    console.error('Erro ao carregar dados:', error);
-                });
+                .catch(error => console.error('Erro ao carregar dados:', error));
         }
 
-        function montaTela(problema) {
+        // Função para montar os cards na tela
+        function montaTela(problemas) {
             let cardContainer = document.querySelector(".card-container");
             cardContainer.textContent = ''; // Limpa o container antes de adicionar os novos cards
-            problema.forEach(element => {
+            problemas.forEach(element => {
                 const newCard = document.createElement("div");
                 newCard.classList.add("card");
                 newCard.innerHTML = `
@@ -520,7 +519,7 @@
                         <p><b>Causa:</b> ${element.causa}</p>
                         <p><b>Descrição:</b> ${element.descricao}</p>
                     </div>
-                    <button class="btn-detalhes" onclick='mostrarDetalhes("${element.titulo}", "${element.causa}", "${element.descricao}")'>
+                    <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.ongId}")'>
                         Detalhes
                     </button>
                 `;
@@ -528,37 +527,69 @@
             });
         }
 
-        window.onload = carregaDados;
-
-
-        function mostrarDetalhes(titulo, causa, descricao) {
-            // Função para mostrar detalhes do card, se necessário
-            alert(`Título: ${titulo}\nCausa: ${causa}\nDescrição: ${descricao}`);
+        // Função para buscar dados da ONG
+        async function fetchOng(ongId) {
+            try {
+                const response = await fetch(`${ongApiUrl}/${ongId}`);
+                const data = await response.json();
+                console.log('ONG carregada:', data); // Log dos dados da ONG
+                return data;
+            } catch (error) {
+                console.error('Erro ao carregar dados da ONG:', error);
+            }
         }
 
-        document.getElementById("btn-open-side-bar").addEventListener("click", function () {
-            document.getElementById("side-bar").classList.toggle("open-sidebar");
-        });
+        // Função para mostrar os detalhes do problema e da ONG
+        async function mostrarDetalhes(problemaId, ongId) {
+            try {
+                const detalhesContainer = document.getElementById("detalhes-container");
 
-        function logout(event) {
-            event.preventDefault();
+                // Fetch dados do problema e da ONG
+                const [problema, ong] = await Promise.all([
+                    fetch(`${problemaApiUrl}/${problemaId}`).then(res => res.json()),
+                    fetchOng(ongId)
+                ]);
 
-            Swal.fire({
-                icon: "warning",
-                title: "Atenção!",
-                text: "Quer mesmo sair do Sistema!?",
-                showCancelButton: true,
-                confirmButtonText: "Sim",
-                cancelButtonText: "Não",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "../landing-page.html";
-                }
-            });
+                console.log('Detalhes do problema:', problema); // Log dos dados do problema
+                console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
+
+                detalhesContainer.innerHTML = `
+                    <div class="detalhes">
+                        <h2>Detalhes do Problema</h2>
+                        <p><b>Título:</b> ${problema.titulo}</p>
+                        <p><b>Causa:</b> ${problema.causa}</p>
+                        <p><b>Descrição:</b> ${problema.descricao}</p>
+                        <br>
+                        <h2>Detalhes da ONG</h2>
+                        <p><b>Nome:</b> ${ong.nome}</p>
+                        <p><b>Descrição:</b> ${ong.descricao}</p>
+                        <p><b>Endereço:</b> ${ong.endereco}</p>
+                        <br>
+                        <p>Contato:</p>
+                        <p><b>Telefone:</b> ${ong.telefone}</p>
+                        <p><b>E-mail:</b> ${ong.email}</p>
+                        <p><b>Site:</b> ${ong.site}</p>
+                        <div class="button-detalhe">
+                            <button onclick="fecharDetalhes()">Fechar</button>
+                        </div>
+                    </div>
+                `;
+
+                detalhesContainer.style.display = 'block';
+            } catch (error) {
+                console.error('Erro ao carregar detalhes:', error);
+            }
         }
 
+        // Função para fechar os detalhes
+        function fecharDetalhes() {
+            const detalhesContainer = document.getElementById("detalhes-container");
+            detalhesContainer.innerHTML = '';
+            detalhesContainer.style.display = 'none';
+        }
+
+        // Função para excluir um card
         function excluirCard(id) {
-    
             Swal.fire({
                 icon: "warning",
                 title: "Atenção!",
@@ -568,336 +599,34 @@
                 cancelButtonText: "Não",
             }).then((result) => {
                 if (result.isConfirmed) {
-                        const url = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
-                        fetch(url + '/' + id,{
-                            method: 'Delete',
-                            headers:{
-                                "Content-Type":"application/json",
-                            }
-                        }).then(resposta =>{
-                            carregarDados();
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Excluido',
-                                text: 'Problema excluido com sucesso!.'
-                            })
-                            
-                        })
-                    }
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-
-            const detalhesContainer =
-                document.getElementById("detalhes-container");
-            detalhesContainer.addEventListener("scroll", function () {
-                const closeButton = document.querySelector(
-                    ".button-detalhe button"
-                );
-                const contentHeight = detalhesContainer.scrollHeight;
-                const containerHeight = detalhesContainer.clientHeight;
-                const scrollTop = detalhesContainer.scrollTop;
-                const distanceToBottom =
-                    contentHeight - (scrollTop + containerHeight);
-                if (distanceToBottom <= 10) {
-                    closeButton.style.bottom = 10 - distanceToBottom + "px";
-                } else {
-                    closeButton.style.bottom = "20px";
+                    fetch(`${problemaApiUrl}/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    }).then(response => {
+                        carregaDados();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Excluído',
+                            text: 'Problema excluído com sucesso!'
+                        });
+                    }).catch(error => console.error('Erro ao excluir problema:', error));
                 }
             });
-            if (
-                detalhesContainer.scrollHeight >
-                detalhesContainer.clientHeight
-            ) {
-                detalhesContainer.classList.add("scrollable");
-            }
-        });
-
-        function mostrarDetalhes(titulo, segmento, descricaoProblema) {
-            const dadosONG = JSON.parse(localStorage.getItem("dadosONG"));
-
-            if (dadosONG) {
-                const { nome, sobre, cidade, telefone, email, url } =
-                    dadosONG;
-
-                document.body.classList.add("detalhes-open");
-
-                const detalhesContainer =
-                    document.getElementById("detalhes-container");
-                detalhesContainer.innerHTML = `
-                        <div class="detalhes">
-                                <h2>Detalhes do Problema</h2>
-                                <p><b>Título:</b> ${titulo}</p>
-                                <p><b>Segmento:</b> ${segmento}</p>
-                                <p><b>Descrição:</b> <p>
-                                <p class="descricao">${descricaoProblema}</p>
-                                <br>
-                                <h2>Detalhes da ONG</h2>
-                                <p><b>Nome:</b> ${nome}</p>
-                                <p><b>Descrição:</b> ${sobre}</p>
-                                <p><b>Endereço:</b> ${cidade}</p>
-                                <br>
-                                <p>Contato:</p>
-                                <p><b>Telefone:</b> ${telefone}</p>
-                                <p><b>E-mail:</b> ${email}</p>
-                                <p><b>Site:</b> ${url}</p>
-
-                            <div class="button-detalhe">
-                                <button onclick="fecharDetalhes()">Fechar</button>
-                            </div>
-                        </div>
-                    `;
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Erro",
-                    text: "Os dados da ONG não foram encontrados.",
-                });
-            }
         }
 
-        function fecharDetalhes() {
-            document.getElementById("detalhes-container").innerHTML = "";
-            document.body.classList.remove("detalhes-open");
+        // Carrega dados ao iniciar a página
+        window.onload = carregaDados;
+
+        // Adiciona o evento de fechar detalhes ao DOM
+        window.fecharDetalhes = fecharDetalhes;
+
+        // Função de logout (apenas para completar o código)
+        function logout(event) {
+            event.preventDefault();
+            // Implementar logout aqui
         }
-        function redirecionarParaInicialONG() {
-            window.location.href = "../HTML/telaInicialONG.html";
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const cardProjetoContainer = document.getElementById(
-                "card-projeto-container"
-            );
-            const storedCards =
-                JSON.parse(localStorage.getItem("replicatedCards")) || [];
-
-            storedCards.forEach((cardInfo) => {
-                const novoCardProjeto = document.createElement("div");
-                novoCardProjeto.classList.add("card-replicado");
-
-                novoCardProjeto.innerHTML = `
-                        <div>
-                            <div class="titulo-card">
-                                <h4>${cardInfo.titulo}</h4>
-                            </div>
-                            <p><b>Equipe:</b> ${cardInfo.nomeEquipe}</p>
-                        </div>
-                        <button class="btn-aceite"></button>
-                        <button class="btn-rejeite"></button>
-                    `;
-
-                const btnAceitar =
-                    novoCardProjeto.querySelector(".btn-aceite");
-                const btnRejeitar =
-                    novoCardProjeto.querySelector(".btn-rejeite");
-
-                btnAceitar.addEventListener("click", function () {
-                    Swal.fire({
-                        icon: "warning",
-                        title: "Deseja aceitar proposta?",
-                        text: "Ao clicar em Sim você estará aceitando a proposta de projeto da equipe. Gostaria de fazer isso?",
-                        showCancelButton: true,
-                        confirmButtonText: "Sim",
-                        cancelButtonText: "Cancelar ação",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Sucesso!",
-                                text: "Aceite realizado com sucesso, aguarde o início do desenvolvimento!",
-                            });
-                            const cardReplicado =
-                                document.querySelector(".card-replicado");
-                            const projetosEmAndamento =
-                                document.querySelector(
-                                    ".projetos-andamento"
-                                );
-                            if (cardReplicado && projetosEmAndamento) {
-                                projetosEmAndamento.appendChild(
-                                    cardReplicado
-                                );
-
-                                btnAceitar.remove();
-
-                                btnRejeitar.remove();
-
-                                const novoBotao =
-                                    document.createElement("button");
-                                novoBotao.classList.add("btn-novo");
-                                novoBotao.textContent =
-                                    "Notificar o aceite";
-                                novoBotao.style.marginLef = "80px";
-
-                                novoBotao.addEventListener(
-                                    "click",
-                                    function () {
-                                        Swal.fire({
-                                            icon: "success",
-                                            title: "Notificação enviada para a equipe!",
-                                        }).then(() => {
-                                            localStorage.setItem(
-                                                "notificacaoEnviada",
-                                                "true"
-                                            );
-                                        });
-                                    }
-                                );
-                                cardReplicado.appendChild(novoBotao);
-                            }
-                        }
-                    });
-                });
-
-                btnRejeitar.addEventListener("click", function () {
-                    Swal.fire({
-                        icon: "warning",
-                        title: "Deseja recusar proposta?",
-                        text: "Ao clicar em Sim você estará recusando a proposta de projeto da equipe. Gostaria de fazer isso?",
-                        showCancelButton: true,
-                        confirmButtonText: "Sim",
-                        cancelButtonText: "Cancelar ação",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Sucesso!",
-                                text: "Recusa realizada com sucesso e a equipe foi notificada, aguarde outra equipe manifestar interesse!",
-                            }).then(() => {
-                                const card = btnRejeitar.parentElement;
-                                card.remove();
-                            });
-                        }
-                    });
-                });
-
-                const btnChat = document.createElement("button");
-                btnChat.textContent = "Chat";
-                btnChat.classList.add("btn-chat");
-                btnChat.addEventListener("click", function () {
-                    let overlay = document.querySelector(".overlay");
-                    if (!overlay) {
-                        overlay = document.createElement("div");
-                        overlay.classList.add("overlay");
-                        document.body.appendChild(overlay);
-                    }
-                    overlay.style.display = "block";
-                    const offcanvasDiv = document.createElement("div");
-                    offcanvasDiv.classList.add(
-                        "offcanvas",
-                        "offcanvas-bottom"
-                    );
-                    offcanvasDiv.tabIndex = "-1";
-                    offcanvasDiv.id = "offcanvasBottom";
-
-                    offcanvasDiv.style.width = "400px";
-                    offcanvasDiv.style.height = "70%";
-                    offcanvasDiv.style.color = "white";
-                    offcanvasDiv.style.position = "fixed";
-                    offcanvasDiv.style.bottom = "10px";
-                    offcanvasDiv.style.right = "10px";
-                    offcanvasDiv.style.backgroundColor = "white";
-                    offcanvasDiv.style.borderRadius = "12px";
-                    offcanvasDiv.style.border = "solid 1px black";
-
-                    const offcanvasHeader = document.createElement("div");
-                    offcanvasHeader.classList.add("offcanvas-header");
-
-                    const headerTitle = document.createElement("span");
-                    headerTitle.classList.add("header-title");
-                    headerTitle.textContent = "Chat";
-
-                    const offcanvasTitle = document.createElement("h5");
-                    offcanvasTitle.classList.add("offcanvas-title");
-                    offcanvasTitle.textContent = "Chat";
-
-                    const closeButton = document.createElement("button");
-                    closeButton.type = "button";
-                    closeButton.classList.add("btn-close");
-                    closeButton.dataset.bsDismiss = "offcanvas";
-                    closeButton.setAttribute("aria-label", "Close");
-
-                    offcanvasHeader.appendChild(offcanvasTitle);
-                    offcanvasHeader.appendChild(closeButton);
-
-                    const offcanvasBody = document.createElement("div");
-                    offcanvasBody.classList.add("offcanvas-body", "small");
-                    const inputContainer = document.createElement("div");
-                    inputContainer.classList.add("input-container");
-                    offcanvasBody.appendChild(inputContainer);
-
-                    const offcanvasInput = document.createElement("input");
-                    offcanvasInput.type = "text";
-                    offcanvasInput.classList.add("offcanvas-input");
-                    offcanvasInput.placeholder = "Digite uma mensagem";
-
-                    const sendButton = document.createElement("button");
-                    sendButton.classList.add("send-button");
-
-                    const sendIcon = document.createElement("i");
-                    sendIcon.classList.add(
-                        "bi",
-                        "bi-send-fill",
-                        "send-icon"
-                    );
-                    sendIcon.innerHTML = `
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-                                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-                            </svg>`;
-                    sendButton.appendChild(sendIcon);
-
-                    sendButton.addEventListener("mouseover", function () {
-                        sendIcon.style.color = "#004080";
-                    });
-
-                    sendButton.addEventListener("mouseout", function () {
-                        sendIcon.style.color = "#1166ca";
-                    });
-
-                    const closeIcon = document.createElementNS(
-                        "http://www.w3.org/2000/svg",
-                        "svg"
-                    );
-                    closeIcon.setAttribute(
-                        "xmlns",
-                        "http://www.w3.org/2000/svg"
-                    );
-                    closeIcon.setAttribute("width", "16");
-                    closeIcon.setAttribute("height", "16");
-                    closeIcon.setAttribute("fill", "currentColor");
-                    closeIcon.setAttribute("class", "bi bi-x close-icon");
-                    closeIcon.setAttribute("viewBox", "0 0 16 16");
-                    closeIcon.innerHTML = `<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708"/>`;
-                    closeIcon.addEventListener("click", function () {
-                        offcanvasDiv.remove();
-                        overlay.style.display = "none";
-                    });
-
-                    offcanvasHeader.appendChild(closeIcon);
-                    offcanvasHeader.appendChild(headerTitle);
-                    offcanvasDiv.appendChild(offcanvasHeader);
-                    offcanvasBody.appendChild(offcanvasInput);
-                    offcanvasBody.appendChild(sendButton);
-                    const offcanvasFooter =
-                        document.createElement("footer");
-                    offcanvasBody.classList.add("offcanvas-footer");
-
-                    offcanvasDiv.appendChild(offcanvasHeader);
-                    offcanvasDiv.appendChild(offcanvasBody);
-
-                    document.body.appendChild(offcanvasDiv);
-                });
-
-                novoCardProjeto.appendChild(btnChat);
-
-                cardProjetoContainer.appendChild(novoCardProjeto);
-
-                const btnEnviarAceite =
-                    novoCardProjeto.querySelector(".btn-pedir-aceite");
-                btnEnviarAceite.addEventListener("click", function () { });
-            });
-        });
     </script>
 </body>
 

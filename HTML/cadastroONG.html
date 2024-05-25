@@ -1,451 +1,408 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Cadastro de ONG</title>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link rel="stylesheet" href="../CSS/styles.css" />
-    </head>
-    <style>
-        label {
-            margin-top: 20px;
-            margin-bottom: 5px;
-            margin-left: 10px;
-            font-size: 1rem;
-            color: #444852;
-        }
 
-        input {
-            margin-top: 10px;
-            margin-bottom: 2px;
-            font-size: 1rem;
-            color: #444852;
-        }
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de ONG</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../CSS/styles.css" />
+</head>
+<style>
+    label {
+        margin-top: 20px;
+        margin-bottom: 5px;
+        margin-left: 10px;
+        font-size: 1rem;
+        color: #444852;
+    }
 
-        input,
-        textarea {
-            font-size: 1rem;
-            color: #444852;
-            padding: 0.6rem 1rem;
-            border-radius: 10px;
-            border: 1px solid #e8e8f1;
-            box-shadow: 1px 1px 10px #0200001c;
-            width: 100%;
-        }
-    </style>
+    input {
+        margin-top: 10px;
+        margin-bottom: 2px;
+        font-size: 1rem;
+        color: #444852;
+    }
 
-    <body id="body-cadastro">
-        <div class="container-cadastro">
-            <h2>Cadastre sua ONG</h2>
-            <div class="container-cad-conteudo">
-                <div class="nomes-ong">
-                    <label for="nome-ong">Nome da ONG*</label>
-                    <input type="text" id="nome-ong" name="nome-ong" />
-                </div>
-                <div class="nomes-ong">
-                    <label for="nome-responsavel">Nome do Responsável*</label>
-                    <input
-                        type="text"
-                        id="nome-responsavel"
-                        name="nome-responsavel"
-                        readonly
-                    />
-                </div>
-                <div class="imagem-infos">
-                    <div class="infos">
-                        <div class="cnpj-segmento">
-                            <div class="cnpj">
-                                <label for="cnpj">CNPJ*</label>
-                                <input type="text" id="cnpj" name="cnpj" />
-                            </div>
-                            <div class="segmento-ong">
-                                <label for="segmento">Segmento*</label>
-                                <select name="segmento" id="segmento">
-                                    <option value="sel" selected>
-                                        Selecione
-                                    </option>
-                                    <option value="fome">Fome</option>
-                                    <option value="LGBTQIAP+">LGBTQIAP+</option>
-                                    <option value="Crianças">Crianças</option>
-                                    <option value="Clima">Clima</option>
-                                    <option value="Animais">Animais</option>
-                                    <option value="natureza">Natureza</option>
-                                    <option value="eduacacao">Eduacação</option>
-                                    <option value="pobreza">Pobreza</option>
-                                </select>
-                            </div>
+    input,
+    textarea {
+        font-size: 1rem;
+        color: #444852;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        border: 1px solid #e8e8f1;
+        box-shadow: 1px 1px 10px #0200001c;
+        width: 100%;
+    }
+</style>
+
+<body id="body-cadastro">
+    <div class="container-cadastro">
+        <h2>Cadastre sua ONG</h2>
+        <div class="container-cad-conteudo">
+            <div class="nomes-ong">
+                <label for="nome-ong">Nome da ONG*</label>
+                <input type="text" id="nome-ong" name="nome-ong" />
+            </div>
+            <div class="nomes-ong">
+                <label for="nome-responsavel">Nome do Responsável*</label>
+                <input type="text" id="nome-responsavel" name="nome-responsavel" readonly />
+            </div>
+            <div class="imagem-infos">
+                <div class="infos">
+                    <div class="cnpj-segmento">
+                        <div class="cnpj">
+                            <label for="cnpj">CNPJ*</label>
+                            <input type="text" id="cnpj" name="cnpj" />
                         </div>
-                        <div class="endereco-ong">
-                            <label for="cep-ong">CEP*</label>
-                            <input type="number" id="cep-ong" name="cep-ong" />
-                            <label for="uf-ong">Estado*</label>
-                            <select name="estado" id="estado">
-                                <option value="sel" selected>Selecione</option>
-                                <option value="SP">São Paulo</option>
-                                <option value="RJ">Rio de Janeiro</option>
-                                <option value="MG">Minas Gerais</option>
-                                <option value="ES">Espírito Santo</option>
-                                <option value="PR">Paraná</option>
-                                <option value="SC">Santa Catarina</option>
-                                <option value="RS">Rio Grande do Sul</option>
-
-                                <option value="AM">Amazonas</option>
-                                <option value="PA">Pará</option>
-                                <option value="AC">Acre</option>
-                                <option value="RR">Roraima</option>
-                                <option value="RO">Rondônia</option>
-                                <option value="AP">Amapá</option>
-                                <option value="TO">Tocantins</option>
-
-                                <option value="AL">Alagoas</option>
-                                <option value="CE">Ceará</option>
-                                <option value="MA">Maranhão</option>
-                                <option value="PI">Piauí</option>
-                                <option value="RN">Rio Grande do Norte</option>
-                                <option value="PB">Paraíba</option>
-                                <option value="PE">Pernambuco</option>
-                                <option value="SE">Sergipe</option>
-                                <option value="BA">Bahia</option>
-
-                                <option value="GO">Goiás</option>
-                                <option value="MS">Mato Grosso do Sul</option>
-                                <option value="MT">Mato Grosso</option>
-                                <option value="DF">Distrito Federal</option>
+                        <div class="segmento-ong">
+                            <label for="segmento">Segmento*</label>
+                            <select name="segmento" id="segmento">
+                                <option value="sel" selected>
+                                    Selecione
+                                </option>
+                                <option value="fome">Fome</option>
+                                <option value="LGBTQIAP+">LGBTQIAP+</option>
+                                <option value="Crianças">Crianças</option>
+                                <option value="Clima">Clima</option>
+                                <option value="Animais">Animais</option>
+                                <option value="natureza">Natureza</option>
+                                <option value="eduacacao">Eduacação</option>
+                                <option value="pobreza">Pobreza</option>
                             </select>
                         </div>
-                        <div class="cidade">
-                            <label for="cidade-ong">Cidade*</label>
-                            <input
-                                type="text"
-                                id="cidade-ong"
-                                name="cidade-ong"
-                            />
-                        </div>
-                        <div class="endereco-ong">
-                            <label for="endereco">Endereço</label>
-                            <input type="text" id="endereco" name="endereco" />
-                            <label for="numero-endereco">Número</label>
-                            <input
-                                type="text"
-                                id="numero-endereco"
-                                name="numero-endereco"
-                            />
-                        </div>
-                        <div class="endereco-ong">
-                            <label for="email-ong">E-mail*</label>
-                            <input
-                                type="email"
-                                id="email-ong"
-                                name="email-ong"
-                                readonly
-                            />
-                        </div>
-                        <div class="endereco-ong">
-                            <label for="telefone-ong">Telefone*</label>
-                            <input
-                                type="text"
-                                id="telefone-ong"
-                                name="telefone-ong"
-                            />
-                            <label for="url-ong">URL do site</label>
-                            <input type="text" id="url-ong" name="url-ong" />
-                        </div>
-                        <div class="sobre">
-                            <label for="sobre"> Sobre a ONG*</label>
-                            <textarea id="sobre" name="sobre"></textarea>
-                        </div>
                     </div>
-                    <div class="imagem-ong">
-                        <label for="imagem-ong">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Imagem
-                            ilustrativa</label
-                        >
-                        <input
-                            type="file"
-                            name="imagem-ong"
-                            id="imagem-ong"
-                            accept="image/*"
-                        />
+                    <div class="endereco-ong">
+                        <label for="cep-ong">CEP*</label>
+                        <input type="number" id="cep-ong" name="cep-ong" />
+                        <label for="uf-ong">Estado*</label>
+                        <select name="estado" id="estado">
+                            <option value="sel" selected>Selecione</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="PR">Paraná</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="RS">Rio Grande do Sul</option>
+
+                            <option value="AM">Amazonas</option>
+                            <option value="PA">Pará</option>
+                            <option value="AC">Acre</option>
+                            <option value="RR">Roraima</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="AP">Amapá</option>
+                            <option value="TO">Tocantins</option>
+
+                            <option value="AL">Alagoas</option>
+                            <option value="CE">Ceará</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="BA">Bahia</option>
+
+                            <option value="GO">Goiás</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="DF">Distrito Federal</option>
+                        </select>
+                    </div>
+                    <div class="cidade">
+                        <label for="cidade-ong">Cidade*</label>
+                        <input type="text" id="cidade-ong" name="cidade-ong" />
+                    </div>
+                    <div class="endereco-ong">
+                        <label for="endereco">Endereço</label>
+                        <input type="text" id="endereco" name="endereco" />
+                        <label for="numero-endereco">Número</label>
+                        <input type="text" id="numero-endereco" name="numero-endereco" />
+                    </div>
+                    <div class="endereco-ong">
+                        <label for="email-ong">E-mail*</label>
+                        <input type="email" id="email-ong" name="email-ong" readonly />
+                    </div>
+                    <div class="endereco-ong">
+                        <label for="telefone-ong">Telefone*</label>
+                        <input type="text" id="telefone-ong" name="telefone-ong" />
+                        <label for="url-ong">URL do site</label>
+                        <input type="text" id="url-ong" name="url-ong" />
+                    </div>
+                    <div class="sobre">
+                        <label for="sobre"> Sobre a ONG*</label>
+                        <textarea id="sobre" name="sobre"></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="botao-cadastro">
-                <button
-                    id="btn-cadastrar-ong"
-                    class="btn-cadastrar-problema"
-                    onclick="validarFormulario()"
-                >
-                    Cadastrar
-                </button>
+                <div class="imagem-ong">
+                    <label for="imagem-ong">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Imagem
+                        ilustrativa</label>
+                    <input type="file" name="imagem-ong" id="imagem-ong" accept="image/*" />
+                </div>
             </div>
         </div>
+        <div class="botao-cadastro">
+            <button id="btn-cadastrar-ong" class="btn-cadastrar-problema" onclick="validarFormulario()">
+                Cadastrar
+            </button>
+        </div>
+    </div>
 
-        <script>
-            var email = localStorage.getItem("email");
-            var nome = localStorage.getItem("nome");
+    <script>
+        var email = localStorage.getItem("email");
+        var nome = localStorage.getItem("nome");
 
-            document.querySelector("#nome-responsavel").value = nome;
-            document.querySelector("#email-ong").value = email;
+        document.querySelector("#nome-responsavel").value = nome;
+        document.querySelector("#email-ong").value = email;
 
-            //validação de CNPJ
-            function validarCNPJ(cnpj) {
-                cnpj = cnpj.replace(/[^\d]+/g, "");
+        //validação de CNPJ
+        function validarCNPJ(cnpj) {
+            cnpj = cnpj.replace(/[^\d]+/g, "");
 
-                if (cnpj === "") return false;
+            if (cnpj === "") return false;
 
-                if (cnpj.length !== 14) return false;
+            if (cnpj.length !== 14) return false;
 
-                // Elimina CNPJs conhecidos inválidos
-                if (
-                    cnpj === "00000000000000" ||
-                    cnpj === "11111111111111" ||
-                    cnpj === "22222222222222" ||
-                    cnpj === "33333333333333" ||
-                    cnpj === "44444444444444" ||
-                    cnpj === "55555555555555" ||
-                    cnpj === "66666666666666" ||
-                    cnpj === "77777777777777" ||
-                    cnpj === "88888888888888" ||
-                    cnpj === "99999999999999"
-                ) {
-                    return false;
-                }
-
-                // Valida DVs
-                let tamanho = cnpj.length - 2;
-                let numeros = cnpj.substring(0, tamanho);
-                let digitos = cnpj.substring(tamanho);
-                let soma = 0;
-                let pos = tamanho - 7;
-                for (let i = tamanho; i >= 1; i--) {
-                    soma += numeros.charAt(tamanho - i) * pos--;
-                    if (pos < 2) pos = 9;
-                }
-                let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-                if (resultado !== parseInt(digitos.charAt(0), 10)) return false;
-
-                tamanho += 1;
-                numeros = cnpj.substring(0, tamanho);
-                soma = 0;
-                pos = tamanho - 7;
-                for (let i = tamanho; i >= 1; i--) {
-                    soma += numeros.charAt(tamanho - i) * pos--;
-                    if (pos < 2) pos = 9;
-                }
-                resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
-                if (resultado !== parseInt(digitos.charAt(1), 10)) return false;
-
-                return true;
-            }
-
-            var validacao = true;
-            function validarFormulario() {
-                let cnpj = document.getElementById("cnpj").value;
-                if (validarCNPJ(cnpj)) {
-                    // CRIA O ALERTA AQUI
-                    // ALERTA CNPJ VALIDO
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.onmouseenter = Swal.stopTimer;
-                            toast.onmouseleave = Swal.resumeTimer;
-                        },
-                    });
-                    Toast.fire({
-                        icon: "success",
-                        title: "CNPJ válido!",
-                    });
-                    validacao = true;
-                } else {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.onmouseenter = Swal.stopTimer;
-                            toast.onmouseleave = Swal.resumeTimer;
-                        },
-                    });
-                    Toast.fire({
-                        icon: "error",
-                        title: "CNPJ inválido!",
-                    });
-                    validacao = false;
-                }
+            // Elimina CNPJs conhecidos inválidos
+            if (
+                cnpj === "00000000000000" ||
+                cnpj === "11111111111111" ||
+                cnpj === "22222222222222" ||
+                cnpj === "33333333333333" ||
+                cnpj === "44444444444444" ||
+                cnpj === "55555555555555" ||
+                cnpj === "66666666666666" ||
+                cnpj === "77777777777777" ||
+                cnpj === "88888888888888" ||
+                cnpj === "99999999999999"
+            ) {
                 return false;
             }
 
-            document
-                .getElementById("btn-cadastrar-ong")
-                .addEventListener("click", function () {
-                    // Capturando os valores dos campos
-                    const nomeONG = document
-                        .getElementById("nome-ong")
-                        .value.trim();
-                    const nomeResponsavel = document
-                        .getElementById("nome-responsavel")
-                        .value.trim();
-                    const cnpj = document.getElementById("cnpj").value.trim();
-                    const segmento = document
-                        .getElementById("segmento")
-                        .value.trim();
-                    const cep = document.getElementById("cep-ong").value.trim();
-                    const estado = document
-                        .getElementById("estado")
-                        .value.trim();
-                    const cidade = document
-                        .getElementById("cidade-ong")
-                        .value.trim();
-                    // const endereco = document
-                    //     .getElementById("endereco")
-                    //     .value.trim();
-                    // const numeroEndereco = document
-                    //     .getElementById("numero-endereco")
-                    //     .value.trim();
-                    const emailONG = document
-                        .getElementById("email-ong")
-                        .value.trim();
-                    const telefoneONG = document
-                        .getElementById("telefone-ong")
-                        .value.trim();
-                    const sobreONG = document
-                        .getElementById("sobre")
-                        .value.trim();
-                    const urlONG = document
-                        .getElementById("url-ong")
-                        .value.trim();
+            // Valida DVs
+            let tamanho = cnpj.length - 2;
+            let numeros = cnpj.substring(0, tamanho);
+            let digitos = cnpj.substring(tamanho);
+            let soma = 0;
+            let pos = tamanho - 7;
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+            let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+            if (resultado !== parseInt(digitos.charAt(0), 10)) return false;
 
-                    // Verificando se algum campo está vazio
-                    if (
-                        nomeONG === "" ||
-                        nomeResponsavel === "" ||
-                        cnpj === "" ||
-                        segmento === "" ||
-                        cep === "" ||
-                        estado === "" ||
-                        cidade === "" ||
-                        // endereco === "" ||
-                        // numeroEndereco === "" ||
-                        emailONG === "" ||
-                        telefoneONG === "" ||
-                        sobreONG === "" ||
-                        urlONG === ""
-                    ) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Erro!",
-                            text: "Por favor, preencha todos os campos.",
+            tamanho += 1;
+            numeros = cnpj.substring(0, tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+            resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+            if (resultado !== parseInt(digitos.charAt(1), 10)) return false;
+
+            return true;
+        }
+
+        var validacao = true;
+        function validarFormulario() {
+            let cnpj = document.getElementById("cnpj").value;
+            if (validarCNPJ(cnpj)) {
+                // CRIA O ALERTA AQUI
+                // ALERTA CNPJ VALIDO
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    },
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "CNPJ válido!",
+                });
+                validacao = true;
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    },
+                });
+                Toast.fire({
+                    icon: "error",
+                    title: "CNPJ inválido!",
+                });
+                validacao = false;
+            }
+            return false;
+        }
+
+        document.getElementById("btn-cadastrar-ong").addEventListener("click", function () {
+            // Capturando os valores dos campos
+            const nomeONG = document.getElementById("nome-ong").value.trim();
+            const nomeResponsavel = document.getElementById("nome-responsavel").value.trim();
+            const cnpj = document.getElementById("cnpj").value.trim();
+            const segmento = document.getElementById("segmento").value.trim();
+            const cep = document.getElementById("cep-ong").value.trim();
+            const estado = document.getElementById("estado").value.trim();
+            const cidade = document.getElementById("cidade-ong").value.trim();
+            const endereco = document.getElementById("endereco").value.trim();
+            const numeroEndereco = document.getElementById("numero-endereco").value.trim();
+            const emailONG = document.getElementById("email-ong").value.trim();
+            const telefoneONG = document.getElementById("telefone-ong").value.trim();
+            const sobreONG = document.getElementById("sobre").value.trim();
+            const urlONG = document.getElementById("url-ong").value.trim();
+
+            // Verificando se algum campo está vazio
+            if (
+                nomeONG === "" ||
+                nomeResponsavel === "" ||
+                cnpj === "" ||
+                segmento === "" ||
+                cep === "" ||
+                estado === "" ||
+                cidade === "" ||
+                // endereco === "" ||
+                // numeroEndereco === "" ||
+                emailONG === "" ||
+                telefoneONG === "" ||
+                sobreONG === "" ||
+                urlONG === ""
+            ) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro!",
+                    text: "Por favor, preencha todos os campos.",
+                });
+            } else if (validacao == false) {
+                // Se todos os campos estiverem preenchidos, prossegue com o cadastro
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro!",
+                    text: "O CNPJ é inválido.",
+                });
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Atenção!",
+                    text: "Os dados fornecidos serão transmitos e armazenados conforme as diretrizes de segurança. Por favor, confirme que está ciente para prosseguirmos com o cadastro.",
+                    showCancelButton: true,
+                    confirmButtonText: "Estou ciente e quero cadastrar",
+                    cancelButtonText: "Cancelar",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Depois iremos colocar aqui a função para cadastrar os dados da ONG
+                        // Por exemplo: cadastrarONG();
+                        let url = 'https://664f28a4fafad45dfae29755.mockapi.io/api/v1/ong'
+
+                        let ong = {
+                            nomeONg: nomeONG,
+                            nomeResponsavel: nomeResponsavel,
+                            cnpj: cnpj,
+                            causa: segmento,
+                            cep: cep,
+                            estado: estado,
+                            cidade: cidade,
+                            endereco: endereco,
+                            numero: numeroEndereco,
+                            email: emailONG,
+                            telefone: telefoneONG,
+                            urlSite: urlONG,
+                            sobre: sobreONG
+                        }
+                        fetch(url, {
+                            method: 'POST', // Define o método como POST
+                            headers: {
+                                'Content-Type': 'application/json' // Define o cabeçalho como JSON
+                            },
+                            body: JSON.stringify(ong) // Converte o objeto problema para uma string JSON
+                        }).then(response => response.json()).then(data => {
+
+                            // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
+                            Swal.fire(
+                                "Cadastrado!",
+                                "Os dados foram cadastrados com sucesso.",
+                                "success",
+                                // Depois de confirmar o cadastro da ONG com o usuário
+                            )
+                            window.location.href = "telaInicialONG.html";
+                        }).catch((error) => {
+
+                            // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro',
+                                text: 'Não foi possível realizar essa ação!.'
+                            })
+                            return
                         });
-                    } else if (validacao == false) {
-                        // Se todos os campos estiverem preenchidos, prossegue com o cadastro
-                        Swal.fire({
-                            icon: "error",
-                            title: "Erro!",
-                            text: "O CNPJ é inválido.",
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Atenção!",
-                            text: "Os dados fornecidos serão transmitos e armazenados conforme as diretrizes de segurança. Por favor, confirme que está ciente para prosseguirmos com o cadastro.",
-                            showCancelButton: true,
-                            confirmButtonText: "Estou ciente e quero cadastrar",
-                            cancelButtonText: "Cancelar",
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Depois iremos colocar aqui a função para cadastrar os dados da ONG
-                                // Por exemplo: cadastrarONG();
-                                Swal.fire(
-                                    "Cadastrado!",
-                                    "Os dados foram cadastrados com sucesso.",
-                                    "success",
-                                    // Depois de confirmar o cadastro da ONG com o usuário
-                                    localStorage.setItem(
-                                        "dadosONG",
-                                        JSON.stringify({
-                                            nome: nomeONG,
-                                            nomeResponsavel: nomeResponsavel,
-                                            cnpj: cnpj,
-                                            segmento: segmento,
-                                            cep: cep,
-                                            estado: estado,
-                                            cidade: cidade,
-                                            email: emailONG,
-                                            telefone: telefoneONG,
-                                            sobre: sobreONG,
-                                            url: urlONG,
-                                        })
-                                    )
-                                ).then(() => {
-                                    // Limpando os campos após o cadastro
-                                    document.getElementById("nome-ong").value =
-                                        "";
-                                    document.getElementById(
-                                        "nome-responsavel"
-                                    ).value = "";
-                                    document.getElementById("cnpj").value = "";
-                                    document.getElementById(
-                                        "segmento"
-                                    ).selectedIndex = 0;
-                                    document.getElementById("cep-ong").value =
-                                        "";
-                                    document.getElementById(
-                                        "estado"
-                                    ).selectedIndex = 0;
-                                    document.getElementById(
-                                        "cidade-ong"
-                                    ).value = "";
-                                    document.getElementById("endereco").value =
-                                        "";
-                                    document.getElementById(
-                                        "numero-endereco"
-                                    ).value = "";
-                                    document.getElementById("email-ong").value =
-                                        "";
-                                    document.getElementById(
-                                        "telefone-ong"
-                                    ).value = "";
-                                    document.getElementById("url-ong").value =
-                                        "";
-                                    document.getElementById("sobre").value = "";
-                                    window.location.href =
-                                        "telaInicialONG.html";
-                                });
-                            }
+
+                        Swal.fire(
+                            "Cadastrado!",
+                            "Os dados foram cadastrados com sucesso.",
+                            "success",
+                            // Depois de confirmar o cadastro da ONG com o usuário
+                        ).then(() => {
+                            // Limpando os campos após o cadastro
+                            document.getElementById("nome-ong").value = "";
+                            document.getElementById("nome-responsavel").value = "";
+                            document.getElementById("cnpj").value = "";
+                            document.getElementById("segmento").selectedIndex = 0;
+                            document.getElementById("cep-ong").value = "";
+                            document.getElementById("estado").selectedIndex = 0;
+                            document.getElementById("cidade-ong").value = "";
+                            document.getElementById("endereco").value = "";
+                            document.getElementById("numero-endereco").value = "";
+                            document.getElementById("email-ong").value = "";
+                            document.getElementById("telefone-ong").value = "";
+                            document.getElementById("url-ong").value = "";
+                            document.getElementById("sobre").value = "";
+
+                            window.location.href = "telaInicialONG.html";
                         });
                     }
                 });
+            }
+        });
 
-            document.addEventListener("DOMContentLoaded", function () {
-                const campos = document.querySelectorAll(
-                    'input[type="text"],input[type="number"], input[type="email"], input[type="password"], select,textarea, button, a'
-                );
-                const botaoEnviar = document.getElementById("botaoEnviar");
+        document.addEventListener("DOMContentLoaded", function () {
+            const campos = document.querySelectorAll(
+                'input[type="text"],input[type="number"], input[type="email"], input[type="password"], select,textarea, button, a'
+            );
+            const botaoEnviar = document.getElementById("botaoEnviar");
 
-                campos.forEach(function (campo, index) {
-                    campo.addEventListener("keypress", function (event) {
-                        if (event.key === "Enter") {
-                            event.preventDefault(); // Impede o envio do formulário
-                            const próximoCampo = campos[index + 1];
-                            if (próximoCampo) {
-                                próximoCampo.focus();
-                            } else if (campo === campos[campos.length - 1]) {
-                                window.location.href = botaoEnviar
-                                    .getAttribute("onclick")
-                                    .replace("window.location.href='", "")
-                                    .replace("';", "");
-                            }
+            campos.forEach(function (campo, index) {
+                campo.addEventListener("keypress", function (event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault(); // Impede o envio do formulário
+                        const próximoCampo = campos[index + 1];
+                        if (próximoCampo) {
+                            próximoCampo.focus();
+                        } else if (campo === campos[campos.length - 1]) {
+                            window.location.href = botaoEnviar
+                                .getAttribute("onclick")
+                                .replace("window.location.href='", "")
+                                .replace("';", "");
                         }
-                    });
+                    }
                 });
             });
-        </script>
-    </body>
+        });
+    </script>
+</body>
+
 </html>
