@@ -594,7 +594,7 @@
                         <div>
                             <div class="titulo-card">
                                 <h4>${element.titulo}</h4>
-                                <button onclick='excluirCard(${element.id})'>
+                                <button onclick="excluirCard(${element.id})">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
@@ -605,12 +605,58 @@
                             Detalhes
                         </button>
                     `;
-                if (element.selecionado == true) {
+                if (element.solicitado == true && element.selecionado == true) {
+
+                    const newCard = document.createElement("div");
+                    newCard.classList.add("card");
+                    newCard.innerHTML = `
+                        <div>
+                            <div class="titulo-card">
+                                <h4>${element.titulo}</h4>
+                                
+                            </div>
+                            <p><b>Causa:</b> ${element.causa}</p>
+                            <p><b>Descrição:</b> ${element.descricao}</p>
+                        </div>
+                        <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.ongId}")'>
+                            Detalhes
+                        </button>
+                    `;
+
                     selecionadoConteiner.appendChild(newCard);
+                } else if (element.selecionado) {
+                    const newCard = document.createElement("div");
+                    newCard.classList.add("card");
+                    newCard.innerHTML = `
+                        <div>
+                            <div class="titulo-card">
+                                <h4>${element.titulo}</h4>
+                                <button onclick='mensagemSelecionado()'>
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                            <p><b>Causa:</b> ${element.causa}</p>
+                            <p><b>Descrição:</b> ${element.descricao}</p>
+                        </div>
+                        <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.ongId}")'>
+                            Detalhes
+                        </button>
+                    `;
+
+
+                    cardContainer.appendChild(newCard);
                 } else {
                     cardContainer.appendChild(newCard);
                 }
             });
+        }
+        function mensagemSelecionado(){
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Não foi possível excluir esse problema pois ele está selecionado!'
+            })
+            return
         }
 
         // Função para carregar dados dos projetos

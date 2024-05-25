@@ -582,9 +582,10 @@
             problemas.forEach(element => {
 
                 if (element.selecionado == true) {
-                    const newCard = document.createElement("div");
-                    newCard.classList.add("card");
-                    newCard.innerHTML = `
+                    function selecionados() {
+                        const newCard = document.createElement("div");
+                        newCard.classList.add("card");
+                        newCard.innerHTML = `
                         <div>
                             <div class="titulo-card">
                                 <h4>${element.titulo}</h4>
@@ -593,12 +594,15 @@
                             <p><b>Descrição:</b> ${element.descricao}</p>
                         </div>
                         <div class="select-buttons">
-                        <button class="btn-pedir-aceite" id="btn-selecionar" onclick="selecionarProblema(${element.id})">Solicitar aceite</button>
+                        <button class="btn-pedir-aceite" id="btn-selecionar" onclick="solicitarAceite(${element.id})">Solicitar aceite</button>
                         <button class="btn-chat" id="btn-selecionar" onclick="abrirChat()">Chat</button>
                         </div>
                         `;
 
-                    selecionadoConteiner.appendChild(newCard);
+                        selecionadoConteiner.appendChild(newCard);
+                    }
+
+                    selecionados()
                 } else {
                     const newCard = document.createElement("div");
                     newCard.classList.add("card");
@@ -776,6 +780,29 @@
                 .catch(error => console.error('Erro:', error));
 
         }
+        function solicitarAceite(problemaId){
+            fetch(`${problemaApiUrl}/${problemaId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ solicitado: true })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Problema Selecionado!',
+                            text: 'Sua solicitação foi enviada para a ong, aguarde a resposta.'
+                        }).then(() => {
+                            window.location.href = 'homeAluno.html';
+                        });
+                    } else {
+                        throw new Error('Erro ao selecionar problema.');
+                    }
+                })
+                .catch(error => console.error('Erro:', error));
+        }
 
         function abrirChat() {
             let overlay =
@@ -919,7 +946,7 @@
             document.body.appendChild(offcanvasDiv);
         };
 
-    
+
 
     </script>
 </body>
