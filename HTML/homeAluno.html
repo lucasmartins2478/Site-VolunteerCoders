@@ -486,6 +486,7 @@
                         <h3 class="title-projeto">
                             Aguardando resposta da ONG
                         </h3>
+                        <div class="selecionados" id="selecionados"></div>
                         <div class="card-projeto" id="card-projeto-container"></div>
                     </div>
                     <div class="projetos-andamento">
@@ -500,40 +501,37 @@
     <div id="detalhes-container" class="detalhes-container"></div>
 
     <script>
+        const problemaApiUrl = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
+        const ongApiUrl = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/ong';
 
-        let problema = [];
-
+        // Função para carregar dados dos problemas
         function carregaDados() {
-            const url = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
-            fetch(url)
-                .then(resposta => resposta.json())
+            fetch(problemaApiUrl)
+                .then(response => response.json())
                 .then(dados => {
-                    problema = dados;
-                    montaTela(problema);
+                    console.log('Problemas carregados:', dados); // Log dos dados carregados
+                    montaTela(dados);
                 })
-                .catch(error => {
-                    console.error('Erro ao carregar dados:', error);
-                });
+                .catch(error => console.error('Erro ao carregar dados:', error));
         }
 
-        function montaTela(problema) {
+        // Função para montar os cards na tela
+        function montaTela(problemas) {
             let cardContainer = document.querySelector(".card-container");
             cardContainer.textContent = ''; // Limpa o container antes de adicionar os novos cards
-            problema.forEach(element => {
+            problemas.forEach(element => {
                 const newCard = document.createElement("div");
                 newCard.classList.add("card");
                 newCard.innerHTML = `
                     <div>
                         <div class="titulo-card">
                             <h4>${element.titulo}</h4>
-                            <button onclick='excluirCard(${element.id})'>
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                            
                         </div>
                         <p><b>Causa:</b> ${element.causa}</p>
                         <p><b>Descrição:</b> ${element.descricao}</p>
                     </div>
-                    <button class="btn-detalhes" onclick='mostrarDetalhes("${element.titulo}", "${element.causa}", "${element.descricao}")'>
+                    <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.ongId}")'>
                         Detalhes
                     </button>
                 `;
@@ -541,396 +539,121 @@
             });
         }
 
-        window.onload = carregaDados;
+        // Função para mostrar os detalhes do problema e da ONG
+        // Função para mostrar os detalhes do problema e da ONG
+        async function mostrarDetalhes(problemaId, ongId) {
+            try {
+                const detalhesContainer = document.getElementById("detalhes-container");
 
+                // Fetch dados do problema e da ONG
+                const [problema, ong] = await Promise.all([
+                    fetch(`${problemaApiUrl}/${problemaId}`).then(res => res.json()),
+                    fetch(`${ongApiUrl}/${ongId}`).then(res => res.json())
+                ]);
 
-        document.getElementById("btn-open-side-bar").addEventListener("click", function () {
-                document.getElementById("side-bar").classList.toggle("open-sidebar");
-            });
-
-        function logout(event) {
-            event.preventDefault();
-
-            Swal.fire({
-                icon: "warning",
-                title: "Atenção!",
-                text: "Quer mesmo sair do Sistema!?",
-                showCancelButton: true,
-                confirmButtonText: "Sim",
-                cancelButtonText: "Não",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "../landing-page.html";
-                }
-            });
-        }
-
-        function excluirCard(id){
-            event.preventDefault()
-            const url = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
-            fetch(url + '/' + id,{
-                method: 'Delete',
-                headers:{
-                    "Content-Type":"application/json",
-                }
-            }).then(resposta =>{
-                carregarDados();
-                
-            })
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const detalhesContainer =
-                document.getElementById("detalhes-container");
-            detalhesContainer.addEventListener("card-container", function () {
-                const closeButton = document.querySelector(
-                    ".button-detalhe button"
-                );
-                const contentHeight = detalhesContainer.scrollHeight;
-                const containerHeight = detalhesContainer.clientHeight;
-                const scrollTop = detalhesContainer.scrollTop;
-                const distanceToBottom =
-                    contentHeight - (scrollTop + containerHeight);
-                if (distanceToBottom <= 10) {
-                    closeButton.style.bottom = 10 - distanceToBottom + "px";
-                } else {
-                    closeButton.style.bottom = "20px";
-                }
-            });
-            if (
-                detalhesContainer.scrollHeight >
-                detalhesContainer.clientHeight
-            ) {
-                detalhesContainer.classList.add("scrollable");
-            }
-        });
-
-        document
-            .getElementById("imagem")
-            .addEventListener("change", function (event) {
-                const file = event.target.files[0];
-                const reader = new FileReader();
-
-                reader.onload = function (event) {
-                    localStorage.setItem("imagem", event.target.result);
-                };
-
-                reader.readAsDataURL(file);
-            });
-
-        function mostrarDetalhes(titulo, segmento, descricaoProblema) {
-            const dadosONG = JSON.parse(localStorage.getItem("dadosONG"));
-
-            if (dadosONG) {
-                const { nome, sobre, cidade, telefone, email, url } =
-                    dadosONG;
-                document.body.classList.add("detalhes-open");
-
-                const detalhesContainer =
-                    document.getElementById("detalhes-container");
-
-                const imagemBase64 = localStorage.getItem("imagem");
-                const imagem64 = localStorage.getItem("imagem");
+                console.log('Detalhes do problema:', problema); // Log dos dados do problema
+                console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
 
                 detalhesContainer.innerHTML = `
-                    <div class="detalhes">
-                        <h2>Detalhes do Problema</h2>
-                        <p><b>Título:</b> ${titulo}</p>
-                        <p><b>Segmento:</b> ${segmento}</p>
-                        <p><b>Descrição:</b> <p>
-                        <p class="descricao">${descricaoProblema}</p>
-                        <br>
-                        <div class="imagem">
-                            <img src="${imagemBase64}" alt="Imagem ilustrativa">
-                        </div>
-                        <br>
-                        <h2>Detalhes da ONG</h2>
-                        <div class="imagem">
-                            <img src="${imagem64}" alt="Imagem ilustrativa">
-                        </div>
-                        <p><b>Nome:</b> ${nome}</p>
-                        <p><b>Descrição:</b> ${sobre}</p>
-                        <p><b>Endereço:</b> ${cidade}</p>
-                        <br>
-                        <p>Contato:</p>
-                        <p><b>Telefone:</b> ${telefone}</p>
-                        <p><b>E-mail:</b> ${email}</p>
-                        <p><b>Site:</b> ${url}</p>
-                        <div class="button-detalhe">
-                        <button onclick="selecionarProblema('${titulo}', '${nome}')">Selecionar</button>
-                    </div>
-                        <div class="button-fechar">
-                            <button onclick="fecharDetalhes()">Fechar</button>
-                         </div>
-                    </div>
-                `;
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Erro",
-                    text: "Os dados da ONG não foram encontrados.",
-                });
+        <div class="detalhes">
+            <h2>Detalhes do Problema</h2>
+            <p><b>Título:</b> ${problema.titulo}</p>
+            <p><b>Causa:</b> ${problema.causa}</p>
+            <p><b>Descrição:</b> ${problema.descricao}</p>
+            <br>
+            <h2>Detalhes da ONG</h2>
+            <p><b>Nome:</b> ${ong.nome}</p>
+            <p><b>Descrição:</b> ${ong.descricao}</p>
+            <p><b>Endereço:</b> ${ong.endereco}</p>
+            <br>
+            <p>Contato:</p>
+            <p><b>Telefone:</b> ${ong.telefone}</p>
+            <p><b>E-mail:</b> ${ong.email}</p>
+            <p><b>Site:</b> ${ong.site}</p>
+            <div class="button-datalhe">
+                <button onclick="selecionarProblema(${problemaId})">Selecionar Problema</button>
+                </div
+            <div class="button-detalhe">
+                <button onclick="fecharDetalhes()">Fechar</button>
+            </div>
+            
+        </div>
+        `;
+
+                detalhesContainer.style.display = 'block';
+            } catch (error) {
+                console.error('Erro ao carregar detalhes:', error);
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            visualizarImagem();
-        });
 
+        // Função para fechar os detalhes
         function fecharDetalhes() {
-            document.getElementById("detalhes-container").innerHTML = "";
-            document.body.classList.remove("detalhes-open");
-            document.querySelector(".overlay").style.display = "none";
+            const detalhesContainer = document.getElementById("detalhes-container");
+            detalhesContainer.innerHTML = '';
+            detalhesContainer.style.display = 'none';
         }
 
-        function selecionarProblema(tituloProblema, nomeONG) {
+        // Função para selecionar um problema
+        // Função para selecionar um problema
+        function selecionarProblema(problemaId) {
+            // Busca o elemento do card do problema selecionado
+            fetch(`${problemaApiUrl}/${problemaId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ selecionado: true })
+            })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Selecionado',
+                        text: 'Problema selecinado com sucesso, aguarde a resposta da ong!'
+                    });
+                } else {
+                    throw new Error('Erro ao selecionar problema.');
+                }
+            })
+            .catch(error => console.error('Erro:', error));
             
-            
+        }
+
+        function aguardandoResposta() {
+
+            problemas.forEach(element => {
+                if (element.selecionado == true) {
+                    let aguardarResposta = document.querySelector('#aguardando-resposta')
+
+                    aguardarResposta.textContent = ''; // Limpa o container antes de adicionar os novos cards
 
 
-            };
+                    const newSelecionado = document.createElement("div");
+                    newSelecionado.classList.add("card");
+                    newselecionado.innerHTML = `
+                            <div>
+                                <div class="titulo-card">
+                                    <h4>${element.titulo}</h4>
+                                </div>
+                                <p><b>Causa:</b> ${element.causa}</p>
+                                <p><b>Descrição:</b> ${element.descricao}</p>
+                            </div>
+                            <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.ongId}")'>
+                                Detalhes
+                            </button>
+                `;
+                    aguardarResposta.appendChild(newSelecionado);
+                }
+            })
 
-            const btnEnviarAceite =
-                novoCardProjeto.querySelector(".btn-pedir-aceite");
 
-            btnEnviarAceite.addEventListener("click", function () {
-                Swal.fire({
-                    title: "Digite a senha definida para equipe:",
-                    input: "password",
-                    inputAttributes: {
-                        autocapitalize: "off",
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: "Confirmar",
-                    cancelButtonText: "Cancelar",
-                    showLoaderOnConfirm: true,
-                    preConfirm: (password) => {
-                        return new Promise((resolve) => {
-                            setTimeout(() => {
-                                if (password === "s") {
-                                    resolve();
-                                } else {
-                                    Swal.showValidationMessage(
-                                        "Senha incorreta!"
-                                    );
-                                }
-                            }, 1000);
-                        });
-                    },
-                    allowOutsideClick: () => !Swal.isLoading(),
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const statusImage = document.createElement("img");
-                        statusImage.src = "../CSS/imagens/circulo.png";
-                        statusImage.alt = "amarelo";
-                        statusImage.classList.add("status");
 
-                        const statusMessage = document.createElement("div");
-                        statusMessage.classList.add("status-message");
-                        statusMessage.textContent = "aguardando resposta";
-                        statusMessage.style.visibility = "hidden";
-                        statusMessage.style.opacity = "0";
 
-                        novoCardProjeto
-                            .querySelector("div")
-                            .appendChild(statusImage);
-                        novoCardProjeto
-                            .querySelector("div")
-                            .appendChild(statusMessage);
 
-                        statusImage.addEventListener(
-                            "mouseout",
-                            function () {
-                                this.nextElementSibling.style.visibility =
-                                    "hidden";
-                                this.nextElementSibling.style.opacity = "0";
-                            }
-                        );
-
-                        statusImage.style.position = "absolute";
-                        statusImage.style.top = "400";
-                        statusImage.style.right = "500";
-                        statusImage.style.width = "20px";
-
-                        btnEnviarAceite.classList.add(
-                            "solicitacao-enviada"
-                        );
-                        btnEnviarAceite.disabled = true;
-                        btnEnviarAceite.style.backgroundColor = "#808080";
-                        btnEnviarAceite.style.color = "#ffffff";
-                        btnEnviarAceite.style.width = "230px";
-                        btnEnviarAceite.style.position = "relative";
-                        btnEnviarAceite.style.left = "120px";
-                        btnEnviarAceite.style.top = "0";
-
-                        const btnChat = document.createElement("button");
-                        btnChat.textContent = "Chat";
-                        btnChat.classList.add("btn-chat");
-                        btnChat.addEventListener("click", function () {
-                            let overlay =
-                                document.querySelector(".overlay");
-                            if (!overlay) {
-                                overlay = document.createElement("div");
-                                overlay.classList.add("overlay");
-                                document.body.appendChild(overlay);
-                            }
-                            overlay.style.display = "block";
-                            const offcanvasDiv =
-                                document.createElement("div");
-                            offcanvasDiv.classList.add(
-                                "offcanvas",
-                                "offcanvas-bottom"
-                            );
-                            offcanvasDiv.tabIndex = "-1";
-                            offcanvasDiv.id = "offcanvasBottom";
-
-                            offcanvasDiv.style.width = "400px";
-                            offcanvasDiv.style.height = "70%";
-                            offcanvasDiv.style.color = "white";
-                            offcanvasDiv.style.position = "fixed";
-                            offcanvasDiv.style.bottom = "10px";
-                            offcanvasDiv.style.right = "10px";
-                            offcanvasDiv.style.backgroundColor = "white";
-                            offcanvasDiv.style.borderRadius = "12px";
-                            offcanvasDiv.style.border = "solid 1px black";
-
-                            const offcanvasHeader =
-                                document.createElement("div");
-                            offcanvasHeader.classList.add(
-                                "offcanvas-header"
-                            );
-
-                            const headerTitle =
-                                document.createElement("span");
-                            headerTitle.classList.add("header-title");
-                            headerTitle.textContent = "Chat";
-
-                            const offcanvasTitle =
-                                document.createElement("h5");
-                            offcanvasTitle.classList.add("offcanvas-title");
-                            offcanvasTitle.textContent = "Chat";
-
-                            const closeButton =
-                                document.createElement("button");
-                            closeButton.type = "button";
-                            closeButton.classList.add("btn-close");
-                            closeButton.dataset.bsDismiss = "offcanvas";
-                            closeButton.setAttribute("aria-label", "Close");
-
-                            offcanvasHeader.appendChild(offcanvasTitle);
-                            offcanvasHeader.appendChild(closeButton);
-
-                            const offcanvasBody =
-                                document.createElement("div");
-                            offcanvasBody.classList.add(
-                                "offcanvas-body",
-                                "small"
-                            );
-                            const inputContainer =
-                                document.createElement("div");
-                            inputContainer.classList.add("input-container");
-                            offcanvasBody.appendChild(inputContainer);
-
-                            const offcanvasInput =
-                                document.createElement("input");
-                            offcanvasInput.type = "text";
-                            offcanvasInput.classList.add("offcanvas-input");
-                            offcanvasInput.placeholder =
-                                "Digite uma mensagem";
-
-                            const sendButton =
-                                document.createElement("button");
-                            sendButton.classList.add("send-button");
-
-                            const sendIcon = document.createElement("i");
-                            sendIcon.classList.add(
-                                "bi",
-                                "bi-send-fill",
-                                "send-icon"
-                            );
-                            sendIcon.innerHTML = `
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-                                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-                                </svg>`;
-                            sendButton.appendChild(sendIcon);
-
-                            sendButton.addEventListener(
-                                "mouseover",
-                                function () {
-                                    sendIcon.style.color = "#004080";
-                                }
-                            );
-
-                            sendButton.addEventListener(
-                                "mouseout",
-                                function () {
-                                    sendIcon.style.color = "#1166ca";
-                                }
-                            );
-
-                            const closeIcon = document.createElementNS(
-                                "http://www.w3.org/2000/svg",
-                                "svg"
-                            );
-                            closeIcon.setAttribute(
-                                "xmlns",
-                                "http://www.w3.org/2000/svg"
-                            );
-                            closeIcon.setAttribute("width", "16");
-                            closeIcon.setAttribute("height", "16");
-                            closeIcon.setAttribute("fill", "currentColor");
-                            closeIcon.setAttribute(
-                                "class",
-                                "bi bi-x close-icon"
-                            );
-                            closeIcon.setAttribute("viewBox", "0 0 16 16");
-                            closeIcon.innerHTML = `<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>`;
-                            closeIcon.addEventListener(
-                                "click",
-                                function () {
-                                    offcanvasDiv.remove();
-                                    overlay.style.display = "none";
-                                }
-                            );
-
-                            offcanvasHeader.appendChild(closeIcon);
-                            offcanvasHeader.appendChild(headerTitle);
-                            offcanvasDiv.appendChild(offcanvasHeader);
-                            offcanvasBody.appendChild(offcanvasInput);
-                            offcanvasBody.appendChild(sendButton);
-                            const offcanvasFooter =
-                                document.createElement("footer");
-                            offcanvasBody.classList.add("offcanvas-footer");
-
-                            offcanvasDiv.appendChild(offcanvasHeader);
-                            offcanvasDiv.appendChild(offcanvasBody);
-
-                            document.body.appendChild(offcanvasDiv);
-                        });
-
-                        btnEnviarAceite.parentNode.insertBefore(
-                            btnChat,
-                            btnEnviarAceite.nextSibling
-                        );
-
-                        Swal.fire({
-                            icon: "success",
-                            title: "Sucesso!",
-                            text: "Solicitação enviada para a ONG.",
-                        }).then(() => {
-                            const btnEnviarAceite =
-                                novoCardProjeto.querySelector(
-                                    ".btn-pedir-aceite"
-                                );
-                        });
-                    } else {
-                        processingIndicator.style.display = "none";
-                    }
-                });
-            });
-        
+        }
     </script>
 </body>
+
 
 </html>
