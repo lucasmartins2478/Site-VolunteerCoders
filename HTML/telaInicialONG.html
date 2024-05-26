@@ -581,7 +581,7 @@
                 cancelButtonText: "Não",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "../landing-page.html";
+                    window.location.href = "../apresentacao.html";
                 }
             });
         }
@@ -867,17 +867,15 @@
 
                     const url = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto';
 
-                    // Envia os dados para a API usando fetch
                     fetch(url, {
-                        method: 'POST', // Define o método como POST
+                        method: 'POST', 
                         headers: {
-                            'Content-Type': 'application/json' // Define o cabeçalho como JSON
+                            'Content-Type': 'application/json' 
                         },
-                        body: JSON.stringify(projeto) // Converte o objeto problema para uma string JSON
+                        body: JSON.stringify(projeto)
                     }).then(response => response.json()).then(data => {
 
                         // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
-
 
                         removerProblema(problemaId)
 

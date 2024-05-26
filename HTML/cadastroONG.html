@@ -67,7 +67,7 @@
                                 <option value="Clima">Clima</option>
                                 <option value="Animais">Animais</option>
                                 <option value="natureza">Natureza</option>
-                                <option value="eduacacao">Eduacação</option>
+                                <option value="eduacacao">Educação</option>
                                 <option value="pobreza">Pobreza</option>
                             </select>
                         </div>
@@ -325,24 +325,21 @@
                             sobre: sobreONG
                         }
                         fetch(url, {
-                            method: 'POST', // Define o método como POST
+                            method: 'POST', 
                             headers: {
-                                'Content-Type': 'application/json' // Define o cabeçalho como JSON
+                                'Content-Type': 'application/json' 
                             },
-                            body: JSON.stringify(ong) // Converte o objeto problema para uma string JSON
+                            body: JSON.stringify(ong) 
                         }).then(response => response.json()).then(data => {
 
-                            // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
                             Swal.fire(
                                 "Cadastrado!",
                                 "Os dados foram cadastrados com sucesso.",
                                 "success",
-                                // Depois de confirmar o cadastro da ONG com o usuário
                             )
                             window.location.href = "telaInicialONG.html";
                         }).catch((error) => {
 
-                            // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Erro',
@@ -355,9 +352,9 @@
                             "Cadastrado!",
                             "Os dados foram cadastrados com sucesso.",
                             "success",
-                            // Depois de confirmar o cadastro da ONG com o usuário
+
                         ).then(() => {
-                            // Limpando os campos após o cadastro
+
                             document.getElementById("nome-ong").value = "";
                             document.getElementById("nome-responsavel").value = "";
                             document.getElementById("cnpj").value = "";

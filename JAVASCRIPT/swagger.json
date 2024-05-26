@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Volunteer API Documentation",
+    "description": "This is a volunteer service api",
+    "version": "1.0.0",
+    "contact": {
+      "email": "meduardacardoso.121@gmail.com"
+    }
+  },
+  "paths": {
+    "/cadastrar-aluno": {
+      "post": {
+        "tags": ["Cadastro"],
+        "summary": "Cadastro de aluno",
+        "description": "Cadastro de aluno",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  },
+                  "cidade": {
+                    "type": "string"
+                  },
+                  "dataNascimento": {
+                    "type": "Date"
+                  },
+                  "cpf": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "telefone": {
+                    "type": "string"
+                  },
+                  "instituicao": {
+                    "type": "string"
+                  },
+                  "emailValidacao": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "409": {
+            "description": "Já existe um aluno utilizando este e-mail."
+          },
+          "201": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Error"
+          }
+        }
+      }
+    }, 
+
+    "/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Login de aluno",
+        "description": "Login de aluno",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Credenciais incorretas!"
+          },
+          "200": {
+            "description": "Logado com sucesso"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {  
+    "Token": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

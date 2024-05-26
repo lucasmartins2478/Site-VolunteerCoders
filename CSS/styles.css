@@ -302,7 +302,7 @@ textarea:focus-visible {
     }
     .container {
         width: 100%;
-        height: 100%;
+        height: 100vh;
         padding: 1rem 1rem;
         border-radius: 0px;
     }
@@ -329,10 +329,10 @@ textarea:focus-visible {
     .input-box input::placeholder {
         font-size: 1.3rem;
     }
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 800px) {
         .container {
             width: 100vw;
-            height: 100%;
+            height: 100vh;
             border-radius: 0%;
             margin: 0;
             padding: 0%;
@@ -601,7 +601,7 @@ input[type="number"] {
 }
 
 .sobre {
-    width: 100%;
+    width: 99%;
 }
 
 .sobre textarea {
@@ -650,7 +650,7 @@ input[type="number"] {
 #body-problema {
     padding-top: 0;
     width: 100%;
-    height: 120vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -798,7 +798,7 @@ textarea {
     border-radius: 15px;
     color: #fff;
     background-color: #1166ca;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .btn-cadastrar-problema:hover {
@@ -809,6 +809,7 @@ textarea {
 /* sweetAlert */
 #body-problema,
 #body-cadastro,
+#body-equipe,
 .swal2-height-auto {
     height: 100vh !important;
 }
@@ -865,7 +866,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     background-color: #fff;
-    height: 92vh;
+    height: 90vh;
     border-radius: 0px 18px 18px 0px;
     position: relative;
     transition: all 0.5s;
@@ -1047,14 +1048,17 @@ body {
 .card a:hover {
     text-decoration: underline;
 }
-.card-projeto {
+/* .card-projeto {
+    background-color: #fff;
+    border-radius: 4px;
     margin-top: 1rem;
-    width: 100%;
+    width: 32%;
     height: 13rem;
     display: flex;
     justify-self: center;
     box-shadow: 1px 1px 6px #0000001c;
-}
+    padding: 10px;
+} */
 .problemas-cadastrados h3 {
     margin-top: 1rem;
 }
@@ -1065,7 +1069,7 @@ body {
 
 .nav-bar {
     background-color: #fff;
-    height: 10vh;
+    height: 9vh;
     width: 100vw;
     display: flex;
     justify-content: flex-end;

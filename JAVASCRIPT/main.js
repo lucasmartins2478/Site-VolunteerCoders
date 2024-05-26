@@ -14,7 +14,37 @@ document.addEventListener("DOMContentLoaded", function () {
         const telefone = document.getElementById("telefone").value;
 
 
-        
+        if (!titulo || !descricao || !segmento || !responsavel || !telefone) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos vazios',
+                text: 'Por favor, preencha todos os campos antes de prosseguir.'
+            });
+            return;
+        }
+
+        const novoProblema = { titulo, descricao, segmento, responsavel, telefone };
+        const problemas = JSON.parse(localStorage.getItem('problemas')) || [];
+        problemas.push(novoProblema);
+        localStorage.setItem('problemas', JSON.stringify(problemas));
+        // problemas.splice(0, 1);
+        // problemas.splice(2, 1);
+        // problemas.splice(3, 1);
+       
+
+        localStorage.setItem('problemas', JSON.stringify(problemas));
+
+        const swalConfig = {
+            title: 'Insira sua senha de login para confirmar sua identidade:',
+            input: 'password', // Define o tipo de entrada como senha
+            inputAttributes: {
+                // Adiciona classes personalizadas ao campo de senha
+                class: 'swal2-input minha-classe-personalizada'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        };
 
         var senha = 's'
 

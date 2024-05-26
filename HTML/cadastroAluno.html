@@ -20,14 +20,14 @@
 
             .container{
                 border-radius: 15px;
-                width: 65%;
-                height: 85%;
+                width: 950px;
+                height: 600px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 background-color: #fff;
                 padding: 2%;
-
+                margin-bottom: 50px;
             }
 
             h2 {
@@ -263,6 +263,11 @@
                 width: 25px;
                 height: 25px;
             }
+/* 
+            .swal2-container {
+                z-index: 10000;
+                position: fixed; 
+            } */
         </style>
     </head>
 
@@ -343,9 +348,9 @@
         </div>
         <script>
             var email = localStorage.getItem("email");
-            var nome = localStorage.getItem("nome");
+            var nomeAluno = localStorage.getItem("nome");
 
-            document.querySelector("#nome-aluno").value = nome;
+            document.querySelector("#nome-aluno").value = nomeAluno;
             document.querySelector("#email-aluno").value = email;
 
             document.addEventListener("DOMContentLoaded", function () {
@@ -390,7 +395,7 @@
                                 var senhaInserida = result.value;
 
                                 if (senhaInserida === senhaCorreta) {
-                                    var nome =
+                                    var nomeAluno =
                                         document.getElementById(
                                             "nome-aluno"
                                         ).value;
@@ -398,7 +403,7 @@
                                         document.getElementById(
                                             "cidade-aluno"
                                         ).value;
-                                    var dataNascimento =
+                                    var dataNasc =
                                         document.getElementById(
                                             "data-nasc"
                                         ).value;
@@ -479,32 +484,146 @@
                 });
             });
 
-            function todosCamposPreenchidos() {
-                var nome = document.getElementById("nome-aluno").value;
-                var cidade = document.getElementById("cidade-aluno").value;
-                var dataNascimento = document.getElementById("data-nasc").value;
-                var cpf = document.getElementById("cpf").value;
-                var email = document.getElementById("email-aluno").value;
-                var telefone = document.getElementById("telefone-aluno").value;
-                var instituicao = document.getElementById("instituicao").value;
-                var instituicao = document.getElementById("email").value;
-
-                if (
-                    nome === "" ||
-                    cidade === "" ||
-                    dataNascimento === "" ||
-                    cpf === "" ||
-                    email === "" ||
-                    telefone === "" ||
-                    instituicao === "" ||
-                    email === ""
-                ) {
-                    return false;
-                }
-
-                return true;
+            function enviarDadosParaServidor(dados) {
+                fetch('https://664fbf7dec9b4a4a602fbb1c.mockapi.io/aluno', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dados),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Erro ao enviar dados para o servidor.');
+                })
+                .then(data => {
+                    console.log('Dados enviados com sucesso:', data);
+                })
+                .catch(error => {
+                    console.error('Erro:', error.message);
+                });
             }
-            function validarEstudante() {
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const campos = document.querySelectorAll(
+                    'input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="number"], select, textarea'
+                );
+                const botaoCadastrar = document.querySelector(
+                    ".btn-cadastrar-problema"
+                );
+
+                campos.forEach(function (campo, index) {
+                    campo.addEventListener("keypress", function (event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                            const próximoCampo = campos[index + 1];
+                            if (próximoCampo) {
+                                próximoCampo.focus();
+                            } else if (campo === campos[campos.length - 1]) {
+                                botaoCadastrar.click();
+                            }
+                        }
+                    });
+                });
+
+                botaoCadastrar.addEventListener("click", function () {
+                    if (todosCamposPreenchidos()) {
+                        var senhaCorreta = "s";
+
+                        const swalConfig = {
+                            title: "Insira sua senha de login para confirmar sua identidade:",
+                            input: "password",
+                            inputAttributes: {
+                                class: "swal2-input minha-classe-personalizada",
+                            },
+                            showCancelButton: true,
+                            confirmButtonText: "Confirmar",
+                            cancelButtonText: "Cancelar",
+                        };
+
+                        Swal.fire(swalConfig).then((result) => {
+                            if (result.isConfirmed) {
+                                var senhaInserida = result.value;
+
+                                if (senhaInserida === senhaCorreta) {
+                                    var dados = {
+                                        nomeAluno: document.getElementById("nome-aluno").value,
+                                        cidade: document.getElementById("cidade-aluno").value,
+                                        dataNasc: document.getElementById("data-nasc").value,
+                                        cpf: document.getElementById("cpf").value,
+                                        email: document.getElementById("email-aluno").value,
+                                        telefone: document.getElementById("telefone-aluno").value,
+                                        instituicao: document.getElementById("instituicao").value,
+                                        emailInstitucional: document.getElementById("email").value
+                                    };
+
+                                    enviarDadosParaServidor(dados);
+
+                                    document.getElementById("nome-aluno").value = "";
+                                    document.getElementById("cidade-aluno").value = "";
+                                    document.getElementById("data-nasc").value = "";
+                                    document.getElementById("cpf").value = "";
+                                    document.getElementById("email-aluno").value = "";
+                                    document.getElementById("telefone-aluno").value = "";
+                                    document.getElementById("instituicao").value = "";
+                                    document.getElementById("email").value = "";
+
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Cadastrado!",
+                                        text: "Os dados foram cadastrados com sucesso.",
+                                        timer: 3000,
+                                        showConfirmButton: false,
+                                    }).then(() => {
+                                        window.location.href = "antes-telaInicialAluno.html";
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Senha incorreta",
+                                        text: "Por favor, tente novamente.",
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Campos vazios",
+                            text: "Por favor, preencha todos os campos antes de prosseguir.",
+                        });
+                    }
+                });
+
+                function todosCamposPreenchidos() {
+                    var nomeAluno  = document.getElementById("nome-aluno").value;
+                    var cidade = document.getElementById("cidade-aluno").value;
+                    var dataNasc = document.getElementById("data-nasc").value;
+                    var cpf = document.getElementById("cpf").value;
+                    var email = document.getElementById("email-aluno").value;
+                    var telefone = document.getElementById("telefone-aluno").value;
+                    var instituicao = document.getElementById("instituicao").value;
+                    var emailInstitucional = document.getElementById("email").value;
+
+                    if (
+                        nomeAluno === "" ||
+                        cidade === "" ||
+                        dataNasc === "" ||
+                        cpf === "" ||
+                        email === "" ||
+                        telefone === "" ||
+                        instituicao === "" ||
+                        emailInstitucional === ""
+                    ) {
+                        return false;
+                    }
+
+                    return true;
+                }
+            });
+                        function validarEstudante() {
                 var email = document.getElementById("email").value;
                 var dominiosValidos = [
                     "facens.br",

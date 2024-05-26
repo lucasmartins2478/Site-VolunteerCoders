@@ -280,7 +280,7 @@
         color: #1255a1;
     }
 
-   
+
 
     @media screen and (max-width: 880px) {
         .container-equipe {
@@ -417,6 +417,16 @@
             let email = document.querySelector('#equipe').value.trim();
 
             if (validarEmail(email)) {
+
+                if (emailsPorEquipe.length >= 5) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Limite de membros atingido!',
+                        text: 'Sua equipe já possui o número máximo de membros permitidos.',
+                    });
+                    return;
+                }
+
                 emailsPorEquipe.push(email);
 
                 let pessoa = document.createElement('li');
@@ -469,18 +479,7 @@
         }
 
         function validarFormulario() {
-
             const nomeEquipe = document.getElementById("nome-equipe").value.trim();
-
-            if (validarNomeEquipe(nomeEquipe)) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Nome de Equipe Duplicado!",
-                    text: "O nome da equipe já está cadastrado. Por favor, escolha outro nome.",
-                });
-                return false;
-            }
-            // console.log(nomeEquipe)
 
             const listaPessoas = document.querySelectorAll('ul#listaPessoas li');
             nomeLider = document.getElementById("lider").value.trim();
@@ -503,92 +502,95 @@
                 return false;
             }
 
-            var senhaCorreta = "s";
-
-            const swalConfig = {
-                title: "Insira sua senha de login para confirmar sua identidade:",
-                input: "password",
-                inputAttributes: {
-                    class: "swal2-input minha-classe-personalizada",
-                },
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção!",
+                text: "Os dados fornecidos serão transmitidos e armazenados conforme as diretrizes de segurança. Por favor, confirme que está ciente para prosseguirmos com o cadastro.",
                 showCancelButton: true,
-                confirmButtonText: "Confirmar",
+                confirmButtonText: "Estou ciente e quero cadastrar",
                 cancelButtonText: "Cancelar",
-            };
-
-            Swal.fire(swalConfig).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    const senhaInserida = result.value;
+                    const senhaCorreta = "s";
 
-                    if (senhaInserida === senhaCorreta) {
-                        var nomeEquipe =
-                            document.getElementById(
-                                "nome-equipe"
-                            ).value;
-                        const pessoas = [];
-                        listaPessoas.forEach(function (item) {
-                            pessoas.push(item.textContent);
-                        });
-                        pessoas.push("Líder: " + nomeLider);
-                        const equipe = pessoas.join(', ');
-                        var lider =
-                            document.getElementById(
-                                "lider"
-                            ).value;
+                    Swal.fire({
+                        title: "Insira uma senha para essa equipe:",
+                        text: "Essa senha será usada futuramente!",
+                        input: "password",
+                        inputAttributes: {
+                            class: "swal2-input minha-classe-personalizada",
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Confirmar",
+                        cancelButtonText: "Cancelar",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const senhaInserida = result.value;
 
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Atenção!",
-                            text: "Os dados fornecidos serão transmitidos e armazenados conforme as diretrizes de segurança. Por favor, confirme que está ciente para prosseguirmos com o cadastro.",
-                            showCancelButton: true,
-                            confirmButtonText:
-                                "Estou ciente e quero cadastrar",
-                            cancelButtonText: "Cancelar",
-                        }).then((result) => {
-                            if (result.isConfirmed) {
+                            if (senhaInserida === senhaCorreta) {
+
+                                // const validacaoNomeEquipe = document.getElementById("nome-equipe").value.trim();
+
+                                if (validarNomeEquipe(nomeEquipe)) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Nome de Equipe Duplicado!",
+                                        text: "O nome da equipe já está cadastrado. Por favor, escolha outro nome.",
+                                    });
+                                    return false;
+                                }
+
                                 Swal.fire({
-                                    icon:"success",
+                                    icon: "success",
                                     title: "Equipe criada!",
                                     text: "Sua equipe foi criada com sucesso",
                                     delay: 1500,
-                                    showCancelButton : false,
+                                    showCancelButton: false,
                                 }).then(() => {
                                     localStorage.setItem("equipeRecente", JSON.stringify({
                                         nomeEquipe: nomeEquipe,
                                         nomeLider: nomeLider,
                                         emails: emailsPorEquipe
-
                                     }));
+                                    adicionarNomeEquipe(nomeEquipe);
+                                    console.log(nomesEquipesCadastradas);
                                     console.log("Dados da equipe armazenados:", localStorage.getItem("equipeRecente"));
-                                    window.location.href =
-                                        "telaInicialEquipe.html";
+                                    window.location.href = "telaInicialEquipe.html";
+                                });
+
+                                document.getElementById("nome-equipe").value = "";
+                                document.getElementById("lider").value = "";
+                                listaPessoas.forEach(item => item.remove());
+
+                                let imagem = document.createElement('img');
+                                imagem.src = '../CSS/imagens/marca-retangular-x.png'
+                                imagem.className = 'btn-apagar-pessoa';
+                                imagem.addEventListener('click', function () {
+                                    pessoa.remove();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Senha incorreta",
+                                    text: "Por favor, tente novamente.",
                                 });
                             }
-                        });
-                        document.getElementById("nome-equipe").value = "";
-                        document.getElementById("lider").value = "";
-                        listaPessoas.forEach(item => item.remove());
+                        }
+                        else {
+                            Swal.fire({
+                                icon: "info",
+                                title: "Operação cancelada",
+                                text: "A criação da equipe foi cancelada.",
+                            });
 
-                        let imagem = document.createElement('img');
-                        imagem.src = '../CSS/imagens/marca-retangular-x.png'
-                        imagem.className = 'btn-apagar-pessoa';
-                        imagem.addEventListener('click', function () {
-                            pessoa.remove();
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Senha incorreta",
-                            text: "Por favor, tente novamente.",
-                        });
-                    }
+                            // localStorage.removeItem("nomeEquipeRecente");
+                        }
+
+                    });
+                    return true;
                 }
-            })
-            adicionarNomeEquipe(nomeEquipe);
-            console.log(nomesEquipesCadastradas);
-            return true;
+            });
         }
-
         function apagar(event) {
             event.preventDefault();
 

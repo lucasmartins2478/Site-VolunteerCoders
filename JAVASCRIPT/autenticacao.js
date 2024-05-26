@@ -59,6 +59,7 @@ document.querySelector(".btnLogin").addEventListener("click", function (event) {
         title: "Login feito com sucesso!",
       });
       resetForm(); // Reseta o formulário
+      redirectToPage(); // Redireciona para a página após um login bem-sucedido
     }
   } else {
     // Exibe um alerta informando que todos os campos precisam ser preenchidos
@@ -89,25 +90,35 @@ function resetForm() {
   loginAttempts = 0; // Reseta o número de tentativas de login
 }
 
+// Função para redirecionar após o login
+function redirectToPage() {
+  window.location.href = "antes-telaInicialAluno.html";
+}
+
 // Função para desativar o formulário
 function disableForm() {
   document.getElementById("email").disabled = true; // Desativa o campo de nome de usuário
   document.getElementById("senha").disabled = true; // Desativa o campo de senha
-  document.querySelector(".btnLogin").disabled = true; // Desativa o botão de envio 
+  document.querySelector(".btnLogin").disabled = true; // Desativa o botão de envio
 }
-document.addEventListener("DOMContentLoaded", function() {
-  const campos = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], select, button, a');
-  const botaoEnviar = document.getElementById('btnLogin');
+document.addEventListener("DOMContentLoaded", function () {
+  const campos = document.querySelectorAll(
+    'input[type="text"], input[type="email"], input[type="password"], select, button, a'
+  );
+  const botaoEnviar = document.getElementById("btnLogin");
 
-  campos.forEach(function(campo, index) {
-    campo.addEventListener("keypress", function(event) {
+  campos.forEach(function (campo, index) {
+    campo.addEventListener("keypress", function (event) {
       if (event.key === "Enter") {
         event.preventDefault(); // Impede o envio do formulário
         const próximoCampo = campos[index + 1];
         if (próximoCampo) {
           próximoCampo.focus();
         } else if (campo === campos[campos.length - 1]) {
-          window.location.href = botaoEnviar.getAttribute('onclick').replace("window.location.href='", "").replace("';", "");
+          window.location.href = botaoEnviar
+            .getAttribute("onclick")
+            .replace("window.location.href='", "")
+            .replace("';", "");
         }
       }
     });

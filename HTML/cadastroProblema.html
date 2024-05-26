@@ -1,178 +1,205 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cadastro do Problema</title>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="../CSS/styles.css" />
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro do Problema</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="../CSS/styles.css" />
-</head>
+    <style>
+        .imagem {
+            position: relative;
+            height: 90%;
+            width: 80%;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+            margin-right: -40px;
+        }
 
-<style>
-    .imagem {
-        position: relative;
-        height: 90%;
-        width: 80%;
-        overflow: hidden;
-        margin-bottom: 0.5rem;
-        margin-right: -40px;
-    }
+        #imagem {
+            top: 0;
+            margin-left: 10px;
+            height: 200px;
+            width: 70%;
+            border-radius: 2px 16px 16px 16px;
+            margin-top: 1px;
+        }
 
-    #imagem {
-        top: 0;
-        margin-left: 10px;
-        height: 200px;
-        width: 70%;
-        border-radius: 2px 16px 16px 16px;
-        margin-top: 1px;
-    }
+        #imagem-preview {
+            display: none;
+            top: 0;
+            left: 0;
+            height: 200px;
+            width: 70%;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-right: 2px;
+        }
 
-    #imagem-preview {
-        display: none;
-        top: 0;
-        left: 0;
-        height: 200px;
-        width: 70%;
-        object-fit: cover;
-        border-radius: 16px;
-        margin-right: 2px;
-    }
+        .botao {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
 
-    .botao {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 10px;
-    }
+        label {
+            margin-left: -50px;
+            display: inline-block;
+            width: 150px;
+        }
 
-    label {
-        margin-left: -50px;
-        display: inline-block;
-        width: 150px;
-    }
+        .titulo #labelTitulo {
+            margin-top: -10px;
+            margin-left: 10px;
+        }
 
-    .titulo #labelTitulo {
-        margin-top: -10px;
-        margin-left: 10px;
-    }
+        .imagem #labelImagem {
+            margin-left: 10px;
+        }
 
-    .imagem #labelImagem {
-        margin-left: 10px;
-    }
+        .descricao #labelDescricao {
+            margin-top: -5px;
+            margin-left: 10px;
+        }
 
-    .descricao #labelDescricao {
-        margin-top: -5px;
-        margin-left: 10px;
-    }
+        .descricao {
+            height: 130px;
+        }
 
-    .descricao {
-        height: 130px;
-    }
+        .btn-trocar-imagem {
+            width: 100px;
+            margin-left: 275px;
+            margin-top: -26px;
+            margin-bottom: 3px;
+            background-color: #4e81b4;
+            border-radius: 16px;
+            color: white;
+            border: #4e81b4;
+            padding: 2px;
+        }
+    </style>
 
-    .btn-trocar-imagem {
-        width: 100px;
-        margin-left: 275px;
-        margin-top: -26px;
-        margin-bottom: 3px;
-        background-color: #4e81b4;
-        border-radius: 16px;
-        color: white;
-        border: #4e81b4;
-        padding: 2px;
-    }
-</style>
-
-<body id="body-problema">
-    <div class="container-problema">
-        <h2>Cadastre seu problema</h2>
-        <div class="container-problema__conteudo">
-            <div id="form-problema">
-                <div class="titulo">
-                    <label id="labelTitulo" for="titulo">Título do problema*</label>
-                    <input type="text" id="titulo" name="titulo" />
-                </div>
-                <div class="imagem-infos">
-                    <div class="imagem">
-                        <label id="labelImagem" for="imagem">Imagem ilustrativa</label>
-                        <button class="btn-trocar-imagem">
-                            Trocar Imagem
+    <body id="body-problema">
+        <div class="container-problema">
+            <h2>Cadastre seu problema</h2>
+            <div class="container-problema__conteudo">
+                <div id="form-problema">
+                    <div class="titulo">
+                        <label id="labelTitulo" for="titulo"
+                            >Título do problema*</label
+                        >
+                        <input type="text" id="titulo" name="titulo" />
+                    </div>
+                    <div class="imagem-infos">
+                        <div class="imagem">
+                            <label id="labelImagem" for="imagem"
+                                >Imagem ilustrativa</label
+                            >
+                            <button class="btn-trocar-imagem">
+                                Trocar Imagem
+                            </button>
+                            <input
+                                type="file"
+                                name="imagem"
+                                id="imagem"
+                                accept="image/*"
+                            />
+                            <img
+                                id="imagem-preview"
+                                src="#"
+                                alt="Imagem ilustrativa"
+                            />
+                        </div>
+                        <div class="infos">
+                            <div class="causas">
+                                <label for="causas-da-ong">Causa da ONG*</label>
+                                <select name="causas-da-ong" id="causas-da-ong">
+                                    <option value="animais">Animais</option>
+                                    <option value="criancas">Crianças</option>
+                                    <option value="lgbt+">LGBTQIAP+</option>
+                                    <option value="fome">Fome</option>
+                                    <option value="clima">Clima</option>
+                                    <option value="natureza">Natureza</option>
+                                    <option value="eduacacao">Educação</option>
+                                    <option value="pobreza">Pobreza</option>
+                                </select>
+                            </div>
+                            <div class="telefone">
+                                <label for="telefone">Telefone*</label>
+                                <input
+                                    type="text"
+                                    id="telefone"
+                                    name="telefone"
+                                />
+                            </div>
+                            <div class="responsavel">
+                                <label for="responsavel">Responsável*</label>
+                                <input
+                                    type="text"
+                                    id="responsavel"
+                                    name="responsavel"
+                                    
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="descricao">
+                        <label id="labelDescricao" for="descricao"
+                            >Descrição*</label
+                        >
+                        <textarea
+                            type="text"
+                            id="descricao"
+                            name="descricao"
+                        ></textarea>
+                    </div>
+                    <div class="botao">
+                        <button class="btn-cadastrar-problema" id="btn-cadastrar">
+                            Cadastrar
                         </button>
-                        <input type="file" name="imagem" id="imagem" accept="image/*" />
-                        <img id="imagem-preview" src="#" alt="Imagem ilustrativa" />
                     </div>
-                    <div class="infos">
-                        <div class="causas">
-                            <label for="causas-da-ong">Causa da ONG*</label>
-                            <select name="causas-da-ong" id="causas-da-ong">
-                                <option value="animais">Animais</option>
-                                <option value="criancas">Crianças</option>
-                                <option value="lgbt+">LGBTQIAP+</option>
-                                <option value="fome">Fome</option>
-                                <option value="clima">Clima</option>
-                                <option value="natureza">Natureza</option>
-                                <option value="eduacacao">Educação</option>
-                                <option value="pobreza">Pobreza</option>
-                            </select>
-                        </div>
-                        <div class="telefone">
-                            <label for="telefone">Telefone*</label>
-                            <input type="text" id="telefone" name="telefone" />
-                        </div>
-                        <div class="responsavel">
-                            <label for="responsavel">Responsável*</label>
-                            <input type="text" id="responsavel" name="responsavel" />
-                        </div>
-                    </div>
-                </div>
-                <div class="descricao">
-                    <label id="labelDescricao" for="descricao">Descrição*</label>
-                    <textarea type="text" id="descricao" name="descricao"></textarea>
-                </div>
-                <div class="botao">
-                    <button class="btn-cadastrar-problema" id="btn-cadastrar">
-                        Cadastrar
-                    </button>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="../JAVASCRIPT/main.js"></script>
-    <script>
-        document
-            .getElementById("imagem")
-            .addEventListener("change", function (event) {
-                const file = event.target.files[0];
-                const reader = new FileReader();
+        <script src="../JAVASCRIPT/main.js"></script>
+        <script>
+            document
+                .getElementById("imagem")
+                .addEventListener("change", function (event) {
+                    const file = event.target.files[0];
+                    const reader = new FileReader();
 
-                reader.onload = function (event) {
-                    const imageData = event.target.result;
-                    localStorage.setItem("imagemBase64", imageData);
+                    reader.onload = function (event) {
+                        const imageData = event.target.result;
+                        localStorage.setItem("imagemBase64", imageData);
+
+                        const imagemPreview =
+                            document.getElementById("imagem-preview");
+                        imagemPreview.src = imageData;
+                        imagemPreview.style.display = "block";
+
+                        document.getElementById("imagem").style.display =
+                            "none";
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+
+            document.querySelector(".btn-trocar-imagem").addEventListener("click", function () {
+                    document.getElementById("imagem").style.display = "block";
 
                     const imagemPreview =
                         document.getElementById("imagem-preview");
-                    imagemPreview.src = imageData;
-                    imagemPreview.style.display = "block";
+                    imagemPreview.src = "#";
+                    imagemPreview.style.display = "none";
+                    document.getElementById("imagem").value = "";
 
-                    document.getElementById("imagem").style.display =
-                        "none";
-                };
+                    localStorage.removeItem("imagemBase64");
+                });
 
-                reader.readAsDataURL(file);
-            });
-
-        document.querySelector(".btn-trocar-imagem").addEventListener("click", function () {
-            document.getElementById("imagem").style.display = "block";
-
-            const imagemPreview =
-                document.getElementById("imagem-preview");
-            imagemPreview.src = "#";
-            imagemPreview.style.display = "none";
-            document.getElementById("imagem").value = "";
-
-            localStorage.removeItem("imagemBase64");
-        });
-
-        document.getElementById('btn-cadastrar').addEventListener('click', function (event) {
+            document.getElementById('btn-cadastrar').addEventListener('click', function (event) {
             event.preventDefault(); // Impede o envio do formulário pelo método padrão
             const titulo = document.querySelector('#titulo').value;
             const causa = document.querySelector('#causas-da-ong').value;
@@ -182,10 +209,10 @@
 
             if (!titulo || !causa || !telefone || !responsavel || !descricao) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Preencha todos os campos.'
-                })
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Preencha todos os campos.'
+                    })
                 return;
             }
 
@@ -197,7 +224,6 @@
                 descricao: descricao
             };
 
-
             const url = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
 
             // Envia os dados para a API usando fetch
@@ -208,49 +234,15 @@
                 },
                 body: JSON.stringify(problema) // Converte o objeto problema para uma string JSON
             }).then(response => response.json()).then(data => {
-
-                // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
-                const swalConfig = {
-                    title: 'Insira sua senha de login para confirmar sua identidade:',
-                    input: 'password', // Define o tipo de entrada como senha
-                    inputAttributes: {
-                        // Adiciona classes personalizadas ao campo de senha
-                        class: 'swal2-input minha-classe-personalizada'
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: 'Confirmar',
-                    cancelButtonText: 'Cancelar'
-                };
-                var senha = 's'
-                Swal.fire(swalConfig).then((result) => {
-                    if (result.isConfirmed) {
-                        var senhaInserida = result.value;
-
-                        if (senhaInserida === senha) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Problema cadastrado com sucesso!',
-                                text: 'Os dados sensíveis de ONG e estudante são privados.'
-                            }).then(() => {
-                                window.location.href = 'telaInicialONG.html';
-                            });
-                        }
-                    }
+                    console.log('Success:', data);
+                    // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
+                    
+                }).catch((error) => {
+                    console.error('Error:', error);
+                    // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
+                    
                 });
-            }).catch((error) => {
-
-                // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Não foi possível realizar essa ação!.'
-                })
-                return
-            });
         })
-
-
-    </script>
-</body>
-
+        </script>
+    </body>
 </html>

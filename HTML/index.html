@@ -116,6 +116,18 @@
             height: 40px;
             box-sizing: border-box;
         }
+
+        .title img{
+            top: 0;
+            width: 300px;
+            height: 130px;
+            margin-bottom: 50px;
+            margin-left: 18%;
+        }
+
+        .title{
+            height: 300px;
+        }
     </style>
 </head>
 
@@ -134,7 +146,7 @@
             <form>
                 <!--https://65eb914643ce164189340637.mockapi.io/api/v1/user-->
                 <div class="title">
-                    <h2>VolunteerCoders</h2>
+                    <img src="../CSS/imagens/icon.png" alt="logo">
                 </div>
                 <div class="form-header">
                     <div class="login">
@@ -191,90 +203,19 @@
                 </div>
 
                 <div class="continue-button">
-                    <button class="continue-bnt" id="continue-bnt" onclick="cadastrar()" type="submit" value="enviar-cadastro">
+                    <button class="continue-bnt" id="continue-bnt">
                         <a id="continue-link" href="#">Continuar</a>
                     </button>
                 </div>
             </form>
         </div>
     </div>
-    <script >
-
-        
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="../JAVASCRIPT/firebase-init.js"></script>
     <script>
-
-
-
-        document.getElementById("continue-bnt").addEventListener("click", function () {
-            let selectedValue = document.getElementById("options").value.trim().toLowerCase();
-
-
-            if (selectedValue === "aluno") {
-                // Se a opção selecionada for "Aluno", redireciona para a página de alunos
-                //ALUNO
-                
-
-                let nome = document.querySelector('#nome').value;
-                let email = document.querySelector('#email').value;
-                let senha = document.querySelector('#password').value;
-                let senhaConfirmada = document.querySelector('#confirmPassword').value;
-                if (nome == "" || email == "" || senha == "" || senhaConfirmada == "") {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro',
-                        text: 'Preencha todos os campos.'
-                    })
-                    return
-                }
-                const aluno = {
-                    nome: nome,
-                    email: email
-                }
-
-                const urlAluno = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/usuario'
-
-                fetch(urlAluno, {
-                    method: 'POST', // Define o método como POST
-                    headers: {
-                        'Content-Type': 'application/json' // Define o cabeçalho como JSON
-                    },
-                    body: JSON.stringify(aluno) // Converte o objeto problema para uma string JSON
-                }).then(response => response.json()).then(data => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Cadastro',
-                        text: 'Enviaremos um email para mais informações.'
-                    })
-                    window.location.href = "cadastroAluno.html";
-                    // Aqui você pode adicionar código para exibir uma mensagem de sucesso ao usuário
-
-                }).catch((error) => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro',
-                        text: 'Preencha todos os campos.'
-                    })
-                    // Aqui você pode adicionar código para exibir uma mensagem de erro ao usuário
-
-                });
-
-
-
-
-                window.location.href = "cadastroAluno.html";
-            } else if (selectedValue === "ong") {
-                // Se a opção selecionada for "ONG", redireciona para a página de ONGs
-
-
-                //ONG
-
-
-                window.location.href = "cadastroONG.html";
-            }
-
-        })
-
+        const db = firebase.firestore();
 
         function show(anything) {
             document.querySelector(".text-box").value = anything;
@@ -327,33 +268,71 @@
                         title: "Por favor, Preencha os campos obrigatórios",
                     });
                 } else {
-                    if (selectedValue === "aluno") {
-                        // Se a opção selecionada for "Aluno", redireciona para a página de alunos
-
-                        localStorage.setItem('nome', nome)
-                        localStorage.setItem('email', email)
-                        window.location.href = "cadastroAluno.html";
-                    } else if (selectedValue === "ong") {
-                        // Se a opção selecionada for "ONG", redireciona para a página de ONGs
-                        window.location.href = "cadastroONG.html";
-                    } else if (selectedValue === "tipo de cadastro") {
-                        // Se o texto não for "Aluno" nem "ONG", exiba uma mensagem de erro
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: "top-end",
-                            showConfirmButton: false,
-                            timer: 8000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.onmouseenter = Swal.stopTimer;
-                                toast.onmouseleave = Swal.resumeTimer;
-                            },
+                    if (selectedValue !== "tipo de cadastro") {
+                        firebase.auth().createUserWithEmailAndPassword(email, senha).then(userCredential => {
+                            const user = userCredential.user;
+                            return db.collection('usuarios').doc(email).set({
+                                email: email,
+                                senha: senha,
+                                tipoCadastro: selectedValue
+                            });
+                        }).then(() => {
+                            if (selectedValue === "aluno") {
+                                window.location.href = "cadastroAluno.html";
+                            } else if (selectedValue === "ong") {
+                                window.location.href = "cadastroONG.html";
+                            }
+                        }).catch(error => {
+                            console.error('Erro ao criar usuário:', error.code, error.message);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro no cadastro',
+                                text: 'Ocorreu um erro ao criar o usuário. Verifique os dados e tente novamente.',
+                            });
                         });
-                        Toast.fire({
+                    } else {
+                        Swal.fire({
                             icon: "error",
-                            title: "selecione ou ONG ou Aluno!",
+                            title: "Selecione um tipo de cadastro",
+                            text: "Por favor, selecione Aluno ou ONG.",
                         });
                     }
+
+                    // if (selectedValue === "aluno") {
+                    //     // Se a opção selecionada for "Aluno", redireciona para a página de alunos
+
+                    //     firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
+                    //         localStorage.setItem('nome', nome)
+                    //         localStorage.setItem('email', email)
+                    //         window.location.href = "cadastroAluno.html";
+                    //     }).cath(error => {
+                    //         console.error('Error signing in:', error.code, error.message);
+                    //     })
+                    // } else if (selectedValue === "ong") {
+                    //     // Se a opção selecionada for "ONG", redireciona para a página de ONGs
+                    //     firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
+                    //         localStorage.setItem('nome', nome)
+                    //         localStorage.setItem('email', email)
+                    //         window.location.href = "cadastroONG.html";
+                    //     })
+                    // } else if (selectedValue === "tipo de cadastro") {
+                    //     // Se o texto não for "Aluno" nem "ONG", exiba uma mensagem de erro
+                    //     const Toast = Swal.mixin({
+                    //         toast: true,
+                    //         position: "top-end",
+                    //         showConfirmButton: false,
+                    //         timer: 8000,
+                    //         timerProgressBar: true,
+                    //         didOpen: (toast) => {
+                    //             toast.onmouseenter = Swal.stopTimer;
+                    //             toast.onmouseleave = Swal.resumeTimer;
+                    //         },
+                    //     });
+                    //     Toast.fire({
+                    //         icon: "error",
+                    //         title: "selecione ou ONG ou Aluno!",
+                    //     });
+                    // }
                 }
             });
 
