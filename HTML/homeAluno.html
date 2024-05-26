@@ -113,6 +113,7 @@
         .card {
             word-wrap: break-word;
             flex: 0 0 auto;
+            height: 14rem;
             width: 400px;
         }
 
@@ -125,19 +126,11 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .card-container{
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 20px;
-            margin-bottom: s;
-            overflow-x: scroll;
-            max-width: 78rem;
-            height: 16.5rem;
-        }
-
-
 
         
+
+
+
 
         #user-aluno {
             margin-bottom: 10px;
@@ -247,13 +240,33 @@
             cursor: pointer;
             justify-self: end;
         }
+        .card-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            margin-bottom: s;
+            overflow-x: scroll;
+            max-width: 77rem;
+            height: 16.5rem;
+        }
+
+
         .select-container {
             display: flex;
             flex-wrap: nowrap;
             gap: 20px;
             margin-bottom: s;
             overflow-x: scroll;
-            max-width: 35rem;
+            max-width: 37rem;
+            height: 16.5rem;
+        }
+        .projeto-container{
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            margin-bottom: s;
+            overflow-x: scroll;
+            max-width: 38.5rem;
             height: 16.5rem;
         }
 
@@ -322,7 +335,8 @@
             margin-top: -10px;
             position: relative;
         }
-        .card{
+
+        .card {
             height: 14rem;
         }
 
@@ -364,6 +378,22 @@
             display: flex;
             margin-left: -220px;
         }
+
+        .img-container {
+            text-align: right;
+            /* Alinha a imagem à direita do contêiner */
+            margin-top: 10px;
+            /* Espaço entre o conteúdo e a imagem */
+        }
+
+        .circulo-img {
+            width: 20px;
+            /* Ajuste o tamanho conforme necessário */
+            height: 20px;
+            /* Ajuste o tamanho conforme necessário */
+        }
+
+
 
         .offcanvas-title {
             position: relative;
@@ -537,6 +567,7 @@
 
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -653,22 +684,45 @@
             let projectContainer = document.querySelector(".projeto-container");
             projectContainer.textContent = ''; // Limpa o container antes de adicionar os novos cards
 
-            projetos.forEach(element => {
-                const newCard = document.createElement("div");
-                newCard.classList.add("card");
-                newCard.innerHTML = `
-                        <div>
-                            <div class="titulo-card">
-                                <h4>${element.titulo}</h4>
-                            </div>
-                            <p><b>Causa:</b> ${element.causa}</p>
-                            <p><b>Descrição:</b> ${element.descricao}</p>
-                            <button class="btn-detalhes">Iniciar Desenvolvimento</button>
+            projetos.forEach((element, index) => {
+                if (element.iniciado == true) {
+                    const newCard = document.createElement("div");
+                    newCard.classList.add("card");
+                    newCard.innerHTML = `
+                    <div>
+                        <div class="img-container" id="img-container-${index}">
+                            <img src="../CSS/imagens/circulo.png" alt="" class="circulo-img">
                         </div>
-                    `;
-                projectContainer.appendChild(newCard);
+                        <div class="titulo-card">
+                            <h4 id="titulo-${index}">${element.titulo}</h4>
+                        </div>
+                        <p><b>Causa:</b> ${element.causa}</p>
+                        <p><b>Descrição:</b> ${element.descricao}</p>
+                        <button class="btn-detalhes" onclick="finalizarProjeto(${index}, ${element.id})">Finalizar Projeto</button>
+                    </div>
+                `;
+                    projectContainer.appendChild(newCard);
+                } else {
+                    const newCard = document.createElement("div");
+                    newCard.classList.add("card");
+                    newCard.innerHTML = `
+                    <div>
+                        <div class="img-container" id="img-container-${index}"></div>
+                        <div class="titulo-card">
+                            <h4 id="titulo-${index}">${element.titulo}</h4>
+                        </div>
+                        <p><b>Causa:</b> ${element.causa}</p>
+                        <p><b>Descrição:</b> ${element.descricao}</p>
+                        <button class="btn-detalhes" onclick="iniciarProjeto(${index}, ${element.id})">Iniciar Desenvolvimento</button>
+                    </div>
+                `;
+                    projectContainer.appendChild(newCard);
+                }
+
             });
         }
+
+
 
         // Função para mostrar os detalhes do problema e da ONG
         // Função para mostrar os detalhes do problema e da ONG
@@ -794,7 +848,7 @@
                 .catch(error => console.error('Erro:', error));
 
         }
-        function solicitarAceite(problemaId){
+        function solicitarAceite(problemaId) {
             fetch(`${problemaApiUrl}/${problemaId}`, {
                 method: 'PUT',
                 headers: {
@@ -817,6 +871,52 @@
                 })
                 .catch(error => console.error('Erro:', error));
         }
+        function iniciarProjeto(index, id) {
+            const imgContainer = document.getElementById(`img-container-${index}`);
+            if (!imgContainer.querySelector('.circulo-img')) {  // Evita adicionar a imagem mais de uma vez
+                const img = document.createElement('img');
+                img.src = '../CSS/Imagens/circulo.png';
+                img.alt = 'Ícone de Círculo';
+                img.classList.add('circulo-img');
+                imgContainer.appendChild(img);
+            }
+
+            // Atualiza o atributo desenvolvimento na API
+            fetch(`https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ iniciado: true })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro HTTP! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Projeto atualizado:', data);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Desenvolvimento Iniciado!',
+                        text: 'O desenvolvimento foi iniciado com sucesso.'
+                    }).then(() => {
+                        window.location.href = 'homeAluno.html';
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao atualizar projeto:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: 'Ocorreu um erro ao iniciar o desenvolvimento. Tente novamente.'
+                    });
+                });
+        }
+
+
+
 
         function abrirChat() {
             let overlay =

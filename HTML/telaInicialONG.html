@@ -45,7 +45,13 @@
             word-wrap: break-word;
         }
 
-        
+        .scrollable {
+            overflow-x: scroll;
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
 
         .btn-detalhes {
             color: #fff;
@@ -78,7 +84,6 @@
         .card {
             word-wrap: break-word;
             flex: 0 0 auto;
-            height: 14rem;
             width: 400px;
         }
 
@@ -99,7 +104,14 @@
             margin-bottom: s;
         }
 
-        
+        .seta {
+            position: static;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+        }
 
         .detalhes .button-detalhe {
             display: flex;
@@ -142,16 +154,16 @@
         .problemas-cadastrados {
             height: 18rem;
         }
-
         .card-container {
             display: flex;
             flex-wrap: nowrap;
             gap: 20px;
             margin-bottom: s;
             overflow-x: scroll;
-            height: 16.5;
-            max-width: 78rem;
+            max-width: 77rem;
+            height: 16.5rem;
         }
+
 
         .select-container {
             display: flex;
@@ -159,7 +171,16 @@
             gap: 20px;
             margin-bottom: s;
             overflow-x: scroll;
-            max-width: 35rem;
+            max-width: 37rem;
+            height: 16.5rem;
+        }
+        .projeto-container{
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            margin-bottom: s;
+            overflow-x: scroll;
+            max-width: 38.5rem;
             height: 16.5rem;
         }
 
@@ -264,6 +285,19 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+        .img-container {
+            text-align: right;
+            /* Alinha a imagem à direita do contêiner */
+            margin-top: 10px;
+            /* Espaço entre o conteúdo e a imagem */
+        }
+
+        .circulo-img {
+            width: 20px;
+            /* Ajuste o tamanho conforme necessário */
+            height: 20px;
+            /* Ajuste o tamanho conforme necessário */
+        }
 
         .btn-chat {
             border: none;
@@ -351,6 +385,9 @@
             background-repeat: no-repeat;
             background-position: right 10px center;
         }
+        .card{
+            height: 14rem;
+        }
 
         .input-container {
             display: flex;
@@ -412,7 +449,6 @@
             top: 600px;
             height: 40px;
         }
-        
 
         .btn-aceite {
             width: 50px;
@@ -554,6 +590,7 @@
 
 
         const problemaApiUrl = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
+        const ongApiUrl = 'https://664f28a4fafad45dfae29755.mockapi.io/api/v1/ong';
         const projetoApiUrl = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto';
 
         // Função para carregar dados dos problemas
@@ -667,33 +704,49 @@
                 const newCard = document.createElement("div");
                 newCard.classList.add("card");
                 newCard.innerHTML = `
-                        <div>
-                            <div class="titulo-card">
-                                <h4>${element.titulo}</h4>
-                            </div>
-                            <p><b>Causa:</b> ${element.causa}</p>
-                            <p><b>Descrição:</b> ${element.descricao}</p>
-                        </div>
+                <div>
+                    <div class="img-container" id="img-container">
+                    <img src="../CSS/imagens/circulo.png" alt="" class="circulo-img">
+                    </div>
+                    <div class="titulo-card">
+                        <h4>${element.titulo}</h4>
+                    </div>
+                    <p><b>Causa:</b> ${element.causa}</p>
+                    <p><b>Descrição:</b> ${element.descricao}</p>
+                </div>
+                <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.ongId}")'>
+                    Detalhes
+                </button>
                     `;
                 projectContainer.appendChild(newCard);
             });
         }
 
         // Função para buscar dados da ONG
-        
+        async function fetchOng(ongId) {
+            try {
+                const response = await fetch(`${ongApiUrl}/${ongId}`);
+                const data = await response.json();
+                console.log('ONG carregada:', data); // Log dos dados da ONG
+                return data;
+            } catch (error) {
+                console.error('Erro ao carregar dados da ONG:', error);
+            }
+        }
 
         // Função para mostrar os detalhes do problema e da ONG
-        async function mostrarDetalhes(problemaId) {
+        async function mostrarDetalhes(problemaId, ongId) {
             try {
                 const detalhesContainer = document.getElementById("detalhes-container");
 
                 // Fetch dados do problema e da ONG
                 const [problema, ong] = await Promise.all([
                     fetch(`${problemaApiUrl}/${problemaId}`).then(res => res.json()),
-                   
+                    fetchOng(ongId)
                 ]);
                 if (problema.selecionado == true) {
-                    
+                    console.log('Detalhes do problema:', problema); // Log dos dados do problema
+                    console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
 
                     detalhesContainer.innerHTML = `
                         <div class="detalhes">
@@ -729,7 +782,8 @@
 
                     detalhesContainer.style.display = 'block';
                 } else {
-                    
+                    console.log('Detalhes do problema:', problema); // Log dos dados do problema
+                    console.log('Detalhes da ONG:', ong); // Log dos dados da ONG
 
                     detalhesContainer.innerHTML = `
                         <div class="detalhes">
