@@ -125,17 +125,19 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-
-
-        .seta {
-            position: static;
+        .card-container{
             display: flex;
-            align-items: end;
-            justify-content: center;
-            width: 100px;
-            height: 100px;
+            flex-wrap: nowrap;
+            gap: 20px;
+            margin-bottom: s;
+            overflow-x: scroll;
+            max-width: 78rem;
+            height: 16.5rem;
         }
+
+
+
+        
 
         #user-aluno {
             margin-bottom: 10px;
@@ -245,6 +247,15 @@
             cursor: pointer;
             justify-self: end;
         }
+        .select-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            margin-bottom: s;
+            overflow-x: scroll;
+            max-width: 35rem;
+            height: 16.5rem;
+        }
 
         .card-replicado div {
             display: flex;
@@ -310,6 +321,9 @@
             margin-left: 360px;
             margin-top: -10px;
             position: relative;
+        }
+        .card{
+            height: 14rem;
         }
 
         .card-replicado .status-message {
