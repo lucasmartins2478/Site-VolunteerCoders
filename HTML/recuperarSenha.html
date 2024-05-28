@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="shortcut icon" href="../CSS/Ícone/favicon-32x32.png" type="image/x-icon">
     <title>Recuperação de Senha</title>
     <link rel="stylesheet" href="../CSS/styles.css" />
     <style>
@@ -135,8 +136,9 @@
                         icon: 'success',
                         title: 'E-mail enviado',
                         text: 'Um link para redefinição de senha foi enviado para o seu e-mail.',
+                    }).then(() => {
+                        window.location.href = 'login.html';
                     });
-                    window.location.href = './login.html';
                 })
                 .catch((error) => {
                     console.error('Error sending password reset email:', error.code, error.message);

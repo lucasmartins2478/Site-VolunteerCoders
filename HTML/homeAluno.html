@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tela Inicial</title>
     <link rel="stylesheet" href="../CSS/styles.css" />
+    <link rel="shortcut icon" href="../CSS/Ícone/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <style>
         .overlay {
             position: fixed;
@@ -354,6 +356,9 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+        .nav-items{
+            display: none;
+        }
 
         .btn-chat {
             border: none;
@@ -486,12 +491,42 @@
         .send-button:hover .send-icon {
             color: #004080;
         }
+
+
+
+        @media screen and (max-width: 1064px) {
+            .card{
+                width: 20rem;
+                margin-right: 1rem;
+            }
+            #side-bar{
+                display: none;
+            }
+            .segundo-processo{
+                display: flex;
+                flex-direction: column;
+            }
+            .nav-bar{
+                height: 10rem;
+                padding: 0;
+                margin: 0;
+            }
+            .nav-items{
+                display: flex;
+                margin-right: 13rem;
+
+            }
+        }
     </style>
 </head>
 
 <body onload="carregaDados()">
     <div class="container-tela-ong">
-        <div class="nav-bar"></div>
+        <div class="nav-bar">
+            <div class="nav-items">
+                
+            </div>
+        </div>
         <div class="conteudo-tela">
             <div id="side-bar">
                 <div id="content-items">
