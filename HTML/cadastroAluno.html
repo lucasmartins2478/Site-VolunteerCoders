@@ -283,6 +283,29 @@
                 z-index: 10000;
                 position: fixed; 
             } */
+
+            .btn-cancelar {
+                border: none;
+                width: 200px;
+                height: 40px;
+                font-size: 1.2rem;
+                border: 1px solid #1166ca !important;
+                border-radius: 15px;
+                background-color: #ffffff;
+                margin-top: 10px;
+                cursor: pointer;
+                margin-right: 20px;
+                font-weight: 500;
+                color: #1166ca !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .btn-cancelar:hover {
+                border: 2px solid #1255a1 !important;
+                /* background-color: #eaeaea; */
+            }   
     </style>
 </head>
 
@@ -350,6 +373,11 @@
                 </div>
                 <div class="col-12">
                     <div class="botao">
+                        <div class="botao-cancelar">
+                            <button id="btn-cancelar" class="btn-cancelar" onclick="cancelar(event)">
+                                Cancelar
+                            </button>
+                        </div>
                         <button class="btn-cadastrar-problema" onclick="validarFormulario()">
                             Cadastrar
                         </button>
@@ -667,6 +695,24 @@
                     text: "Por favor, insira um e-mail institucional válido.",
                 });
             }
+        }
+
+        function cancelar(event) {
+            event.preventDefault()
+
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção!",
+                text: "Quer mesmo cancelar o cadastro de aluno e voltar para a tela inicial?",
+                showCancelButton: true,
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'index.html';
+                }
+            });
+
         }
     </script>
 </body>

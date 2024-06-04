@@ -5,8 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro de ONG</title>
-    <link rel="shortcut icon" href="../CSS/Ícone/favicon-32x32.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="shortcut icon" href="../CSS/Ícone/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="../CSS/styles.css" />
 </head>
 <style>
@@ -35,6 +35,26 @@
         box-shadow: 1px 1px 10px #0200001c;
         width: 100%;
     }
+
+    .botao-cadastro .btn-cancelar {
+        border: none;
+        width: 200px;
+        height: 40px;
+        font-size: 1.2rem;
+        border: 1px solid #1166ca ;
+        border-radius: 15px;
+        background-color: #ffffff;
+        margin-top: 20px;
+        cursor: pointer;
+        margin-right: 20px;
+        color: #1166ca !important;
+        font-size: 1rem;
+    }
+
+    .btn-cancelar:hover {
+        border: solid 2px #1255a1;
+        /* background-color: #eaeaea; */
+    }  
 </style>
 
 <body id="body-cadastro">
@@ -145,6 +165,11 @@
             </div>
         </div>
         <div class="botao-cadastro">
+            <div class="botao-cancelar">
+                <button id="btn-cancelar" class="btn-cancelar" onclick="cancelar(event)">
+                    Cancelar
+                </button>
+            </div>
             <button id="btn-cadastrar-ong" class="btn-cadastrar-problema" onclick="validarFormulario()">
                 Cadastrar
             </button>
@@ -400,6 +425,24 @@
                 });
             });
         });
+
+        function cancelar(event) {
+            event.preventDefault()
+
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção!",
+                text: "Quer mesmo cancelar o cadastro de ONG e voltar para a tela inicial?",
+                showCancelButton: true,
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'index.html';
+                }
+            });
+
+        }
     </script>
 </body>
 

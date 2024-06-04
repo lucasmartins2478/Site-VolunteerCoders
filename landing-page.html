@@ -80,6 +80,11 @@
             margin-left: -8.5rem;
         }
 
+        .buttons {
+            width: 30%;
+            display: flex;
+            justify-content: space-between;
+        }
 
         .blue-bar {
             width: 100%;
@@ -317,13 +322,13 @@
 
             color: #1166ca;
             font-weight: 900;
-            margin-left: 3rem;
+           
             font-size: 35px;
 
         }
 
         .como_comecar_ong li {
-            margin-left: 20px;
+            
             margin-top: 0px;
             color: #000000;
             font-weight: 700;
@@ -334,7 +339,7 @@
         }
 
         .como_comecar_aluno li {
-            margin-left: 50px;
+            
             margin-top: 0px;
             color: #000000;
             font-weight: 700;
@@ -342,9 +347,12 @@
             position: relative;
             font-size: 16px;
             margin-bottom: 10px;
+            margin-left: -2rem;
+        }
+        .instrucoes{
+            padding: 1rem;
         }
 
-       
 
         .como_comecar_ong h4 {
 
@@ -356,7 +364,7 @@
         }
 
         .como_comecar_aluno h4 {
-            margin-left: 3rem;
+            
             color: #4e81b4;
             font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
                 sans-serif;
@@ -515,6 +523,15 @@
 
             }
 
+            .buttons {
+                width: 100%;
+            }
+            .buttons button{
+                height: 3rem;
+                width: 47%;
+                font-size: 13px;
+            }
+
             #imagem {
                 order: -1;
                 display: flex;
@@ -526,7 +543,7 @@
                 width: 106.4%;
                 border-radius: 0px;
                 margin-bottom: 3rem;
-                
+
             }
 
             .form-image h2 {
@@ -547,9 +564,10 @@
 
             #cards button {
                 margin-left: 9.5%;
-                
+
             }
-            #cards{
+
+            #cards {
                 margin-left: -2.5%;
             }
 
@@ -587,17 +605,19 @@
             .causas-item:hover .causas-overlay {
                 display: flex;
             }
+
             .causas-item .causas-overlay h3 {
                 font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
                     sans-serif;
                 font-weight: 300;
                 font-size: 12px;
             }
+
             .causas-item {
                 height: 5rem;
 
             }
-
+            
             .como_comecar_ong img {
                 margin: 0;
                 float: right;
@@ -610,23 +630,28 @@
                 width: 7rem;
                 height: rem;
             }
-            .como_comecar_aluno h4{
+
+            .como_comecar_aluno h4 {
                 font-size: 25px;
                 margin-left: -1px;
             }
-            .como_comecar_aluno h1{
+
+            .como_comecar_aluno h1 {
                 font-size: 20px;
                 margin-left: -1px;
             }
-            .como_comecar_aluno li{
+
+            .como_comecar_aluno li {
                 margin-left: -1rem;
             }
-            .como_comecar_ong h1{
+
+            .como_comecar_ong h1 {
                 font-size: 20px;
             }
-           .como_comecar_ong li{
+
+            .como_comecar_ong li {
                 margin-left: -1rem;
-           }
+            }
 
         }
 
@@ -657,8 +682,8 @@
                 <a href="#">ONGs</a>
                 <a href="#">Alunos</a>
                 <a href="#">Contato</a>
-                <button type="button" class="btn btn-primary"
-                    style="background-color: #1166ca; color: #fff;" onclick="login()"> Login </button>
+                <button type="button" class="btn btn-primary" style="background-color: #1166ca; color: #fff;"
+                    onclick="login()"> Login </button>
             </div>
         </div>
         <div class="row">
@@ -690,7 +715,10 @@
                     inscreva e vamos conferir juntos o que as ONGs estão
                     precisando!
                 </div>
-                <button class="subscribe-btn" onclick="scrollToForm()">Inscreva-se</button>
+                <div class="buttons">
+                    <button class="subscribe-btn" onclick="scrollToForm()">Inscreva-se</button>
+                    <button class="subscribe-btn" onclick="cadastro()">Cadastre-se</button>
+                </div>
             </div>
             <div class="col-12 col-lg-4" id="imagem" onclick="scrollToForm()">
                 <div class="form-image">
@@ -929,45 +957,59 @@
         </div>
         <div class="login">
             <div class="como_comecar_ong">
-                <img src="CSS/imagens/foto ong.jpeg" alt="" />
-                <h4>ONG | Como começar?</h4>
-                <h1>Passo a passo do que você precisa fazer:</h1>
-                <ul>
-                    <li><i class="bi bi-arrow-right-circle"></i>
-                        Login (para segundo acesso em diante) / Cadastro
-                        inicial (primeiro acesso)
-                    </li>
-                    <li><i class="bi bi-arrow-right-circle"></i>Cadastrar sua ONG</li>
-                    <li><i class="bi bi-arrow-right-circle"></i>Cadastrar seu(s) problema(s)</li>
-                    <li><i class="bi bi-arrow-right-circle"></i>
-                        Esperar as chamadas de reunião para aceite do
-                        projeto
-                    </li>
-                </ul>
-
+                <div class="imagem">
+                    <img src="CSS/imagens/foto ong.jpeg" alt="" />
+                </div>
+                <div class="instrucoes">
+                    <h4>ONG | Como começar?</h4>
+                    <h1>Passo a passo do que você precisa fazer:</h1>
+                    <ul>
+                        <li><i class="bi bi-arrow-right-circle"></i>
+                            Login (para segundo acesso em diante) / Cadastro
+                            inicial (primeiro acesso)
+                        </li>
+                        <li><i class="bi bi-arrow-right-circle"></i>Cadastrar sua ONG</li>
+                        <li><i class="bi bi-arrow-right-circle"></i>Cadastrar seu(s) problema(s)</li>
+                        <li><i class="bi bi-arrow-right-circle"></i>
+                            Esperar as chamadas de reunião para aceite do
+                            projeto
+                        </li>
+                    </ul>
+                    <div class="buttons">
+                        <button class="subscribe-btn" onclick="scrollToForm()">Inscreva-se</button>
+                        <button class="subscribe-btn" onclick="cadastro()">Cadastre-se</button>
+                    </div>
+                </div>
             </div>
             <div class="como_comecar_aluno">
-                <img src="CSS/imagens/foto grupo.jpeg" alt="" />
-
-                <h4>Aluno | Como começar?</h4>
-                <h1>Passo a passo do que você precisa fazer:</h1>
-                <ul>
-                    <li><i class="bi bi-arrow-right-circle"></i>
-                        Login (para segundo acesso em diante) / Cadastro
-                        inicial (primeiro acesso)
-                    </li>
-                    <li><i class="bi bi-arrow-right-circle"></i>Se cadastrar</li>
-                    <li><i class="bi bi-arrow-right-circle"></i>Definir um lider e cadastrar sua equipe</li>
-                    <li><i class="bi bi-arrow-right-circle"></i>
-                        Explorar nossa plataforma e encontrar um
-                        problema
-                    </li>
-                    <li><i class="bi bi-arrow-right-circle"></i>
-                        Propor uma reunião com a ONG e receber o aceite
-                        do projeto
-                    </li>
-                    <li><i class="bi bi-arrow-right-circle"></i>Desenvolver!!</li>
-                </ul>
+                <div class="imagem">
+                    <img src="CSS/imagens/foto grupo.jpeg" alt="" />
+                </div>
+                <div class="instrucoes">
+                    <h4>Aluno | Como começar?</h4>
+                    <h1>Passo a passo do que você precisa fazer:</h1>
+                    <ul>
+                        <li><i class="bi bi-arrow-right-circle"></i>
+                            Login (para segundo acesso em diante) / Cadastro
+                            inicial (primeiro acesso)
+                        </li>
+                        <li><i class="bi bi-arrow-right-circle"></i>Se cadastrar</li>
+                        <li><i class="bi bi-arrow-right-circle"></i>Definir um lider e cadastrar sua equipe</li>
+                        <li><i class="bi bi-arrow-right-circle"></i>
+                            Explorar nossa plataforma e encontrar um
+                            problema
+                        </li>
+                        <li><i class="bi bi-arrow-right-circle"></i>
+                            Propor uma reunião com a ONG e receber o aceite
+                            do projeto
+                        </li>
+                        <li><i class="bi bi-arrow-right-circle"></i>Desenvolver!!</li>
+                    </ul>
+                    <div class="buttons">
+                        <button class="subscribe-btn" onclick="scrollToForm()">Inscreva-se</button>
+                        <button class="subscribe-btn" onclick="cadastro()">Cadastre-se</button>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -1025,7 +1067,9 @@
             const formSection = document.getElementById('form-section');
             formSection.scrollIntoView({ behavior: 'smooth' });
         }
-
+        function cadastro() {
+            window.location.href = "../HTML/index.html"
+        }
 
         function inscrever(event) {
             event.preventDefault()
@@ -1053,7 +1097,7 @@
             document.querySelector('#nome').value = ""
             document.querySelector('#email').value = ""
         }
-        function login(){
+        function login() {
             window.location.href = 'HTML/login.html';
         }
     </script>
