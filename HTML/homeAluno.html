@@ -70,7 +70,8 @@
             position: static;
             top: 590px;
         }
-        .conteudo-tela{
+
+        .conteudo-tela {
             height: 100vh;
             overflow: hidden;
         }
@@ -134,7 +135,7 @@
             margin-top: -150px;
             margin-left: 300px;
         }
-        
+
 
         .detalhes .button-detalhe button {
             background-color: #1166ca;
@@ -486,7 +487,7 @@
             margin-bottom: 3px;
         }
 
-        .btn-close{
+        .btn-close {
             display: none;
         }
 
@@ -540,7 +541,7 @@
             cursor: pointer;
         }
 
-        .send-button:hover{
+        .send-button:hover {
             background-color: transparent;
         }
 
@@ -674,13 +675,14 @@
             box-shadow: 1px 1px 6px #0000001c;
             font-size: 1rem;
         }
+
         #loading {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        
+
         /* Estilo do spinner */
         .spinner {
             border: 8px solid #f3f3f3;
@@ -690,13 +692,18 @@
             height: 60px;
             animation: spin 1s linear infinite;
         }
-        
+
         /* Animação de rotação */
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         /* Estilo do conteúdo */
         #content {
             display: none;
@@ -713,22 +720,22 @@
             margin-top: 10px;
         }
 
-        .btn-finalizar-selecao:hover{
+        .btn-finalizar-selecao:hover {
             background-color: #eaf4ff;
         }
 
         .btn-finalizar-selecao img.add {
-            margin-left: 8px; 
+            margin-left: 8px;
             width: 20px;
             height: 20px;
         }
 
         #file-upload {
-            max-height: 200px; 
+            max-height: 200px;
             overflow-y: auto;
-            padding: 10px; 
+            padding: 10px;
             box-shadow: 1px 1px 6px #ccc;
-           
+
         }
 
         #file-list a:hover {
@@ -741,38 +748,38 @@
         }
 
         #file-list div {
-            display: flex; 
-            align-items: center; 
+            display: flex;
+            align-items: center;
             margin-bottom: 5px;
         }
 
         #file-list a {
-            color: #1166ca; 
-            text-decoration: none; 
+            color: #1166ca;
+            text-decoration: none;
             margin-top: 10px;
-            flex-grow: 1; 
+            flex-grow: 1;
             display: inline-flex;
         }
 
         .btn-excluir-link {
-            background: none; 
-            border: none; 
-           display: contents;
-            cursor: pointer; 
+            background: none;
+            border: none;
+            display: contents;
+            cursor: pointer;
         }
 
-        .fa-trash{
+        .fa-trash {
             color: #000000;
             margin-top: 10px;
             margin-left: 10px;
             margin-right: 5px;
         }
 
-        .btn-finalizar .btn-disabled{
-            background-color: #444852 ;
+        .btn-finalizar .btn-disabled {
+            background-color: #444852;
         }
 
-        .em-desenvolvimento{
+        .em-desenvolvimento {
             width: 355px;
             height: 20px;
             text-align: center;
@@ -781,7 +788,7 @@
             border-color: solid 2px #1cff7f;
         }
 
-        .recusado{
+        .recusado {
             width: 355px;
             height: 20px;
             text-align: center;
@@ -882,17 +889,22 @@
     <div class="overlay"></div>
     <div id="detalhes-container" class="detalhes-container"></div>
 
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="../JAVASCRIPT/firebase-init.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Mostra o carregamento por 2 segundos
-            document.getElementById("conteudo").style.display="none";
-            setTimeout(function() {
+            document.getElementById("conteudo").style.display = "none";
+            setTimeout(function () {
                 document.getElementById("loading").style.display = "none";
                 document.getElementById("conteudo").style.display = "block";
             }, 1000);
         });
 
-        
+
         document
             .getElementById("btn-open-side-bar")
             .addEventListener("click", function () {
@@ -920,6 +932,7 @@
         const problemaApiUrl = 'https://664d0a0cede9a2b556527d60.mockapi.io/api/v1/problema';
         const ongApiUrl = 'https://664f28a4fafad45dfae29755.mockapi.io/api/v1/ong';
         const projetoApiUrl = 'https://664f32d7fafad45dfae2c56d.mockapi.io/api/v1/projeto';
+        const problemaSelecionadoUrl = 'https://66550ead3c1d3b6029382097.mockapi.io/selecionados';
 
         // Função para carregar dados dos problemas
         function carregaDados() {
@@ -984,8 +997,8 @@
                                 <button class="btn-pedir-aceite" id="btn-selecionar" style="background-color: #808080;" disabled>Solicitar aceite</button>
                                 <button class="btn-chat" id="btn-selecionar" onclick="abrirChat()">Chat</button>
                             </div>
-                        `; 
-                    }  else {
+                        `;
+                    } else {
                         newCard.innerHTML = `
                             <div>
                                 <div class="entrega" id="img-container">
@@ -1005,19 +1018,19 @@
                     }
 
                     selecionadoConteiner.appendChild(newCard);
-                }else if (element.recusado === true){
-                //     Swal.fire({
-                //     icon: 'error',
-                //     title: 'Sua solicitação foi recusada pela ONG!',
-                //     text: 'O problema voltou a ser disponível.',
-                //     confirmButtonText: 'OK',
-                // }).then((result) => {
-                //     if (result.isConfirmed) {
-                        const newCard = document.createElement("div");
-                        newCard.classList.add("card");
-                        newCard.setAttribute('data-id', element.id);
-                        newCard.setAttribute('data-ongid', element.ongId);
-                        newCard.innerHTML = `
+                } else if (element.recusado === true) {
+                    //     Swal.fire({
+                    //     icon: 'error',
+                    //     title: 'Sua solicitação foi recusada pela ONG!',
+                    //     text: 'O problema voltou a ser disponível.',
+                    //     confirmButtonText: 'OK',
+                    // }).then((result) => {
+                    //     if (result.isConfirmed) {
+                    const newCard = document.createElement("div");
+                    newCard.classList.add("card");
+                    newCard.setAttribute('data-id', element.id);
+                    newCard.setAttribute('data-ongid', element.ongId);
+                    newCard.innerHTML = `
                             <div>
                                 <div class="entrega" id="img-container">
                                     <div class="recusado">A ONG recusou a sua solicitação!</div>
@@ -1028,19 +1041,19 @@
                                 <p><b>Causa:</b> ${element.causa}</p>
                                 <p><b>Descrição:</b> ${element.descricao}</p>
                             </div>
-                            <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.ongId}")'>
+                            <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.id}")'>
                                     Detalhes
                             </button>
                         `;
-                        cardContainer.appendChild(newCard);
+                    cardContainer.appendChild(newCard);
                     // }
-                // })
-            } else {
-                const newCard = document.createElement("div");
-                newCard.classList.add("card");
+                    // })
+                } else {
+                    const newCard = document.createElement("div");
+                    newCard.classList.add("card");
                     newCard.setAttribute('data-id', element.id);
-                newCard.setAttribute('data-ongid', element.ongId);
-                newCard.innerHTML = `
+                    newCard.setAttribute('data-ongid', element.ongId);
+                    newCard.innerHTML = `
                     <div>
                         <div class="titulo-card">
                             <h4>${element.titulo}</h4>
@@ -1048,15 +1061,15 @@
                         <p><b>Causa:</b> ${element.causa}</p>
                         <p><b>Descrição:</b> ${element.descricao}</p>
                     </div>
-                     <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.ongId}")'>
+                     <button class="btn-detalhes" onclick='mostrarDetalhes(${element.id}, "${element.id}")'>
                             Detalhes
                     </button>
                 `;
-                cardContainer.appendChild(newCard); 
+                    cardContainer.appendChild(newCard);
                 }
             });
         }
-    
+
         async function mostrarDetalhes(problemaId, ongId) {
             try {
                 const overlay = document.createElement("div");
@@ -1080,12 +1093,12 @@
                         <p><b>Causa:</b> ${problema.causa}</p>
                         <p><b>Descrição:</b> ${problema.descricao}</p>
                         <h2>Detalhes da ONG</h2>
-                        <p><b>Nome:</b> ${ong.nome}</p>
-                        <p><b>Descrição:</b> ${ong.descricao}</p>
+                        <p><b>Nome:</b> ${ong.nomeONg}</p>
+                        <p><b>Descrição:</b> ${ong.sobre}</p>
                         <p><b>Endereço:</b> ${ong.endereco}</p>
                         <p><b>Contato:</b> ${ong.telefone}</p>
                         <p><b>E-mail:</b> ${ong.email}</p>
-                        <p><b>Site:</b> ${ong.site}</p>
+                        <p><b>Site:</b> ${ong.urlSite}</p>
                         <div class="button-detalhe">
                             <button id="selecionar" onclick="selecionarProblema(${problemaId})">Selecionar</button>
                             <button onclick="fecharDetalhes()">Fechar</button>
@@ -1113,29 +1126,65 @@
         }
 
         // Função para selecionar um problema
-        function selecionarProblema(problemaId) {
-            fetch(`${problemaApiUrl}/${problemaId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ selecionado: true })
-            })
-                .then(response => {
-                    if (response.ok) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Problema Selecionado!',
-                            text: 'Envie uma solicitação para a ong e aguarde a resposta.'
-                        }).then(() => {
-                            window.location.href = 'homeAluno.html';
-                            carregaDados();
+        async function selecionarProblema(problemaId) {
+            try {
+                const alunoId = await getAlunoId();
+                const problemaSelecionado = await verificarProblemaSelecionado();
+
+                if (!problemaSelecionado) {
+                    const alunoEntregou = await alunoEntregouProjeto();
+
+                    if (alunoEntregou || !problemaSelecionado) {
+                        const response = await fetch(`${problemaApiUrl}/${problemaId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ selecionado: true })
                         });
+
+                        if (response.ok) {
+                            // Registra o problema selecionado para o aluno
+                            await fetch(problemaSelecionadoUrl, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    idAluno: alunoId,
+                                    idProblema: problemaId,
+                                    selecionado: true
+                                })
+                            });
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Problema Selecionado!',
+                                text: 'Envie uma solicitação para a ONG e aguarde a resposta.'
+                            }).then(() => {
+                                window.location.href = 'homeAluno.html';
+                                carregaDados();
+                            });
+                        } else {
+                            throw new Error('Erro ao selecionar problema.');
+                        }
                     } else {
-                        throw new Error('Erro ao selecionar problema.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Aviso',
+                            text: 'Você só pode selecionar um novo projeto após entregar o projeto atual.',
+                        });
                     }
-                })
-                .catch(error => console.error('Erro:', error));
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Aviso',
+                        text: 'Você já selecionou um problema. Para selecionar um novo, primeiro conclua ou cancele o problema atual.',
+                    });
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+            }
         }
 
         function solicitarAceite(problemaId) {
@@ -1263,11 +1312,11 @@
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const listItem = document.createElement('div');
-                
+
                 const deleteButton = document.createElement('button');
                 deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
                 deleteButton.classList.add('btn-excluir-link');
-                deleteButton.onclick = function() {
+                deleteButton.onclick = function () {
                     fileList.removeChild(listItem);
                 };
 
@@ -1429,7 +1478,7 @@
             const modalContainer = document.querySelector('.modal-container');
             if (overlay) overlay.remove();
             if (modalContainer) modalContainer.remove();
-        }         
+        }
 
         function entregarProjeto(projetoId) {
             const fileInput = document.getElementById('file-input');
@@ -1441,14 +1490,14 @@
                     text: 'Por favor, selecione pelo menos um arquivo antes de entregar o projeto.'
                 });
                 return;
-            } else if (ajuda.value.trim() === ''){
+            } else if (ajuda.value.trim() === '') {
                 Swal.fire({
                     icon: 'error',
                     title: 'Campo para a explicação está vazio!',
                     text: 'Por favor, preencha o campo antes de entregar o projeto.'
                 });
                 return;
-            }                
+            }
             Swal.fire({
                 title: 'Digite a senha da equipe:',
                 input: 'password',
@@ -1465,56 +1514,66 @@
                     const senha = result.value;
                     if (senha === 's') {
                         entregarArquivos(projetoId);
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Senha incorreta!',
-                                text: 'Por favor, digite a senha correta.'
-                            });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Senha incorreta!',
+                            text: 'Por favor, digite a senha correta.'
+                        });
                     }
                 }
             });
-        }     
-        function entregarArquivos(projetoId) {
-            let mensagem = document.querySelector('#ajuda').value
-            fetch(`${projetoApiUrl}/${projetoId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ entregue: true, 
-                    mensagem: mensagem })
-            })
-            .then(response => {
-                if (response.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Projeto Entregue!',
-                        text: 'O projeto foi atualizado para entregue.'
-                    }).then(() => {
-                        window.location.href = 'homeAluno.html'; // Ajuste o redirecionamento conforme necessário
-                    });
-                } else {
-                    throw new Error('Erro ao atualizar projeto.');
-                }
-            })
-            .catch(error => console.error('Erro:', error));
-        } 
+        }
+
+        async function entregarArquivos(projetoId) {
+            try {
+                const alunoId = await getAlunoId();
+                let mensagem = document.querySelector('#ajuda').value
+                fetch(`${projetoApiUrl}/${projetoId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        entregue: true,
+                        mensagem: mensagem
+                    })
+                })
+                    .then(response => {
+                        if (response.ok) {
+
+                            alunoEntregouProjeto();
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Projeto Entregue!',
+                                text: 'O projeto foi atualizado para entregue.'
+                            }).then(() => {
+                                window.location.href = 'homeAluno.html'; // Ajuste o redirecionamento conforme necessário
+                            });
+                        } else {
+                            throw new Error('Erro ao atualizar projeto.');
+                        }
+                    })
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        }
 
         function atualizarCardProjeto(projetoId) {
             const card = document.querySelector(`[data-projeto-id="${projetoId}"]`);
             if (card) {
                 const entregaDiv = card.querySelector('.entrega');
                 const btnFinalizar = card.querySelector('.btn-finalizar');
-                
+
                 entregaDiv.textContent = 'Projeto entregue!';
                 entregaDiv.style.backgroundColor = "#5fff84";
                 entregaDiv.style.border = "solid 1px #1cff7f";
-                entregaDiv.style.width = "150px"; 
+                entregaDiv.style.width = "150px";
                 entregaDiv.style.margin = "0 auto";
                 btnFinalizar.textContent = 'Entregue';
                 btnFinalizar.disabled = true;
-                btnFinalizar.classList.add('btn-disabled'); 
+                btnFinalizar.classList.add('btn-disabled');
                 btnFinalizar.style.backgroundColor = "#808080";
 
             }
@@ -1601,8 +1660,96 @@
 
         document.addEventListener('DOMContentLoaded', carregarProjetos);
 
+        async function getAlunoId() {
+            return new Promise((resolve, reject) => {
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        var uid = user.uid;
+                        console.log("UID do aluno:", uid);
+                        resolve(uid); // Resolve a Promise com o UID do aluno
+                    } else {
+                        console.error("Erro ao obter UID do aluno: Usuário não autenticado.");
+                        reject("Usuário não autenticado");
+                    }
+                });
+            });
+        }
+        async function verificarProblemaSelecionado() {
+            const alunoId = await getAlunoId();
+            console.log('Aluno ID:', alunoId); // Adicione log para verificar o aluno ID
 
+            try {
+                const response = await fetch(problemaSelecionadoUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const dados = await response.json();
+                console.log('Dados carregados:', dados); // Adicione log para verificar os dados carregados
 
+                const problemasSelecionados = dados.filter(entry => {
+                    console.log(`Verificando problema: ID do Aluno: ${entry.idAluno}, Selecionado: ${entry.selecionado}`);
+                    return entry.idAluno === alunoId && entry.selecionado === true; selecionados
+                });
+
+                const cont = problemasSelecionados.length; // Contagem dos problemas selecionados
+                console.log('Contagem de problemas selecionados:', cont); // Adicione log para verificar a contagem
+
+                return cont === 1; // Retorna true se exatamente um problema estiver selecionado, caso contrário false
+            } catch (error) {
+                console.error('Erro ao carregar problemas selecionados:', error);
+                return false;
+            }
+        }
+
+        async function alunoSelecionouProjeto() {
+            try {
+                const alunoId = await getAlunoId();
+                const problemaSelecionado = await verificarProblemaSelecionado(); // Verifica se o aluno já selecionou um problema
+                return problemaSelecionado;
+            } catch (error) {
+                console.error('Erro ao verificar se o aluno selecionou um projeto:', error);
+                return false;
+            }
+        }
+
+        async function alunoEntregouProjeto() {
+            const alunoId = await getAlunoId();
+            try {
+                const response = await fetch(problemaSelecionadoUrl);
+                const problemasSelecionados = await response.json();
+
+                console.log("Problemas selecionados:", problemasSelecionados);
+
+                // Encontra o problema selecionado para o aluno atual
+                const alunoProblemaSelecionado = problemasSelecionados.find(entry => entry.idAluno === alunoId && entry.selecionado === true);
+
+                if (alunoProblemaSelecionado) {
+                    console.log("Problema selecionado encontrado:", alunoProblemaSelecionado);
+
+                    // Atualiza o estado do problema selecionado para false
+                    alunoProblemaSelecionado.selecionado = false;
+                    alunoProblemaSelecionado.entregue = true;
+
+                    const updateResponse = await fetch(`${problemaSelecionadoUrl}/${alunoProblemaSelecionado.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(alunoProblemaSelecionado)
+                    });
+
+                    console.log("Update Response:", updateResponse.ok);
+
+                    return updateResponse.ok; // Retorna true se a atualização foi bem-sucedida
+                } else {
+                    console.log("Nenhum problema selecionado encontrado para o aluno.");
+                    return false;
+                }
+            } catch (error) {
+                console.error('Erro ao verificar se o aluno entregou um projeto:', error);
+                return false;
+            }
+        }
 
     </script>
 </body>

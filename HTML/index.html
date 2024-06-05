@@ -8,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="../CSS/Ícone/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="../CSS/styles.css" />
-    <link rel="stylesheet" href="../JAVASCRIPT/telaInicial.js" />
     <link rel="shortcut icon" href="../CSS/imagens/favicon-32x32.png" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -117,9 +116,9 @@
             height: 40px;
             box-sizing: border-box;
         }
-        
 
-        .title img{
+
+        .title img {
             top: 0;
             width: 100%;
             height: 130px;
@@ -127,7 +126,7 @@
             margin-left: 18%;
         }
 
-        .title{
+        .title {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -279,25 +278,46 @@
                     if (selectedValue !== "tipo de cadastro") {
                         firebase.auth().createUserWithEmailAndPassword(email, senha).then(userCredential => {
                             const user = userCredential.user;
+                            const uid = user.uid;
+
+                            localStorage.setItem('nome', nome);
+                            localStorage.setItem('email', email);
+
                             return db.collection('usuarios').doc(email).set({
                                 email: email,
                                 senha: senha,
                                 tipoCadastro: selectedValue
+                            }).then(() => {
+                                if (selectedValue === "aluno") {
+                                    db.collection("alunos").doc(uid).set({
+                                        email: email
+                                    });
+                                    window.location.href = "cadastroAluno.html";
+                                } else if (selectedValue === "ong") {
+                                    db.collection("ongs").doc(uid).set({
+                                        email: email
+                                    });
+                                    window.location.href = "cadastroONG.html";
+                                }
                             });
-                        }).then(() => {
-                            if (selectedValue === "aluno") {
-                                window.location.href = "cadastroAluno.html";
-                            } else if (selectedValue === "ong") {
-                                window.location.href = "cadastroONG.html";
-                            }
                         }).catch(error => {
-                            console.error('Erro ao criar usuário:', error.code, error.message);
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Erro no cadastro',
-                                text: 'Ocorreu um erro ao criar o usuário. Verifique os dados e tente novamente.',
-                            });
-                        });
+                            if (error.code === 'auth/email-already-in-use') {
+                                // Endereço de e-mail já em uso
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erro no cadastro',
+                                    text: 'O endereço de e-mail já está em uso. Por favor, utilize outro endereço de e-mail.',
+                                });
+                            } else {
+                                // Outro erro durante o cadastro do usuário
+                                console.error('Erro ao criar usuário:', error.code, error.message);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erro no cadastro',
+                                    text: 'Erro inesperado. Verifique os dados e tente novamente.',
+                                });
+                            }
+                        })
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -305,42 +325,6 @@
                             text: "Por favor, selecione Aluno ou ONG.",
                         });
                     }
-
-                    // if (selectedValue === "aluno") {
-                    //     // Se a opção selecionada for "Aluno", redireciona para a página de alunos
-
-                    //     firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
-                    //         localStorage.setItem('nome', nome)
-                    //         localStorage.setItem('email', email)
-                    //         window.location.href = "cadastroAluno.html";
-                    //     }).cath(error => {
-                    //         console.error('Error signing in:', error.code, error.message);
-                    //     })
-                    // } else if (selectedValue === "ong") {
-                    //     // Se a opção selecionada for "ONG", redireciona para a página de ONGs
-                    //     firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
-                    //         localStorage.setItem('nome', nome)
-                    //         localStorage.setItem('email', email)
-                    //         window.location.href = "cadastroONG.html";
-                    //     })
-                    // } else if (selectedValue === "tipo de cadastro") {
-                    //     // Se o texto não for "Aluno" nem "ONG", exiba uma mensagem de erro
-                    //     const Toast = Swal.mixin({
-                    //         toast: true,
-                    //         position: "top-end",
-                    //         showConfirmButton: false,
-                    //         timer: 8000,
-                    //         timerProgressBar: true,
-                    //         didOpen: (toast) => {
-                    //             toast.onmouseenter = Swal.stopTimer;
-                    //             toast.onmouseleave = Swal.resumeTimer;
-                    //         },
-                    //     });
-                    //     Toast.fire({
-                    //         icon: "error",
-                    //         title: "selecione ou ONG ou Aluno!",
-                    //     });
-                    // }
                 }
             });
 
